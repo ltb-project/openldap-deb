@@ -1,0 +1,3 @@
+/usr/local/openldap/etc/openldap/slapd.conf
+/usr/local/openldap/etc/openldap/ldap.conf
+/usr/local/openldap/var/openldap-data/DB_CONFIG

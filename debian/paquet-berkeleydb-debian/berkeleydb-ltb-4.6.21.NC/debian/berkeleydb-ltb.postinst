@@ -1,0 +1,14 @@
+#!/bin/bash
+
+BDBDIR="/usr/local/berkeleydb"
+PATCH1="patch.4.6.21.1"
+PATCH2="patch.4.6.21.2"
+PATCH3="patch.4.6.21.3"
+PATCH4="patch.4.6.21.4"
+PATHFILE="berkeleydb.sh"
+BUILDROOT="debian/berkeleydb-ltb"
+
+
+# Adds BerkeleyDB libraries to the system
+grep -q "${BDBDIR}" /etc/ld.so.conf || echo "${BDBDIR}/lib" >> /etc/ld.so.conf
+/sbin/ldconfig

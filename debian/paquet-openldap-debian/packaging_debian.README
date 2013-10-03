@@ -1,0 +1,52 @@
+apt-get install build-essential
+apt-get install autoconf automake autotools-dev debhelper dh-make devscripts fakeroot file gnupg git lintian patch patchutils pbuilder
+
+apt-get install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev
+# MàJ : heimdal n'est plus utilisé car incompatible avec la version hdb de debian wheezy
+#apt-get install libkrb5-26-heimdal libhdb9-heimdal heimdal-dev
+
+# récupération des sources
+cd /opt
+git clone user@IP:[...]paquet-openldap-debian
+git clone user@IP:[...]paquet-berkeleydb-debian
+
+# récupération de berkeleydb
+# pour récupérer une version plus récente (attention, à ne faire que si l'on est absolument sûr de la compatibilité avec OpenLDAP, et si les patches 1, 2, 3, et 4 sont bien reportés dans les versions suivantes), consulter :
+# http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html
+cd paquet-berkeleydb-debian
+tar xvzf db-4.6.21.NC.tar.gz
+cp -r db-4.6.21.NC/* berkeleydb-ltb-4.6.21.NC
+cd ..
+
+# récupération de slapd
+wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.36.tgz
+tar xvzf openldap-2.4.36.tgz
+cp -r openldap-2.4.36/* paquet-openldap-debian/openldap-ltb-2.4.36
+
+# renseignement de quelques variables
+DEBEMAIL="dcoutadeur@linagora.com"
+DEBFULLNAME="David Coutadeur"
+export DEBEMAIL DEBFULLNAME
+
+
+# paramètres généraux de build d'un paquet (en étant dans le répertoire du paquet)
+debian/rules clean
+debian/rules build
+debian/rules binary
+
+
+
+NOTE pour debian lenny
+----------------------
+remplacer libltdl7 par libltdl3 dans debian/control (supprimer la version spécifique 2.2.6b)
+# MàJ : heimdal n'est plus utilisé car incompatible avec la version hdb de debian wheezy
+# remplacer libkrb5-26-heimdal dans debian/control par libkrb5-25-heimdal 
+# apt-get install libkrb5-25-heimdal libhdb9-heimdal heimdal-dev
+
+apt-get install libltdl3 et libltdl3-dev
+utiliser la cible debian/rules.lenny au lieu de debian/rules pour berkeleydb
+
+En cas d'erreur sur la cible binary :
+dpkg-shlibdeps: erreur: impossible de trouver la bibliothèque libslapi-2.4.so.2 utilisée par debian/openldap-ltb/usr/local/openldap/libexec/slapd (format ELF : « elf64-x86-64 »; RPATH : «  »)
+faire l'export juste avant : (ne pas oublier de le supprimer après pour tester le paquet)
+export LD_LIBRARY_PATH=/opt/paquet-openldap-debian/openldap-ltb-2.4.36/debian/openldap-ltb/usr/local/openldap/lib64
