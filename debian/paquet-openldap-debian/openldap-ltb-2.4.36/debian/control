@@ -9,7 +9,7 @@ Homepage: http://ltb-project.org
 Package: openldap-ltb
 Architecture: any
 Depends: libc6 (>= 2.4), libltdl7 (>= 2.2.6b), libsasl2-2, libslp1, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, berkeleydb-ltb (>= 4.6.21)
-Recommends: openldap-ltb-check-password, openldap-ltb-contrib-overlays
+Suggests: openldap-ltb-check-password, openldap-ltb-contrib-overlays
 Description: OpenLDAP server with addons from the LDAP Tool Box project
  OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
  Protocol) applications and development tools. LDAP is a set of
