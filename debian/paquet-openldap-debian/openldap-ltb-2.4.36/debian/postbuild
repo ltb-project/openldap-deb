@@ -12,7 +12,7 @@ _LIB="lib$( uname -r | grep -q -E '64$' && echo '64' )"
 LDAPDIR="/usr/local/openldap"
 LDAPSERVERDIR="${LDAPDIR}"
 LDAPDATADIR="/usr/local/openldap/var/openldap-data"
-LDAPLOGSDIR="/usr/local/berkeleydb/openldap-logs"
+LDAPLOGSDIR="/usr/local/openldap/var/openldap-data"
 LDAPBACKUPDIR="/var/backups/openldap"
 LDAPLOGFILE="/var/log/openldap.log"
 
@@ -65,7 +65,7 @@ sed -i "s:^OL_BIN.*:OL_BIN=\"${LDAPDIR}/bin\":" "${INSTALL_DIR}/etc/profile.d/op
 sed -i "s:^OL_SBIN.*:OL_SBIN=\"${LDAPDIR}/sbin\":" "${INSTALL_DIR}/etc/profile.d/openldap.sh"
 
 # BDB configuration
-sed -i "s:^set_lg_dir.*:set_lg_dir\t${LDAPLOGSDIR}:" "${INSTALL_DIR}/${LDAPDATADIR}/DB_CONFIG"
+sed -i "s:^set_lg_dir.*:set_lg_dir\t${LDAPLOGSDIR}:" "${INSTALL_DIR}${LDAPDATADIR}/DB_CONFIG"
 
 # Modify data directory in slapd.conf
 sed -i "s:^directory.*:directory\t\"${LDAPDATADIR}\":" "${INSTALL_DIR}${LDAPDIR}/etc/openldap/slapd.conf"
