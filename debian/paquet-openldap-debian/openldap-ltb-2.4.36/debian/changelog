@@ -1,5 +1,0 @@
-openldap-ltb (2.4.36-1) unstable; urgency=low
-
-  * Initial release (Closes: #1000)
-
- -- dcoutadeur <dcoutadeur@linagora.com>  Wed, 04 Sep 2013 17:43:45 +0200

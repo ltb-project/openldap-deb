@@ -4,7 +4,7 @@
 BUILD_DIR="$( pwd )"
 BDBDIR="/usr/local/berkeleydb"
 REAL_NAME="openldap"
-REAL_VERSION="2.4.36"
+REAL_VERSION="2.4.37"
 INSTALL_DIR="${BUILD_DIR}/debian/tmp"
 INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
 RELEASE_VERSION="${REAL_VERSION}-1_i386"
@@ -38,5 +38,36 @@ CHECK_PASSWORD_MINDIGIT="0"
 CHECK_PASSWORD_MINPUNCT="0"
 
 
-# Change owner
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
+# Create user and group
+/usr/sbin/groupadd -f ${LDAPGROUP}
+grep -q -E "^ldap:" /etc/passwd || /usr/sbin/useradd ${LDAPUSER} -g ${LDAPGROUP}
+
+# Add syslog facility
+grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
+/etc/init.d/rsyslog restart > /dev/null 2>&1
+
+# Add OpenLDAP libraries to the system
+#grep -q "${LDAPSERVERDIR}" /etc/ld.so.conf || echo "${LDAPSERVERDIR}/${_LIB}" >> /etc/ld.so.conf
+#/sbin/ldconfig
+
+
+# Create some dirs and change owner
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}
+mkdir -p ${LDAPDATADIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
+mkdir -p ${LDAPLOGSDIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
+mkdir -p ${LDAPBACKUPDIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
+
+
+# Automatize init script
+if [ -x "/etc/init.d/slapd" ]; then
+        update-rc.d slapd defaults >/dev/null
+        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+                invoke-rc.d slapd start || exit $?
+        else
+                /etc/init.d/slapd start || exit $?
+        fi
+fi
+

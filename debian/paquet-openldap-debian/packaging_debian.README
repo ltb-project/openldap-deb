@@ -50,3 +50,20 @@ En cas d'erreur sur la cible binary :
 dpkg-shlibdeps: erreur: impossible de trouver la bibliothèque libslapi-2.4.so.2 utilisée par debian/openldap-ltb/usr/local/openldap/libexec/slapd (format ELF : « elf64-x86-64 »; RPATH : «  »)
 faire l'export juste avant : (ne pas oublier de le supprimer après pour tester le paquet)
 export LD_LIBRARY_PATH=/opt/paquet-openldap-debian/openldap-ltb-2.4.36/debian/openldap-ltb/usr/local/openldap/lib64
+
+
+Mise à jour du paquetage
+------------------------
+
+dch -v 2.4.37-1
+faire les mises à jour dans le changelog
+
+cd debian
+sed -i "s/2\.4\.36/2.4.37/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm postbuild
+
+récupérer la nouvelle archive, et l'extraire dans le répertoire.
+wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.37.tgz
+tar xvzf openldap-2.4.37.tgz
+cp -r openldap-2.4.37/* openldap-ltb-2.4.37/
+
+regénérer le paquet avec la procédure habituelle
