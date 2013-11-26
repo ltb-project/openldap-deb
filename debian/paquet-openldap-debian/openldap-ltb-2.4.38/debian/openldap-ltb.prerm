@@ -4,7 +4,7 @@
 BUILD_DIR="$( pwd )"
 BDBDIR="/usr/local/berkeleydb"
 REAL_NAME="openldap"
-REAL_VERSION="2.4.37"
+REAL_VERSION="2.4.38"
 INSTALL_DIR="${BUILD_DIR}/debian/tmp"
 INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
 RELEASE_VERSION="${REAL_VERSION}-1_i386"
@@ -50,7 +50,9 @@ fi
 
 # Remove syslog facility
 sed -i '/local4\..*/d' /etc/rsyslog.conf
-/etc/init.d/rsyslog restart > /dev/null 2>&1
+if [ -x "/etc/init.d/rsyslog" ]; then
+	/etc/init.d/rsyslog restart > /dev/null 2>&1
+fi
 
 
 # Remove OpenLDAP libraries from the system

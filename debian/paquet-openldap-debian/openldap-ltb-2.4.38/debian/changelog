@@ -1,3 +1,24 @@
+openldap-ltb (2.4.38-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.38 Release (2013/11/16)
+   - Fixed liblmdb nordahead flag (ITS#7734)
+   - Fixed liblmdb to check cursor index before cursor_del (ITS#7733)
+   - Fixed liblmdb wasted space on split (ITS#7589)
+   - Fixed slapd for certs with a NULL issuerDN (ITS#7746)
+   - Fixed slapd cn=config with empty nested includes (ITS#7739)
+   - Fixed slapd syncrepl memory leak with delta-sync MMR (ITS#7735)
+   - Fixed slapd-bdb/hdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-bdb/hdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-mdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-mdb dangling reader (ITS#7662)
+   - Fixed slapd-mdb matching rule for OlcDbEnvFlags (ITS#7737)
+   - Fixed slapd-mdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-meta from blocking other threads (ITS#7740)
+   - Fixed slapo-syncprov assert with findbase (ITS#7749)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Mon, 25 Nov 2013 15:50:08 +0000
+
 openldap-ltb (2.4.37-1) unstable; urgency=low
 
   * New upstream release.
