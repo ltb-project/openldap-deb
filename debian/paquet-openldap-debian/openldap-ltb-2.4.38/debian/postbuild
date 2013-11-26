@@ -7,7 +7,7 @@ REAL_VERSION="2.4.38"
 INSTALL_DIR="${BUILD_DIR}/debian/tmp"
 INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
 RELEASE_VERSION="${REAL_VERSION}-1_i386"
-_LIB="lib$( uname -r | grep -q -E '64$' && echo '64' )"
+_LIB="lib$( uname -m | grep -q -E '64$' && echo '64' )"
 
 LDAPDIR="/usr/local/openldap"
 LDAPSERVERDIR="${LDAPDIR}"
