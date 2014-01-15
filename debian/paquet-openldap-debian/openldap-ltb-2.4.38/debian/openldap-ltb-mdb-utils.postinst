@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# initialize some variables
+BUILD_DIR="$( pwd )"
+BDBDIR="/usr/local/berkeleydb"
+REAL_NAME="openldap"
+REAL_VERSION="2.4.38"
+INSTALL_DIR="${BUILD_DIR}/debian/tmp"
+INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
+RELEASE_VERSION="${REAL_VERSION}-1_i386"
+_LIB="lib$( uname -m | grep -q -E '64$' && echo '64' )"
+
+LDAPDIR="/usr/local/openldap"
+LDAPSERVERDIR="${LDAPDIR}"
+LDAPDATADIR="/usr/local/openldap/var/openldap-data"
+LDAPLOGSDIR="/usr/local/openldap/var/openldap-data"
+LDAPBACKUPDIR="/var/backups/openldap"
+LDAPLOGFILE="/var/log/openldap.log"
+
+BDBDIR="/usr/local/berkeleydb"
+BDBARCHIVEBIN='${BDB_PATH}/bin/db_archive'
+BDBRECOVERBIN='${BDB_PATH}/bin/db_recover'
+
+LDAPUSER="ldap"
+LDAPGROUP="ldap"
+
+SLAPD_INIT_NAME="ltb-project-openldap-initscript"
+SLAPD_INIT_VERSION="1.9"
+
+CHECK_PASSWORD_NAME="ltb-project-openldap-ppolicy-check-password"
+CHECK_PASSWORD_VERSION="1.1"
+CHECK_PASSWORD_CONF="${LDAPSERVERDIR}/etc/openldap/check_password.conf"
+CHECK_PASSWORD_MINPOINTS="3"
+CHECK_PASSWORD_USECRACKLIB="0"
+CHECK_PASSWORD_MINUPPER="0"
+CHECK_PASSWORD_MINLOWER="0"
+CHECK_PASSWORD_MINDIGIT="0"
+CHECK_PASSWORD_MINPUNCT="0"
+
+
+# Change owner
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/share"
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/sbin"

@@ -58,3 +58,11 @@ Description: Overlays contributed to OpenLDAP
  as contributions. This package provide some of them.
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
+Package: openldap-ltb-mdb-utils
+Architecture: any
+Depends: openldap-ltb
+Description: utilities for mdb
+ mdb utilities contain both mdb_stat and mdb_copy, and the associated
+ documentation.
+ This is provided by LDAP Tool Box project: http://www.ltb-project.org
+

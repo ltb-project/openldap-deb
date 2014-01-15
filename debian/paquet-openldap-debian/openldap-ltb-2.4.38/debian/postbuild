@@ -93,6 +93,11 @@ make clean
 make "DEFS=-DDO_SAMBA -DDO_SHADOW" "LDAP_LIB=" "HEIMDAL_LIB=" "prefix=${LDAPSERVERDIR}"
 cd ..
 cd ../..
+# mdb-utils
+cd libraries/liblmdb
+make
+cd ../..
+
 
 # Installation
 
@@ -117,4 +122,12 @@ cd ..
 cd smbk5pwd
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
+cd ../..
+
+# mdb-utils
+cd libraries/liblmdb
+install -m 755 "mdb_copy" "${INSTALL_DIR}${LDAPSERVERDIR}/sbin"
+install -m 755 "mdb_stat" "${INSTALL_DIR}${LDAPSERVERDIR}/sbin"
+install -m 644 "mdb_copy.1" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man1"
+install -m 644 "mdb_stat.1" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man1"
 cd ../..

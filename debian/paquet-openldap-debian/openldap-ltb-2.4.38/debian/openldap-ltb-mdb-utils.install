@@ -1,0 +1,3 @@
+usr/local/openldap/share/man/man1/mdb_*
+usr/local/openldap/sbin/mdb_*
+
