@@ -11,4 +11,6 @@ BUILDROOT="debian/berkeleydb-ltb"
 
 # Adds BerkeleyDB libraries to the system
 grep -q "${BDBDIR}" /etc/ld.so.conf || echo "${BDBDIR}/lib" >> /etc/ld.so.conf
+export LDCONFIG_NOTRIGGER=y
 /sbin/ldconfig
+unset LDCONFIG_NOTRIGGER
