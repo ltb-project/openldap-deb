@@ -79,7 +79,7 @@ Update the package
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.36/2.4.37/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm postbuild
+	sed -i "s/2\.4\.36/2.4.37/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild
 
 Get the new archive, and extract it into the directory:
 

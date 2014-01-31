@@ -1,0 +1,86 @@
+openldap-ltb (2.4.39-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.39 Release (2014/01/26)
+   - Fixed libldap MozNSS crash (ITS#7783)
+   - Fixed libldap memory leak with SASL (ITS#7757)
+   - Fixed libldap assert in parse_passwdpolicy_control (ITS#7759)
+   - Fixed libldap shortcut NULL RDNs (ITS#7762)
+   - Fixed libldap deref to use correct control
+   - Fixed liblmdb keysizes with mdb_update_key (ITS#7756)
+   - Fixed slapd cn=config olcDbConfig modification (ITS#7750)
+   - Fixed slapd-bdb/hdb to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-bdb/hdb indexing issue with derived attributes (ITS#7778)
+   - Fixed slapd-mdb to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-mdb indexing issue with derived attributes (ITS#7778)
+   - Fixed slapd-perl to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-sql to bail out of search if config is paused (ITS#7761)
+   - Fixed slapo-constraint handling of softadd/softdel (ITS#7773)
+   - Fixed slapo-syncprov assert with findbase (ITS#7749)
+   - Build Environment
+   -  Test suite: Use $(MAKE) for tests (ITS#7753)
+   - Documentation
+   -  admin24 fix TLSDHParamFile to be correct (ITS#7684) 
+   - LTB changes
+   -  Add man directory to $MANPATH (#645)
+   -  Bad installation of OpenLDAP DEB packages on Ubuntu (#643)
+   -  Include MDB utilities in DEB (639)
+
+ -- root <root@debian-5.0-amd64>  Fri, 31 Jan 2014 15:34:11 +0000
+
+openldap-ltb (2.4.38-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.38 Release (2013/11/16)
+   - Fixed liblmdb nordahead flag (ITS#7734)
+   - Fixed liblmdb to check cursor index before cursor_del (ITS#7733)
+   - Fixed liblmdb wasted space on split (ITS#7589)
+   - Fixed slapd for certs with a NULL issuerDN (ITS#7746)
+   - Fixed slapd cn=config with empty nested includes (ITS#7739)
+   - Fixed slapd syncrepl memory leak with delta-sync MMR (ITS#7735)
+   - Fixed slapd-bdb/hdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-bdb/hdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-mdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-mdb dangling reader (ITS#7662)
+   - Fixed slapd-mdb matching rule for OlcDbEnvFlags (ITS#7737)
+   - Fixed slapd-mdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-meta from blocking other threads (ITS#7740)
+   - Fixed slapo-syncprov assert with findbase (ITS#7749)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Mon, 25 Nov 2013 15:50:08 +0000
+
+openldap-ltb (2.4.37-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.37 Release (2013/10/27)
+   - Added liblmdb nordahead environment flag (ITS#7725)
+   - Fixed client tools CLDAP with IPv6 (ITS#7695)
+   - Fixed libldap CLDAP with IPv6 (ITS#7695)
+   - Fixed libldap lock ordering with abandon op (ITS#7712)
+   - Fixed liblmdb segfault with mdb_cursor_del (ITS#7718)
+   - Fixed liblmdb when converting to writemap (ITS#7715)
+   - Fixed liblmdb assert on MDB_NEXT with delete (ITS#7722)
+   - Fixed liblmdb wasted space on split (ITS#7589)
+   - Fixed slapd cn=config with olcTLSProtocolMin (ITS#7685)
+   - Fixed slapd-bdb/hdb optimize index updates (ITS#7329)
+   - Fixed slapd-ldap chaining with cn=config (ITS#7381, ITS#7434)
+   - Fixed slapd-ldap chaning with controls (ITS#7687)
+   - Fixed slapd-mdb optimize index updates (ITS#7329)
+   - Fixed slapd-meta chaining with cn=config (ITS#7381, ITS#7434)
+   - Fixed slapo-constraint to no-op on nonexistent entries (ITS#7692)
+   - Fixed slapo-dds assert on startup (ITS#7699)
+   - Fixed slapo-memberof to not replicate internal ops (ITS#7710)
+   - Fixed slapo-refint to not replicate internal ops (ITS#7710)
+   - Build Environment
+   -  Fixed slapd-mdb ptr arithmetic on void *s (ITS#7720)
+   - Documentation
+   -  ldapsearch(1) minor typo fix (ITS#7680)
+   -  slapd-passwd(5) minor typo fix (ITS#7680)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Thu, 31 Oct 2013 15:34:18 +0100
+
+openldap-ltb (2.4.36-1) unstable; urgency=low
+
+  * Initial release (Closes: #1000)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Wed, 04 Sep 2013 17:43:45 +0200

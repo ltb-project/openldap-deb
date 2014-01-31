@@ -1,0 +1,17 @@
+usr/local/openldap/bin
+usr/local/openldap/etc/openldap/*.example
+usr/local/openldap/etc/openldap/*.default
+usr/local/openldap/etc/openldap/*.ldif
+usr/local/openldap/etc/openldap/ldap.conf
+usr/local/openldap/etc/openldap/slapd.conf
+usr/local/openldap/etc/openldap/schema
+usr/local/openldap/include
+usr/local/openldap/lib*/lib*
+usr/local/openldap/libexec/slapd
+usr/local/openldap/sbin/slap*
+usr/local/openldap/share/man/man1/ldap*
+usr/local/openldap/share/man/man3
+usr/local/openldap/share/man/man5
+usr/local/openldap/share/man/man8
+usr/local/openldap/var
+etc
