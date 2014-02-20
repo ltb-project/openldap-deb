@@ -50,8 +50,13 @@ fi
 
 # Remove syslog facility
 sed -i '/local4\..*/d' /etc/rsyslog.conf
-if [ -x "/etc/init.d/rsyslog" ]; then
-	/etc/init.d/rsyslog restart > /dev/null 2>&1
+if [ $( command -v initctl >/dev/null && echo $? ) ]; then
+	# compatibility with ubuntu
+	initctl restart rsyslog
+else
+	if [ -x "/etc/init.d/rsyslog" ]; then
+		/etc/init.d/rsyslog restart > /dev/null 2>&1
+	fi
 fi
 
 

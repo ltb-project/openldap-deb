@@ -44,8 +44,13 @@ grep -q -E "^ldap:" /etc/passwd || /usr/sbin/useradd ${LDAPUSER} -g ${LDAPGROUP}
 
 # Add syslog facility
 grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
-if [ -x "/etc/init.d/rsyslog" ]; then
-	/etc/init.d/rsyslog restart > /dev/null 2>&1
+if [ $( command -v initctl >/dev/null && echo $? ) ]; then
+	# compatibility with ubuntu
+	initctl restart rsyslog
+else
+	if [ -x "/etc/init.d/rsyslog" ]; then
+		/etc/init.d/rsyslog restart > /dev/null 2>&1
+	fi
 fi
 
 # Add OpenLDAP libraries to the system
