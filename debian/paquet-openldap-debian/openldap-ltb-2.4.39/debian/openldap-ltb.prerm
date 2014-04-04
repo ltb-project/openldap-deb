@@ -50,7 +50,8 @@ fi
 
 # Remove syslog facility
 sed -i '/local4\..*/d' /etc/rsyslog.conf
-if [ $( command -v initctl >/dev/null && echo $? ) ]; then
+command -v initctl >/dev/null && initctl list | grep -q rsyslog
+if [ $? -eq 0 ]; then
 	# compatibility with ubuntu
 	initctl restart rsyslog
 else
