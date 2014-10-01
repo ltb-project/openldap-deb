@@ -27,8 +27,12 @@ clean:
 	rm -f build-stamp 
 
 	# Add here commands to clean up after the build process.
-	make clean
-	make distclean
+	if [ -f Makefile ]; then make clean; fi
+	if [ -f Makefile ]; then make distclean; fi
+	find . -name "*.so.*" -o -name "*.so" -o -name "*.o" | xargs -I {} rm -f {}
+	find . -name "*.la" -o -name "*.lo" -o -name "*.lai" -o -name "*.a" | xargs -I {} rm -f {}
+	rm -f include/stamp-h*
+	(cd libraries/liblmdb && make clean)
 
 	dh_clean
 

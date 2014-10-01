@@ -45,7 +45,7 @@
 #====================================================================
 # Version
 #====================================================================
-VERSION="1.9"
+VERSION="2.0"
 
 #====================================================================
 # Default parameters (if /etc/default/{script_name} is not present)
@@ -850,14 +850,13 @@ backup() {
 
 	# Do backup for all databases
 	dbdirs="$DATA_PATH"
-	dbsufs=""
+	get_confvalues "suffix"
+	dbsufs=$RETVAL
 
 	if [ "$DATA_PATH" = "auto" ]
 	then
 		get_confvalues "directory"
 		dbdirs=$RETVAL
-		get_confvalues "suffix"
-		dbsufs=$RETVAL
 
 		if [ -z "$dbdirs" -o -z "$dbsufs" ]
 		then
@@ -980,14 +979,13 @@ restore() {
 
 	# Do restore for all databases
 	dbdirs="$DATA_PATH"
-	dbsufs=""
+	get_confvalues "suffix"
+	dbsufs=$RETVAL
 
 	if [ "$DATA_PATH" = "auto" ]
 	then
 		get_confvalues "directory"
 		dbdirs=$RETVAL
-		get_confvalues "suffix"
-		dbsufs=$RETVAL
 
 		if [ -z "$dbdirs" -o -z "$dbsufs" ]
 		then

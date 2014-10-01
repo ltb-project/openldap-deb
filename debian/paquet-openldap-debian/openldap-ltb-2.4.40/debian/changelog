@@ -1,0 +1,168 @@
+openldap-ltb (2.4.40-1) unstable; urgency=low
+
+  * New upstream release.
+    - OpenLDAP 2.4.40 Release (2014/09/20)
+    - Fixed libldap DNS SRV priority handling (ITS#7027)
+    - Fixed libldap don't leak libldap err codes (ITS#7676)
+    - Fixed libldap CR/LF handling (ITS#4635)
+    - Fixed libldap ldif-wrap length (ITS#7871)
+    - Fixed libldap GnuTLS ciphersuite parsing (ITS#7500)
+    - Fixed libldap GnuTLS with newer versions (ITS#7430,ITS#6359)
+    - Fixed libldif to correctly handle 4096 character lines (ITS#7859)
+    - Fixed librewrite reference counting (ITS#7723)
+    - Fixed slapacl with back-mdb reader transactions (ITS#7920)
+    - Fixed slapd syncrepl to send cookie on fallback (ITS#7849)
+    - Fixed slapd syncrepl SEGV when abandoning a connection (ITS#7928)
+    - Fixed slapd slapcat with external schema (ITS#7895)
+    - Fixed slapd schema RDN normalization (ITS#7935)
+    - Fixed slapd with repeated language tags (ITS#7941)
+    - Fixed slapd modrdn crash on naming attr with no matching rule (ITS#7850)
+    - Fixed slapd memory leak in control handling (ITS#7942)
+    - Fixed slapd-ldap removed dead code (ITS#7922)
+    - Fixed slapd-mdb to work concurrently with slapadd (ITS#7798)
+    - Fixed slapd-mdb with paged results (ITS#7705, ITS#7800)
+    - Fixed slapd-mdb slapcat with nonexistent indices (ITS#7870)
+    - Fixed slapd-mdb long lived reader transactions (ITS#7904)
+    - Fixed slapd-mdb memory leak on matchedDN (ITS#7872)
+    - Fixed slapd-mdb sorting of attribute values (ITS#7902)
+    - Fixed slapd-mdb to flag attribute values as sorted (ITS#7903)
+    - Fixed slapd-mdb index config handling (ITS#7912)
+    - Fixed slapd-mdb entry release handling (ITS#7915)
+    - Fixed slapd-mdb with aliases and referrals (ITS#7927)
+    - Fixed slapd-mdb alias dereferencing (ITS#7702)
+    - Fixed slapd-sock socket flushing (ITS#7937)
+    - Fixed slapo-accesslog attribute normalization (ITS#7934)
+    - Fixed slapo-accesslog internal search logging (ITS#7929)
+    - Fixed slapo-auditlog connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-chain interaction with slapo-rwm (ITS#7930)
+    - Fixed slapo-constraint connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-dds connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-dyngroup connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-memberof attr count (ITS#7893)
+    - Fixed slapo-memberof frontendDB handling (ITS#7249)
+    - Fixed slapo-memberof internal search logging (ITS#7929)
+    - Fixed slapo-pcache config processing (ITS#7919)
+    - Fixed slapo-pcache connection destroy logic (ITS#7906,ITS#7923)
+    - Added slapo-ppolicy ORDERING rules (ITS#7838)
+    - Fixed slapo-ppolicy timestamp resolution to use microseconds (ITS#7161)
+    - Fixed slapo-ppolicy connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-refint to check for pauses in cn=config (ITS#7873)
+    - Fixed slapo-refint internal search logging (ITS#7929)
+    - Fixed slapo-refint connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-seqmod connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-slapover connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapo-sock db_init (ITS#7868)
+    - Fixed slapo-sssvlv fix olcSssVlvMaxPerConn (ITS#7908)
+    - Fixed slapo-translucent double free (ITS#7587)
+    - Fixed slapo-translucent to work with manageDSAit (ITS#7864)
+    - Fixed slapo-translucent to use local backend with local entries (ITS#7915)
+    - Fixed slapo-unique connection destroy logic (ITS#7906,ITS#7923)
+    - Fixed slapcacl with invalid suffix (ITS#7827)
+    - Build Environment
+    -  Remove support for gcrypt (ITS#7877)
+    -  BDB 6.0.20 and later is not supported (ITS#7890)
+    -  Fixed ODBC link check (ITS#7891)
+    -  Fixed slapd.ldif frontend config (ITS#7933)
+    - Contrib
+    -  Added pbkdf2 module (ITS#7742)
+    -  Fixed autogroup double free (ITS#7831)
+    -  Fixed autogroup modification callback responses (ITS#6970)
+    -  Fixed ldapc++ memory leak in Async connection (ITS#7806)
+    -  Fixed nssov install path (ITS#7858)
+    -  Fixed passwd rpath (ITS#7885)
+    -  Fixed apr1 do_phk_hash argument order (ITS#7869)
+    -  Fixed slapd-sha2 buffer overrun (ITS#7851)
+    - Documentation
+    -  Fixed slapd.ldif man page reference (ITS#7803)
+    -  Fixed slapd.conf(5) man page to reference exattrs (ITS#7847)
+    -  Fixed guide to work with mkrelease (ITS#7887)
+    -  Fixed ldap_get_dn(3) ldap_ava definition (ITS#7860)
+
+ -- root <root@debian-5.0-amd64>  Wed, 01 Oct 2014 09:18:36 +0000
+
+openldap-ltb (2.4.39-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.39 Release (2014/01/26)
+   - Fixed libldap MozNSS crash (ITS#7783)
+   - Fixed libldap memory leak with SASL (ITS#7757)
+   - Fixed libldap assert in parse_passwdpolicy_control (ITS#7759)
+   - Fixed libldap shortcut NULL RDNs (ITS#7762)
+   - Fixed libldap deref to use correct control
+   - Fixed liblmdb keysizes with mdb_update_key (ITS#7756)
+   - Fixed slapd cn=config olcDbConfig modification (ITS#7750)
+   - Fixed slapd-bdb/hdb to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-bdb/hdb indexing issue with derived attributes (ITS#7778)
+   - Fixed slapd-mdb to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-mdb indexing issue with derived attributes (ITS#7778)
+   - Fixed slapd-perl to bail out of search if config is paused (ITS#7761)
+   - Fixed slapd-sql to bail out of search if config is paused (ITS#7761)
+   - Fixed slapo-constraint handling of softadd/softdel (ITS#7773)
+   - Fixed slapo-syncprov assert with findbase (ITS#7749)
+   - Build Environment
+   -  Test suite: Use $(MAKE) for tests (ITS#7753)
+   - Documentation
+   -  admin24 fix TLSDHParamFile to be correct (ITS#7684) 
+   - LTB changes
+   -  Add man directory to $MANPATH (#645)
+   -  Bad installation of OpenLDAP DEB packages on Ubuntu (#643)
+   -  Include MDB utilities in DEB (639)
+
+ -- root <root@debian-5.0-amd64>  Fri, 31 Jan 2014 15:34:11 +0000
+
+openldap-ltb (2.4.38-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.38 Release (2013/11/16)
+   - Fixed liblmdb nordahead flag (ITS#7734)
+   - Fixed liblmdb to check cursor index before cursor_del (ITS#7733)
+   - Fixed liblmdb wasted space on split (ITS#7589)
+   - Fixed slapd for certs with a NULL issuerDN (ITS#7746)
+   - Fixed slapd cn=config with empty nested includes (ITS#7739)
+   - Fixed slapd syncrepl memory leak with delta-sync MMR (ITS#7735)
+   - Fixed slapd-bdb/hdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-bdb/hdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-mdb to stop processing on dn not found (ITS#7741)
+   - Fixed slapd-mdb dangling reader (ITS#7662)
+   - Fixed slapd-mdb matching rule for OlcDbEnvFlags (ITS#7737)
+   - Fixed slapd-mdb with indexed ANDed filters (ITS#7743)
+   - Fixed slapd-meta from blocking other threads (ITS#7740)
+   - Fixed slapo-syncprov assert with findbase (ITS#7749)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Mon, 25 Nov 2013 15:50:08 +0000
+
+openldap-ltb (2.4.37-1) unstable; urgency=low
+
+  * New upstream release.
+   - OpenLDAP 2.4.37 Release (2013/10/27)
+   - Added liblmdb nordahead environment flag (ITS#7725)
+   - Fixed client tools CLDAP with IPv6 (ITS#7695)
+   - Fixed libldap CLDAP with IPv6 (ITS#7695)
+   - Fixed libldap lock ordering with abandon op (ITS#7712)
+   - Fixed liblmdb segfault with mdb_cursor_del (ITS#7718)
+   - Fixed liblmdb when converting to writemap (ITS#7715)
+   - Fixed liblmdb assert on MDB_NEXT with delete (ITS#7722)
+   - Fixed liblmdb wasted space on split (ITS#7589)
+   - Fixed slapd cn=config with olcTLSProtocolMin (ITS#7685)
+   - Fixed slapd-bdb/hdb optimize index updates (ITS#7329)
+   - Fixed slapd-ldap chaining with cn=config (ITS#7381, ITS#7434)
+   - Fixed slapd-ldap chaning with controls (ITS#7687)
+   - Fixed slapd-mdb optimize index updates (ITS#7329)
+   - Fixed slapd-meta chaining with cn=config (ITS#7381, ITS#7434)
+   - Fixed slapo-constraint to no-op on nonexistent entries (ITS#7692)
+   - Fixed slapo-dds assert on startup (ITS#7699)
+   - Fixed slapo-memberof to not replicate internal ops (ITS#7710)
+   - Fixed slapo-refint to not replicate internal ops (ITS#7710)
+   - Build Environment
+   -  Fixed slapd-mdb ptr arithmetic on void *s (ITS#7720)
+   - Documentation
+   -  ldapsearch(1) minor typo fix (ITS#7680)
+   -  slapd-passwd(5) minor typo fix (ITS#7680)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Thu, 31 Oct 2013 15:34:18 +0100
+
+openldap-ltb (2.4.36-1) unstable; urgency=low
+
+  * Initial release (Closes: #1000)
+
+ -- dcoutadeur <dcoutadeur@linagora.com>  Wed, 04 Sep 2013 17:43:45 +0200

@@ -4,7 +4,7 @@
 BUILD_DIR="$( pwd )"
 BDBDIR="/usr/local/berkeleydb"
 REAL_NAME="openldap"
-REAL_VERSION="2.4.38"
+REAL_VERSION="2.4.40"
 INSTALL_DIR="${BUILD_DIR}/debian/tmp"
 INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
 RELEASE_VERSION="${REAL_VERSION}-1_i386"
@@ -25,7 +25,7 @@ LDAPUSER="ldap"
 LDAPGROUP="ldap"
 
 SLAPD_INIT_NAME="ltb-project-openldap-initscript"
-SLAPD_INIT_VERSION="1.9"
+SLAPD_INIT_VERSION="2.0"
 
 CHECK_PASSWORD_NAME="ltb-project-openldap-ppolicy-check-password"
 CHECK_PASSWORD_VERSION="1.1"
@@ -50,8 +50,14 @@ fi
 
 # Remove syslog facility
 sed -i '/local4\..*/d' /etc/rsyslog.conf
-if [ -x "/etc/init.d/rsyslog" ]; then
-	/etc/init.d/rsyslog restart > /dev/null 2>&1
+command -v initctl >/dev/null && initctl list | grep -q rsyslog
+if [ $? -eq 0 ]; then
+	# compatibility with ubuntu
+	initctl restart rsyslog
+else
+	if [ -x "/etc/init.d/rsyslog" ]; then
+		/etc/init.d/rsyslog restart > /dev/null 2>&1
+	fi
 fi
 
 

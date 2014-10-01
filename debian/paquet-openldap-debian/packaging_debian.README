@@ -44,6 +44,10 @@ general parameters for building a package (being in the package directory)
 	debian/rules build
 	debian/rules binary
 
+building the source package (with no signing). Take care to create openldap-ltb_2.4.XX.orig.tar.gz from original OpenLDAP package
+	dpkg-buildpackage -us -uc
+
+
 
 -----------------------------
 
@@ -51,6 +55,7 @@ general parameters for building a package (being in the package directory)
 Instructions for debian lenny
 =============================
 replace libltdl7 by libltdl3 in debian/control (delete the specific 2.2.6b version)
+replace libltdl-dev by libltdl3-dev in debian/control
 
 > Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
 > Replace libkrb5-26-heimdal in debian/control by libkrb5-25-heimdal.
@@ -80,6 +85,8 @@ make the changes in the changelog file
 
 	cd debian
 	sed -i "s/2\.4\.36/2.4.37/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild
+
+Don't commit or update debian/control which is specific on Debian Lenny (libltdl3 dependency)
 
 Get the new archive, and extract it into the directory:
 
