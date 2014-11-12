@@ -1,40 +1,8 @@
 #!/bin/bash -x
 
-# initialize some variables
-BUILD_DIR="$( pwd )"
-REAL_NAME="openldap"
-REAL_VERSION="2.4.40"
-INSTALL_DIR="${BUILD_DIR}/debian/tmp"
-INSTALL_DIR_CP="${BUILD_DIR}/debian/openldap-ltb-check-password"
-RELEASE_VERSION="${REAL_VERSION}-1_i386"
-_LIB="lib$( uname -m | grep -q -E '64$' && echo '64' )"
+BASEDIR=$(dirname $0)
+source $BASEDIR/openldap-ltb.vars
 
-LDAPDIR="/usr/local/openldap"
-LDAPSERVERDIR="${LDAPDIR}"
-LDAPDATADIR="/usr/local/openldap/var/openldap-data"
-LDAPLOGSDIR="/usr/local/openldap/var/openldap-data"
-LDAPBACKUPDIR="/var/backups/openldap"
-LDAPLOGFILE="/var/log/openldap.log"
-
-BDBDIR="/usr/local/berkeleydb"
-BDBARCHIVEBIN='${BDB_PATH}/bin/db_archive'
-BDBRECOVERBIN='${BDB_PATH}/bin/db_recover'
-
-LDAPUSER="ldap"
-LDAPGROUP="ldap"
-
-SLAPD_INIT_NAME="ltb-project-openldap-initscript"
-SLAPD_INIT_VERSION="2.0"
-
-CHECK_PASSWORD_NAME="ltb-project-openldap-ppolicy-check-password"
-CHECK_PASSWORD_VERSION="1.1"
-CHECK_PASSWORD_CONF="${LDAPSERVERDIR}/etc/openldap/check_password.conf"
-CHECK_PASSWORD_MINPOINTS="3"
-CHECK_PASSWORD_USECRACKLIB="0"
-CHECK_PASSWORD_MINUPPER="0"
-CHECK_PASSWORD_MINLOWER="0"
-CHECK_PASSWORD_MINDIGIT="0"
-CHECK_PASSWORD_MINPUNCT="0"
 
 # create some directories
 mkdir -p "${INSTALL_DIR}/${LDAPDATADIR}"
@@ -80,6 +48,10 @@ sed -i "s:^directory.*:directory\t\"${LDAPDATADIR}\":" "${INSTALL_DIR}${LDAPDIR}
 cd ${CHECK_PASSWORD_NAME}-${CHECK_PASSWORD_VERSION}
 make "CONFIG=${CHECK_PASSWORD_CONF}" "LDAP_INC=-I../include -I../servers/slapd" 
 cd ..
+# ppm
+cd ${PPM_NAME}-${PPM_VERSION}
+make "CONFIG=${PPM_CONF}" "LDAP_INC=-I../include -I../servers/slapd" 
+cd ..
 # contrib-overlays
 cd contrib/slapd-modules
 ## lastbind
@@ -113,6 +85,14 @@ echo "minUpper ${CHECK_PASSWORD_MINUPPER}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CO
 echo "minLower ${CHECK_PASSWORD_MINLOWER}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CONF}"
 echo "minDigit ${CHECK_PASSWORD_MINDIGIT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CONF}"
 echo "minPunct ${CHECK_PASSWORD_MINPUNCT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CONF}"
+
+# ppm
+# library is installed in final destination because install files can't handle with variables such as ${_LIB}
+mkdir -p "${INSTALL_DIR_PPM}${LDAPSERVERDIR}/${_LIB}"
+install -m 644 "${PPM_NAME}-${PPM_VERSION}/ppm.so" "${INSTALL_DIR_PPM}${LDAPSERVERDIR}/${_LIB}"
+# conf file is installed in standard tmp dir
+mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
+install -m 644 "${PPM_NAME}-${PPM_VERSION}/ppm.conf" "${INSTALL_DIR}${PPM_CONF}"
 
 # contrib-overlays
 cd contrib/slapd-modules
