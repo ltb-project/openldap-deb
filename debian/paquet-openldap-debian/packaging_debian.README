@@ -79,14 +79,21 @@ do the following export just before running the target: (don't forget to un-expo
 Update the package
 ==================
 
-	dch -v 2.4.37-1
+On one environment, do:
+
+        git mv openldap-2.4.40 openldap-2.4.41
+	cd openldap-2.4.41
+	dch -v 2.4.41-1
 
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.36/2.4.37/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild
+	sed -i "s/2\.4\.40/2.4.41/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
 
-Don't commit or update debian/control which is specific on Debian Lenny (libltdl3 dependency)
+Commit every change, but do not update debian/control which is specific on Debian Lenny (libltdl3 dependency)
+
+
+On every environment, update all the changes, and do:
 
 Get the new archive, and extract it into the directory:
 

@@ -48,14 +48,26 @@ sed -i "s:^directory.*:directory\t\"${LDAPDATADIR}\":" "${INSTALL_DIR}${LDAPDIR}
 cd ${CHECK_PASSWORD_NAME}-${CHECK_PASSWORD_VERSION}
 make "CONFIG=${CHECK_PASSWORD_CONF}" "LDAP_INC=-I../include -I../servers/slapd" 
 cd ..
+
 # ppm
 cd ${PPM_NAME}-${PPM_VERSION}
 make "CONFIG=${PPM_CONF}" "LDAP_INC=-I../include -I../servers/slapd" 
 cd ..
+
 # contrib-overlays
 cd contrib/slapd-modules
 ## lastbind
 cd lastbind
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ..
+## sha512
+cd passwd/sha2
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ../..
+## autogroup
+cd autogroup
 make clean
 make "prefix=${LDAPSERVERDIR}"
 cd ..
@@ -64,12 +76,8 @@ cd smbk5pwd
 make clean
 make "DEFS=-DDO_SAMBA -DDO_SHADOW" "HEIMDAL_LIB=" "LDAP_LIB=-L../../../libraries/liblber/.libs/ -L../../../libraries/libldap_r/.libs/ -lldap_r -llber" "prefix=${LDAPSERVERDIR}"
 cd ..
-## autogroup
-cd autogroup
-make clean
-make "prefix=${LDAPSERVERDIR}"
-cd ..
 cd ../..
+
 # mdb-utils
 cd libraries/liblmdb
 make
@@ -104,10 +112,13 @@ cd contrib/slapd-modules
 cd lastbind
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
-cd smbk5pwd
+cd passwd/sha2
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+cd ../..
+cd autogroup
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
-cd autogroup
+cd smbk5pwd
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
 cd ../..
