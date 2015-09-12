@@ -1,4 +1,20 @@
-openldap-ltb (2.4.41.1) UNRELEASED; urgency=low
+openldap-ltb (2.4.42.1) unstable; urgency=low
+
+  * New upstream release.
+
+    - OpenLDAP 2.4.42 Release (2015/08/14)
+    - Fixed liblber address length for CLDAP (ITS#8158)
+    - Fixed libldap dnssrv potential overflow with port number (ITS#7027,ITS#8195)
+    - Fixed slapd cn=config when updating olcAttributeTypes (ITS#8199)
+    - Fixed slapd-mdb to correctly update search candidates for scoped searches (ITS#8203)
+    - Fixed slapo-ppolicy with redundant mod ops on glued trees (ITS#8184)
+    - Fixed slapo-rwm crash when deleting rewrite rules (ITS#8213)
+    - Build Environment
+    -  Fixed libdb detection with gcc 5.x (ITS#8056)
+
+ -- root <root@debian-7.0-amd64>  Sat, 12 Sep 2015 18:25:00 -0400
+
+openldap-ltb (2.4.41.1) unstable; urgency=low
 
   * New upstream release.
     - OpenLDAP 2.4.41 Release (2015/06/21)
@@ -76,7 +92,7 @@ openldap-ltb (2.4.41.1) UNRELEASED; urgency=low
     -  Add the Autogroup overlay to the contrib overlays package (#773)
     -  integrate sha-512 hasching scheme in contributed overlays (#753)
 
- -- root <root@debian-7.0-amd64>  Mon, 13 Jul 2015 07:52:26 -0400
+ -- root <root@debian-7.0-amd64>  Sat, 12 Sep 2015 11:43:09 -0400
 
 openldap-ltb (2.4.40-1) unstable; urgency=low
 

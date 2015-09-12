@@ -9,33 +9,33 @@ PORT="389"
 SSLPORT="636"
 
 # OpenLDAP directory and files
-SLAPD_PATH=""
-SLAPD_PID_FILE="/var/run/slapd/slapd.pid"
-SLAPD_CONF="/etc/ldap/slapd.conf"
-SLAPD_CONF_DIR="/etc/ldap/slapd.d"
+SLAPD_PATH="/usr/local/openldap"
+SLAPD_PID_FILE="$SLAPD_PATH/var/run/slapd.pid"
+SLAPD_CONF="$SLAPD_PATH/etc/openldap/slapd.conf"
+SLAPD_CONF_DIR=""
 SLAPD_SERVICES="ldap://$IP:$PORT ldaps://$SSLIP:$SSLPORT"
 SLAPD_PARAMS=""
-SLAPD_BIN="/usr/sbin/slapd"
-SLAPD_USER="openldap"
-SLAPD_GROUP="openldap"
+SLAPD_BIN="$SLAPD_PATH/libexec/slapd"
+SLAPD_USER=""
+SLAPD_GROUP=""
 SLAPD_SYSLOG_LOCAL_USER="local4"
 
 DATA_PATH="auto"
 
-SLAPADD_BIN="/usr/sbin/slapadd"
+SLAPADD_BIN="$SLAPD_PATH/sbin/slapadd"
 SLAPADD_PARAMS="-q"
-SLAPCAT_BIN="/usr/sbin/slapcat"
-SLAPINDEX_BIN="/usr/sbin/slapindex"
-SLAPTEST_BIN="/usr/sbin/slaptest"
+SLAPCAT_BIN="$SLAPD_PATH/sbin/slapcat"
+SLAPINDEX_BIN="$SLAPD_PATH/sbin/slapindex"
+SLAPTEST_BIN="$SLAPD_PATH/sbin/slaptest"
 
-SLURPD_PID_FILE="/var/run/slapd/slurpd.pid"
+SLURPD_PID_FILE="$SLAPD_PATH/var/run/slurpd.pid"
 SLURPD_PARAMS=""
-SLURPD_BIN="/usr/sbin/slurpd"
+SLURPD_BIN="$SLAPD_PATH/libexec/slurpd"
 
 # BerkeleyDB directory and files
-BDB_PATH="/usr"
-DB_ARCHIVE_BIN="$BDB_PATH/bin/db4.2_archive"
-DB_RECOVER_BIN="$BDB_PATH/bin/db4.2_recover"
+BDB_PATH="/usr/local/berkeleydb"
+DB_ARCHIVE_BIN="$BDB_PATH/bin/db_archive"
+DB_RECOVER_BIN="$BDB_PATH/bin/db_recover"
 RECOVER_AT_STARTUP="0"
 
 # Backup
@@ -50,5 +50,4 @@ BACKUP_UNCOMPRESS_BIN="" # /bin/gunzip, /bin/bunzip2, ...
 TIMEOUT="30" # Max time to stop process
 FD_LIMIT="1024" # Max file descriptor
 DEBUG_LEVEL="256" # Debug loglevel
-SPECIAL_QUOTE="0" # Quote some command line parameters (eg: LDAP filters)
 
