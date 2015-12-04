@@ -80,6 +80,7 @@ cd ../..
 
 # mdb-utils
 cd libraries/liblmdb
+make clean
 make
 cd ../..
 

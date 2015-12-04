@@ -1,0 +1,29 @@
+From 98841032bb020e994b579068eec5c9983c08da31 Mon Sep 17 00:00:00 2001
+From: Sebastien Launay <sebastien@slaunay.fr>
+Date: Thu, 3 Dec 2015 10:42:36 -0800
+Subject: [PATCH] Fix robust mutex detection for glibc 2.10 and 2.11
+
+pthread_mutexattr_setrobust and pthread_mutex_consistent are provided since 2.12 not 2.10:
+https://github.molgen.mpg.de/git-mirror/glibc/commit/402cd98775db1478f64c9b0dbe00664b89eb2773
+https://github.molgen.mpg.de/git-mirror/glibc/commit/78ee21859939ff75ccf8bbe00499b0c462df2e2d
+---
+ libraries/liblmdb/mdb.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git libraries/liblmdb/mdb.c libraries/liblmdb/mdb.c.new
+index 96c859e..f495d6c 100644
+--- libraries/liblmdb/mdb.c
++++ libraries/liblmdb/mdb.c.new
+@@ -256,8 +256,8 @@ typedef SSIZE_T	ssize_t;
+ #  define MDB_USE_ROBUST	0
+ # else
+ #  define MDB_USE_ROBUST	1
+-/* glibc < 2.10 only provided _np API */
+-#  if defined(__GLIBC__) && GLIBC_VER < 0x02000a
++/* glibc < 2.12 only provided _np API */
++#  if defined(__GLIBC__) && GLIBC_VER < 0x02000c
+ #   define PTHREAD_MUTEX_ROBUST	PTHREAD_MUTEX_ROBUST_NP
+ #   define pthread_mutexattr_setrobust(attr, flag)	pthread_mutexattr_setrobust_np(attr, flag)
+ #   define pthread_mutex_consistent(mutex)	pthread_mutex_consistent_np(mutex)
+--
+2.4.3

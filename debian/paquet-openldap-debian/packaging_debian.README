@@ -4,7 +4,7 @@ Instructions to build berkeleydb-ltb and openldap-ltb
 	apt-get install build-essential
 	apt-get install autoconf automake autotools-dev debhelper dh-make devscripts fakeroot file gnupg git lintian patch patchutils pbuilder
 
-	apt-get install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libslp1
+	apt-get install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libslp1 libwrap0-dev
 
 > Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
 > # apt-get install libkrb5-26-heimdal libhdb9-heimdal heimdal-dev
@@ -83,7 +83,7 @@ On one environment, do:
 
         git mv openldap-ltb-2.4.41 openldap-ltb-2.4.42
 	cd openldap-ltb-2.4.42
-	dch -v 2.4.42-1
+	dch -v 2.4.42.1
 
 make the changes in the changelog file
 
