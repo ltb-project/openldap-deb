@@ -5,8 +5,8 @@ source $BASEDIR/openldap-ltb.vars
 
 
 # Create user and group
-/usr/sbin/groupadd -f ${LDAPGROUP}
-grep -q -E "^ldap:" /etc/passwd || /usr/sbin/useradd ${LDAPUSER} -g ${LDAPGROUP}
+/usr/sbin/addgroup --system ${LDAPGROUP}
+grep -q -E "^ldap:" /etc/passwd || /usr/sbin/adduser --system --no-create-home --home /usr/local/openldap --ingroup ${LDAPGROUP} ${LDAPUSER}
 
 # Add syslog facility
 grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf

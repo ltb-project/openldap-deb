@@ -1,3 +1,24 @@
+openldap-ltb (2.4.44.1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+    - OpenLDAP 2.4.44 Release (2016/02/05)
+    -  Fixed slapd-bdb/hdb missing olcDbChecksum config attr (ITS#8337)
+    -  Fixed slapd-mdb behavior with long lived read transactions (ITS#8226)
+    -  Fixed slapd-mdb cleanup after failed transaction (ITS#8360)
+    -  Fixed slapd-sql missing id_query/olcSqlIdQuery (ITS#8329)
+    -  Fixed slapo-accesslog callback initialization (ITS#8351)
+    -  Fixed slapo-ppolicy pwdMaxRecordedFailure must never be zero (ITS#8327)
+    -  Fixed slapo-syncprov abandon processing (ITS#8354)
+    -  Fixed slapo-syncprov ctxcsn snapshot on refresh (ITS#8281, ITS#8365)
+    - Documentation
+    -  admin24 Stop linking to Berkeley DB downloads (ITS#8362)
+    -  admin24 Update documentation for LMDB preference
+    - LTB changes
+    -  ldap user should be a system user (#829)
+
+ -- David Coutadeur <dcoutadeur@linagora.com>  Mon, 08 Feb 2016 15:03:21 +0100
+
 openldap-ltb (2.4.43.1) unstable; urgency=low
 
   * New upstream release.

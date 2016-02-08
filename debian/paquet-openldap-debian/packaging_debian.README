@@ -28,9 +28,9 @@ To get a more recent version (beware: do this only if you are sure of OpenLDAP c
 
 get slapd
 ---------
-	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.36.tgz
-	tar xvzf openldap-2.4.36.tgz
-	cp -r openldap-2.4.36/* paquet-openldap-debian/openldap-ltb-2.4.36
+	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.44.tgz
+	tar xvzf openldap-2.4.44.tgz
+	cp -r openldap-2.4.44/* paquet-openldap-debian/openldap-ltb-2.4.44
 
 import some variables
 ---------------------
@@ -69,7 +69,7 @@ in case of error for binary target:
 
 do the following export just before running the target: (don't forget to un-export it to test the package)
 
-	export LD_LIBRARY_PATH=/opt/paquet-openldap-debian/openldap-ltb-2.4.36/debian/openldap-ltb/usr/local/openldap/lib64
+	export LD_LIBRARY_PATH=/opt/paquet-openldap-debian/openldap-ltb-2.4.44/debian/openldap-ltb/usr/local/openldap/lib64
 
 
 
@@ -81,14 +81,14 @@ Update the package
 
 On one environment, do:
 
-        git mv openldap-ltb-2.4.41 openldap-ltb-2.4.42
-	cd openldap-ltb-2.4.42
-	dch -v 2.4.42.1
+        git mv openldap-ltb-2.4.43 openldap-ltb-2.4.44
+	cd openldap-ltb-2.4.44
+	dch -v 2.4.44.1
 
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.40/2.4.41/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
+	sed -i "s/2\.4\.43/2.4.44/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
 
 Commit every change, but do not update debian/control which is specific on Debian Lenny (libltdl3 dependency)
 
