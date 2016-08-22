@@ -6,3 +6,7 @@ source $BASEDIR/openldap-ltb.vars
 
 # Change owner
 /bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
+
+# add path to PPM config file if not present
+grep -q -E "PPM_CONFIG_FILE" /etc/profile.d/openldap.sh || echo "export PPM_CONFIG_FILE='$PPM_CONF'" >> /etc/profile.d/openldap.sh
+
