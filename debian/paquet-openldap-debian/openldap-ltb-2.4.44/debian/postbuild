@@ -76,6 +76,16 @@ cd smbk5pwd
 make clean
 make "DEFS=-DDO_SAMBA -DDO_SHADOW" "HEIMDAL_LIB=" "LDAP_LIB=-L../../../libraries/liblber/.libs/ -L../../../libraries/libldap_r/.libs/ -lldap_r -llber" "prefix=${LDAPSERVERDIR}"
 cd ..
+## nssov
+cd nssov
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ..
+## noopsrch
+cd noopsrch
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ..
 cd ../..
 
 # mdb-utils
@@ -120,6 +130,12 @@ cd autogroup
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
 cd smbk5pwd
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+cd ..
+cd nssov
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+cd ..
+cd noopsrch
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
 cd ../..
