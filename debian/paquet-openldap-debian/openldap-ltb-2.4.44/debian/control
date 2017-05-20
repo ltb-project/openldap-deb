@@ -52,7 +52,7 @@ Description: check_password module for password policy
 
 Package: openldap-ltb-ppm
 Architecture: any
-Depends: openldap-ltb
+Depends: openldap-ltb, libcrack2
 Description: OpenLDAP password policy module
  ppm.c is an OpenLDAP module for checking password quality when they are modified. Passwords are checked against the presence or absence of certain character classes.
  This module is used as an extension of the OpenLDAP password policy controls, see slapo-ppolicy(5) section pwdCheckModule.
