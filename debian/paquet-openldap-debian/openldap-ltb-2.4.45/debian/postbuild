@@ -51,7 +51,8 @@ cd ..
 
 # ppm
 cd ${PPM_NAME}-${PPM_VERSION}
-make "CONFIG=${PPM_CONF}" "LDAP_INC=-I../include -I../servers/slapd" 
+make clean
+make "CONFIG=${PPM_CONF}" "OLDAP_SOURCES=.."
 make test
 cd ..
 
@@ -117,13 +118,11 @@ echo "minDigit ${CHECK_PASSWORD_MINDIGIT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CO
 echo "minPunct ${CHECK_PASSWORD_MINPUNCT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CONF}"
 
 # ppm
-# library is installed in final destination because install files can't handle with variables such as ${_LIB}
-mkdir -p "${INSTALL_DIR_PPM}${LDAPSERVERDIR}/${_LIB}"
-install -m 644 "${PPM_NAME}-${PPM_VERSION}/ppm.so" "${INSTALL_DIR_PPM}${LDAPSERVERDIR}/${_LIB}"
-install -m 644 "${PPM_NAME}-${PPM_VERSION}/ppm_test" "${INSTALL_DIR_PPM}${LDAPSERVERDIR}/${_LIB}"
-# conf file is installed in standard tmp dir
+cd ${PPM_NAME}-${PPM_VERSION}
+mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
-install -m 644 "${PPM_NAME}-${PPM_VERSION}/ppm.conf" "${INSTALL_DIR}${PPM_CONF}"
+make install "CONFIG=${INSTALL_DIR}${PPM_CONF}" "LIBDIR=${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
+cd ..
 
 # contrib-overlays
 cd contrib/slapd-modules

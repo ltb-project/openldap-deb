@@ -1,2 +1,3 @@
 usr/local/openldap/etc/openldap/ppm.conf
+usr/local/openldap/lib*/ppm*
 
