@@ -26,13 +26,13 @@ fi
 
 
 # Create some dirs and change owner
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}
 mkdir -p ${LDAPDATADIR}
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
 mkdir -p ${LDAPLOGSDIR}
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
 mkdir -p ${LDAPBACKUPDIR}
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
+/bin/chown -R root:root ${LDAPSERVERDIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
+/bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
 
 
 # Automatize init script
