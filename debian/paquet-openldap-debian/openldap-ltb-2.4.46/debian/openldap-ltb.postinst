@@ -24,6 +24,11 @@ fi
 #grep -q "${LDAPSERVERDIR}" /etc/ld.so.conf || echo "${LDAPSERVERDIR}/${_LIB}" >> /etc/ld.so.conf
 #/sbin/ldconfig
 
+# If migrating to new initscript (+cli), migrate default/slapd to cli conf file
+if [ -e "/etc/default/slapd" ]; then
+	mv /etc/default/slapd ${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf
+fi
+
 
 # Create some dirs and change owner
 mkdir -p ${LDAPDATADIR}
@@ -33,6 +38,8 @@ mkdir -p ${LDAPBACKUPDIR}
 /bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
 /bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
 /bin/chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
+/bin/chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
+chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 
 
 # Automatize init script

@@ -8,6 +8,9 @@ source $BASEDIR/openldap-ltb.vars
 /bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
 /bin/chmod +x "${LDAPSERVERDIR}/${_LIB}/ppm_test"
 
+/bin/chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/ppm.conf
+chmod 640 ${LDAPSERVERDIR}/etc/openldap/ppm.conf
+
 # add path to PPM config file if not present
 grep -q -E "PPM_CONFIG_FILE" /etc/profile.d/openldap.sh || echo "export PPM_CONFIG_FILE='$PPM_CONF'" >> /etc/profile.d/openldap.sh
 
