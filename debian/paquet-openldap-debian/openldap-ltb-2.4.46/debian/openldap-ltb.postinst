@@ -7,7 +7,7 @@ source $BASEDIR/openldap-ltb.vars
 
 
 # Create user and group
-addgroup --system ${LDAPGROUP}
+addgroup --system ${LDAPGROUP} || echo "group ${LDAPGROUP} already exists"
 grep -q -E "^ldap:" /etc/passwd || adduser --system --no-create-home --home /usr/local/openldap --ingroup ${LDAPGROUP} ${LDAPUSER}
 
 # Add syslog facility
