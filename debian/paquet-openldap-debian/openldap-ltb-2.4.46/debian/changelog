@@ -1,12 +1,15 @@
 openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.46 Release (2018/03/22)
-    -  Fixed libldap connection delete callbacks when TLS fails to start (ITS#8717)
-    -  Fixed libldap to not reuse tls_session if TLS hostname check fails (ITS#7373)
+    -  Fixed libldap connection delete callbacks when TLS fails to start
+         (ITS#8717)
+    -  Fixed libldap to not reuse tls_session if TLS hostname check fails
+         (ITS#7373)
     -  Fixed libldap cross-compiling with OpenSSL 1.1 (ITS#8687)
     -  Fixed libldap OpenSSL 1.1.1 compatibility with BIO_method (ITS#8791)
     -  Fixed libldap MozNSS CA certificate hash matching (ITS#7374)
-    -  Fixed libldap MozNSS with PEM certs when also using an NSS cert db (ITS#7389)
+    -  Fixed libldap MozNSS with PEM certs when also using an NSS cert db
+         (ITS#7389)
     -  Fixed libldap MozNSS initialization (ITS#8484)
     -  Fixed libldap GnuTLS with GNUTLS_E_AGAIN (ITS#8650)
     -  Fixed libldap memory leak with cancel operations (ITS#8782)
@@ -14,21 +17,30 @@ openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
     -  Fixed slapd to maintain SSF across SASL binds (ITS#8796)
     -  Fixed slapd syncrepl deadlock when updating cookie (ITS#8752)
     -  Fixed slapd syncrepl callback to always be last in the stack (ITS#8752)
-    -  Fixed slapd telephoneNumberNormalize when the value is spaces and hyphens (ITS#8778)
+    -  Fixed slapd telephoneNumberNormalize when the value is spaces and hyphens
+         (ITS#8778)
     -  Fixed slapd CSN queue processing (ITS#8801)
-    -  Fixed slapd-ldap TLS connection timeout with high latency connections (ITS#8720)
-    -  Fixed slapd-ldap to ignore unknown schema when omit-unknown-schema is set (ITS#7520)
-    -  Fixed slapd-mdb with an optimization for long lived read transactions (ITS#8226)
+    -  Fixed slapd-ldap TLS connection timeout with high latency connections
+         (ITS#8720)
+    -  Fixed slapd-ldap to ignore unknown schema when omit-unknown-schema is set
+         (ITS#7520)
+    -  Fixed slapd-mdb with an optimization for long lived read transactions
+         (ITS#8226)
     -  Fixed slapd-meta assert when olcDbRewrite is modified (ITS#8404)
     -  Fixed slapd-sock with LDAP_MOD_INCREMENT operations (ITS#8692)
-    -  Fixed slapo-accesslog cleanup to only occur on failed operations (ITS#8752)
+    -  Fixed slapo-accesslog cleanup to only occur on failed operations
+         (ITS#8752)
     -  Fixed slapo-dds entryTTL to actually decrease as per RFC 2589 (ITS#7100)
     -  Fixed slapo-syncprov memory leak with delete operations (ITS#8690)
-    -  Fixed slapo-syncprov to not clear pending operation when checkpointing (ITS#8444)
-    -  Fixed slapo-syncprov to correctly record contextCSN values in the accesslog (ITS#8100)
+    -  Fixed slapo-syncprov to not clear pending operation when checkpointing
+         (ITS#8444)
+    -  Fixed slapo-syncprov to correctly record contextCSN values in the
+         accesslog (ITS#8100)
     -  Fixed slapo-syncprov not to log checkpoints to accesslog db (ITS#8607)
-    -  Fixed slapo-syncprov to process changes from this SID on REFRESH (ITS#8800)
-    -  Fixed slapo-syncprov session log parsing to not block other operations (ITS#8486)
+    -  Fixed slapo-syncprov to process changes from this SID on REFRESH
+         (ITS#8800)
+    -  Fixed slapo-syncprov session log parsing to not block other operations
+         (ITS#8486)
     - Build Environment
     -  Fixed Windows build with newer MINGW version (ITS#8697)
     -  Fixed compiler warnings and removed unused variables (ITS#8578)
@@ -38,7 +50,8 @@ openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
     - Documentation
     -  Delete stub manpage for back-ldbm (ITS#8713)
     -  Fixed ldap_bind(3) to mention the LDAP_SASL_SIMPLE mechanism (ITS#8121)
-    -  Fixed ldap.conf(5) to note SASL_MECH/SASL_REALM are no longer user-only (ITS#8818)
+    -  Fixed ldap.conf(5) to note SASL_MECH/SASL_REALM are no longer user-only
+         (ITS#8818)
     -  Fixed slapd-config(5) typo for olcTLSCipherSuite (ITS#8715)
     -  Fixed slapo-syncprov(5) indexing requirements (ITS#5048)
     - LTB changes
@@ -54,9 +67,11 @@ openldap-ltb (2.4.45.1) unstable; urgency=low
   * New upstream release.
 
     - OpenLDAP 2.4.45 Release (2017/06/01)
-    -  Added slapd support for OpenSSL 1.1.0 series (ITS#8353, ITS#8533, ITS#8634)
+    -  Added slapd support for OpenSSL 1.1.0 series (ITS#8353, ITS#8533,
+         ITS#8634)
     -  Fixed libldap to fail ldap_result if the handle is already bad (ITS#8585)
-    -  Fixed libldap to expose error if user specified CA doesn't exist (ITS#8529)
+    -  Fixed libldap to expose error if user specified CA doesn't exist
+         (ITS#8529)
     -  Fixed libldap handling of Diffie-Hellman parameters (ITS#7506)
     -  Fixed libldap GnuTLS use after free (ITS#8385)
     -  Fixed libldap SASL initialization (ITS#8648)
@@ -65,14 +80,18 @@ openldap-ltb (2.4.45.1) unstable; urgency=low
     -  Fixed slapd sasl SEGV rebind in same session (ITS#8568)
     -  Fixed slapd syncrepl filter handling (ITS#8413)
     -  Fixed slapd syncrepl infinite looping mods with delta-sync MMR (ITS#8432)
-    -  Fixed slapd callback struct so older modules without writewait should function.
-    -              Custom modules may need to be updated for sc_writewait callback (ITS#8435)
+    -  Fixed slapd callback struct so older modules without writewait should
+         function.
+    -              Custom modules may need to be updated for sc_writewait
+                   callback (ITS#8435)
     -  Fixed slapd-ldap/meta broken LDAP_TAILQ macro (ITS#8576)
     -  Fixed slapd-mdb so it passes ITS6794 regression test (ITS#6794)
     -  Fixed slapd-mdb double free with size zero paged result (ITS#8655)
     -  Fixed slapd-meta uninitialized diagnostic message (ITS#8442)
-    -  Fixed slapo-accesslog to honor pauses during purge for cn=config update (ITS#8423)
-    -  Fixed slapo-accesslog with multiple modifications to the same attribute (ITS#6545)
+    -  Fixed slapo-accesslog to honor pauses during purge for cn=config update
+         (ITS#8423)
+    -  Fixed slapo-accesslog with multiple modifications to the same attribute
+         (ITS#6545)
     -  Fixed slapo-relay to correctly initialize sc_writewait (ITS#8428)
     -  Fixed slapo-sssvlv double free (ITS#8592)
     -  Fixed slapo-unique with empty modifications (ITS#8266)
@@ -86,7 +105,8 @@ openldap-ltb (2.4.45.1) unstable; urgency=low
     - Contrib
     -  Added slapo-autogroup(5) man page (ITS#8569)
     -  Added passwd missing conversion scripts for apr1 (ITS#6826)
-    -  Fixed contrib modules where the writewait callback was not correctly initialized (ITS#8435)
+    -  Fixed contrib modules where the writewait callback was not correctly
+         initialized (ITS#8435)
     -  Fixed smbk5pwd to build with newer OpenSSL releases (ITS#8525)
     - Documentation
     -  admin24 fixed tls_cipher_suite bindconf option (ITS#8099)
@@ -96,25 +116,38 @@ openldap-ltb (2.4.45.1) unstable; urgency=low
     -  admin24 fixed minor typo in tuning guide (ITS#8499)
     -  admin24 fixed information about the limits option (ITS#7700)
     -  admin24 fixed missing options for syncrepl configuration (ITS#7700)
-    -  admin24 fixed accesslog documentation to note it should not be replicated (ITS#8344)
+    -  admin24 fixed accesslog documentation to note it should not be replicated
+         (ITS#8344)
     -  Fixed ldap.conf(5) missing information on SASL_NOCANON option (ITS#7177)
-    -  Fixed ldapsearch(1) information on the V[V] flag behavior (ITS#7177, ITS#6339)
-    -  Fixed slapd-config(5), slapd.conf(5) clarification on interval keyword for refreshAndPersist (ITS#8538)
-    -  Fixed slapd-config(5), slapd.conf(5) clarify serverID requirements (ITS#8635)
-    -  Fixed slapd-config(5), slapd.conf(5) clarification on loglevel settings (ITS#8123)
+    -  Fixed ldapsearch(1) information on the V[V] flag behavior (ITS#7177,
+         ITS#6339)
+    -  Fixed slapd-config(5), slapd.conf(5) clarification on interval keyword
+         for refreshAndPersist (ITS#8538)
+    -  Fixed slapd-config(5), slapd.conf(5) clarify serverID requirements
+         (ITS#8635)
+    -  Fixed slapd-config(5), slapd.conf(5) clarification on loglevel settings
+         (ITS#8123)
     -  Fixed slapo-ppolicy(5) to clearly note rootdn requirement (ITS#8565)
-    -  Fixed slapo-memberof(5) to note it is not safe to use with replication (ITS#8613)
+    -  Fixed slapo-memberof(5) to note it is not safe to use with replication
+         (ITS#8613)
     -  Fixed slapo-syncprov(5) documentation to be current (ITS#8253)
     -  Fixed slapadd(8) manpage to note slapd-mdb (ITS#8215)
     -  Fixed various minor grammar issues in the man pages (ITS#8544)
     -  Fixed various typos (ITS#8587)
     - LTB changes
-    -  upgrading ppm to v1.6 (sets conf file from env var, adds maxConsecutivePerClass parameter, unitary tests and cracklib support) (https://github.com/ltb-project/ppm)
-    -  adding PBKDF2 module (https://github.com/ltb-project/openldap-deb/issues/4)
-    -  build with SLAP_SCHEMA_EXPOSE (https://github.com/ltb-project/openldap-deb/issues/1)
-    -  upgrading init script to v2.2 (ldapi:// added to listening interfaces) (https://github.com/ltb-project/openldap-initscript/issues/1)
-    -  adding noopsrch to contributed overlays (https://github.com/ltb-project/openldap-rpm/issues/3)
-    -  adding nssov overlay (https://github.com/ltb-project/openldap-rpm/issues/2)
+    -  upgrading ppm to v1.6 (sets conf file from env var, adds
+         maxConsecutivePerClass parameter, unitary tests and cracklib support)
+         (https://github.com/ltb-project/ppm)
+    -  adding PBKDF2 module
+         (https://github.com/ltb-project/openldap-deb/issues/4)
+    -  build with SLAP_SCHEMA_EXPOSE
+         (https://github.com/ltb-project/openldap-deb/issues/1)
+    -  upgrading init script to v2.2 (ldapi:// added to listening interfaces)
+         (https://github.com/ltb-project/openldap-initscript/issues/1)
+    -  adding noopsrch to contributed overlays
+         (https://github.com/ltb-project/openldap-rpm/issues/3)
+    -  adding nssov overlay
+         (https://github.com/ltb-project/openldap-rpm/issues/2)
 
  -- David Coutadeur <dcoutadeur@linagora.com>  Sat, 10 Jun 2017 19:54:31 +0200
 
@@ -160,11 +193,14 @@ openldap-ltb (2.4.43.1) unstable; urgency=low
     - Fixed slapd-ldap to skip client controls in ldap_back_entry_get (ITS#8244)
     - Fixed slapd-null to have an option to return a search entry (ITS#8249)
     - Fixed slapd-relay to correctly handle quoted options (ITS#8284)
-    - Fixed slapo-accesslog delta-sync MMR with interrupted refresh phase (ITS#8281)
+    - Fixed slapo-accesslog delta-sync MMR with interrupted refresh phase
+        (ITS#8281)
     - Fixed slapo-dds segfault when using slapo-memberof (ITS#8133)
-    - Fixed slapo-ppolicy to allow purging of stale pwdFailureTime attributes (ITS#8185)
+    - Fixed slapo-ppolicy to allow purging of stale pwdFailureTime attributes
+        (ITS#8185)
     - Fixed slapo-ppolicy to release entry on failure (ITS#7537)
-    - Fixed slapo-ppolicy to fall back to default policy if there is a parsing error (ITS#8234)
+    - Fixed slapo-ppolicy to fall back to default policy if there is a parsing
+        error (ITS#8234)
     - Fixed slapo-syncprov with interrupted refresh phase (ITS#8281)
     - Fixed slapo-refint with subtree renames (ITS#8220)
     - Fixed slapo-rwm missing olcDropUnrequested attribute (ITS#7889)
@@ -179,10 +215,12 @@ openldap-ltb (2.4.43.1) unstable; urgency=low
     -  Fixed smbk5pwd compiler warnings with libnettle (ITS#8235)
     -  Fixed passwd symbol collisions with other crypto libraries (ITS#8294)
     - Documentation
-    -  Updated guide to reflect changes to how TLS is handled with syncrepl (ITS#7897)
+    -  Updated guide to reflect changes to how TLS is handled with syncrepl
+         (ITS#7897)
     - LTB changes
     -  Adding TCP wrappers compilation option (#786)
-    -  Backporting patch in ITS#8330 for MDB mutex to be correctly handled in every build system
+    -  Backporting patch in ITS#8330 for MDB mutex to be correctly handled in
+         every build system
 
  -- David Coutadeur <dcoutadeur@linagora.com>  Thu, 03 Dec 2015 15:39:01 +0100
 
@@ -192,9 +230,11 @@ openldap-ltb (2.4.42.1) unstable; urgency=low
 
     - OpenLDAP 2.4.42 Release (2015/08/14)
     - Fixed liblber address length for CLDAP (ITS#8158)
-    - Fixed libldap dnssrv potential overflow with port number (ITS#7027,ITS#8195)
+    - Fixed libldap dnssrv potential overflow with port number
+        (ITS#7027,ITS#8195)
     - Fixed slapd cn=config when updating olcAttributeTypes (ITS#8199)
-    - Fixed slapd-mdb to correctly update search candidates for scoped searches (ITS#8203)
+    - Fixed slapd-mdb to correctly update search candidates for scoped searches
+        (ITS#8203)
     - Fixed slapo-ppolicy with redundant mod ops on glued trees (ITS#8184)
     - Fixed slapo-rwm crash when deleting rewrite rules (ITS#8213)
     - Build Environment
@@ -218,10 +258,12 @@ openldap-ltb (2.4.41.1) unstable; urgency=low
     - Fixed slapd slapadd config db import of minimal frontend entry (ITS#8150)
     - Fixed slapd slapadd onetime leak with -w (ITS#8014)
     - Fixed slapd sasl auxprop crash with invalid config (ITS#8092)
-    - Fixed slapd syncrepl delta-mmr issue with overlays and slapd.conf (ITS#7976)
+    - Fixed slapd syncrepl delta-mmr issue with overlays and slapd.conf
+        (ITS#7976)
     - Fixed slapd syncrepl mutex for cookie state (ITS#7968)
     - Fixed slapd syncrepl memory leaks (ITS#8035)
-    - Fixed slapd syncrepl to free presentlist at end of refresh mode (ITS#8038)
+    - Fixed slapd syncrepl to free presentlist at end of refresh mode
+        (ITS#8038)
     - Fixed slapd syncrepl to streamline presentlist (ITS#8042)
     - Fixed slapd syncrepl concurrency when CHECK_CSN is enabled (ITS#8120)
     - Fixed slapd rootdn checks for hidden backends (ITS#8108)
@@ -232,9 +274,12 @@ openldap-ltb (2.4.41.1) unstable; urgency=low
     - Fixed slapd-mdb heap corruption (ITS#7965)
     - Fixed slapd-mdb crash after deleting in-use schema (ITS#7995)
     - Fixed slapd-mdb minor code cleanup (ITS#8011)
-    - Fixed slapd-mdb to return errors when using incorrect env flags (ITS#8016)
-    - Fixed slapd-mdb to correctly update search candidates (ITS#8036, ITS#7904)
-    - Fixed slapd-mdb when there were more than 65535 aliases in scope (ITS#8103)
+    - Fixed slapd-mdb to return errors when using incorrect env flags
+        (ITS#8016)
+    - Fixed slapd-mdb to correctly update search candidates
+        (ITS#8036, ITS#7904)
+    - Fixed slapd-mdb when there were more than 65535 aliases in scope
+        (ITS#8103)
     - Fixed slapd-mdb alias deref when objectClass is not indexed (ITS#8146)
     - Fixed slapd-meta TLS initialization with ldaps URIs (ITS#8022)
     - Fixed slapd-meta to have better error logging (ITS#8131)
@@ -251,7 +296,8 @@ openldap-ltb (2.4.41.1) unstable; urgency=low
     - Fixed slapo-syncprov segfault on disconnect/abandon (ITS#8043)
     - Fixed slapo-syncprov deadlock when autogroup is in use (ITS#8063)
     - Fixed slapo-syncprov potential loss of changes when under load (ITS#8081)
-    - Fixed slapo-unique enforcement of uniqueness with manageDSAit control (ITS#8057)
+    - Fixed slapo-unique enforcement of uniqueness with manageDSAit control
+        (ITS#8057)
     - Build Environment
     -  Fixed libdb detection with gcc 5.x (ITS#8056)
     -  Fixed ftello reference for Win32 (ITS#8127)
@@ -269,8 +315,10 @@ openldap-ltb (2.4.41.1) unstable; urgency=low
     -  Fixed nssov password change behavior (ITS#8080)
     -  Fixed nssov updated to 0.9.4 (ITS#8097)
     - Documentation
-    -  Added ldap_get_option(3) LDAP_FEATURE_INFO_VERSION information (ITS#8032)
-    -  Added ldap_get_option(3) LDAP_OPT_API_INFO_VERSION information (ITS#8032)
+    -  Added ldap_get_option(3) LDAP_FEATURE_INFO_VERSION information
+         (ITS#8032)
+    -  Added ldap_get_option(3) LDAP_OPT_API_INFO_VERSION information
+         (ITS#8032)
     -  Fixed slapd-config(5), slapd.conf(5) tls_cipher_suite option (ITS#8099)
     -  Fixed slapd-meta(5), slapd-ldap(5) tls_cipher_suite option (ITS#8099)
     -  Fixed slapd-meta(5) fix minor typo (ITS#7769)
@@ -339,7 +387,8 @@ openldap-ltb (2.4.40-1) unstable; urgency=low
     - Fixed slapo-sssvlv fix olcSssVlvMaxPerConn (ITS#7908)
     - Fixed slapo-translucent double free (ITS#7587)
     - Fixed slapo-translucent to work with manageDSAit (ITS#7864)
-    - Fixed slapo-translucent to use local backend with local entries (ITS#7915)
+    - Fixed slapo-translucent to use local backend with local entries
+        (ITS#7915)
     - Fixed slapo-unique connection destroy logic (ITS#7906,ITS#7923)
     - Fixed slapcacl with invalid suffix (ITS#7827)
     - Build Environment

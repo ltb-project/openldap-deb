@@ -18,7 +18,7 @@ Description: OpenLDAP server with addons from the LDAP Tool Box project
  similar to the way DNS (Domain Name System) information is propagated
  over the Internet.
  .
- This package contains all: server, clients, librairies and docs. It
+ This package contains all: server, clients, libraries and docs. It
  can be installed with openldap and openldap-devel. It provides tools
  from the LDAP Tool Box project:
  o Start/stop script

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+# stops OpenLDAP and removes startup links
+if [ -x "/etc/init.d/slapd" ]; then
+        update-rc.d -f slapd remove >/dev/null
+fi
+
+# Remove syslog facility
+sed -i '/local4\..*/d' /etc/rsyslog.conf
+command -v initctl >/dev/null && initctl list | grep -q rsyslog
+if [ $? -eq 0 ]; then
+	# compatibility with ubuntu
+	initctl restart rsyslog
+else
+        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+                if invoke-rc.d rsyslog status >/dev/null 2>&1; then
+                        invoke-rc.d rsyslog restart > /dev/null 2>&1
+                fi
+        else
+	        if [ -x "/etc/init.d/rsyslog" ]; then
+                        /etc/init.d/rsyslog restart > /dev/null 2>&1
+                fi
+        fi
+fi
+

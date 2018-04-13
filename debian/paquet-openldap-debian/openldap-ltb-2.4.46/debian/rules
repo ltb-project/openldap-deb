@@ -102,7 +102,7 @@ binary-arch: build install
 #	dh_installinfo -a
 #	dh_installwm -a
 #	dh_installudev -a
-#	dh_lintian -a
+	dh_lintian -a
 #	dh_undocumented -a
 	dh_installman -a
 	dh_strip -a --dbg-package=openldap-ltb-dbg

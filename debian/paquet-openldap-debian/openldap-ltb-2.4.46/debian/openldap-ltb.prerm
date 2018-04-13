@@ -1,12 +1,13 @@
 #!/bin/bash
 
+set -e
+
 BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
 
 # stops OpenLDAP and removes startup links
 if [ -x "/etc/init.d/slapd" ]; then
-        update-rc.d -f slapd remove >/dev/null
         if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
                 invoke-rc.d slapd stop || exit $?
         else
@@ -14,19 +15,3 @@ if [ -x "/etc/init.d/slapd" ]; then
         fi
 fi
 
-# Remove syslog facility
-sed -i '/local4\..*/d' /etc/rsyslog.conf
-command -v initctl >/dev/null && initctl list | grep -q rsyslog
-if [ $? -eq 0 ]; then
-	# compatibility with ubuntu
-	initctl restart rsyslog
-else
-	if [ -x "/etc/init.d/rsyslog" ]; then
-		/etc/init.d/rsyslog restart > /dev/null 2>&1
-	fi
-fi
-
-
-# Remove OpenLDAP libraries from the system
-#sed -i "\:${LDAPSERVERDIR}/${_LIB}:d" /etc/ld.so.conf
-#/sbin/ldconfig

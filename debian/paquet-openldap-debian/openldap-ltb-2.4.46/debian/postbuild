@@ -16,6 +16,8 @@ cp -f "../openldap.logrotate" "${INSTALL_DIR}/etc/logrotate.d/openldap"
 cp -f "../openldap.sh" "${INSTALL_DIR}/etc/profile.d"
 cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.init" "${INSTALL_DIR}/etc/init.d/slapd"
 chmod 755 "${INSTALL_DIR}/etc/init.d/slapd"
+# inject lsb functions loading in debian init script
+sed -i '/^VERSION=/a . /lib/lsb/init-functions' "${INSTALL_DIR}/etc/init.d/slapd"
 cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli" "${INSTALL_DIR}/usr/local/openldap/sbin/"
 cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli.conf" "${INSTALL_DIR}/usr/local/openldap/etc/openldap/"
 
@@ -156,3 +158,10 @@ install -m 755 "mdb_stat" "${INSTALL_DIR}${LDAPSERVERDIR}/sbin"
 install -m 644 "mdb_copy.1" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man1"
 install -m 644 "mdb_stat.1" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man1"
 cd ../..
+
+# Install lintian profile
+mkdir -p ${INSTALL_DIR}/usr/share/lintian/profiles/debian
+cp debian/openldap-ltb.lintian.profile ${INSTALL_DIR}/usr/share/lintian/profiles/debian/openldap-ltb.profile
+
+# Clean dependency_libs field in every *.la file
+find ${INSTALL_DIR} -name '*.la' | xargs -I {} sed -i "/dependency_libs/ s/'.*'/''/" {}
