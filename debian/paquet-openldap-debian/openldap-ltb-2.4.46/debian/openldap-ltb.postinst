@@ -32,7 +32,18 @@ fi
 mkdir -p ${LDAPDATADIR}
 mkdir -p ${LDAPLOGSDIR}
 mkdir -p ${LDAPBACKUPDIR}
-chown -R root:root ${LDAPSERVERDIR}
+
+# Globally set owner to root:root
+chown root:root ${LDAPSERVERDIR}
+chown -R root:root ${LDAPSERVERDIR}/bin
+chown -R root:root ${LDAPSERVERDIR}/etc/openldap/{DB_CONFIG.example,ldap.conf,ldap.conf.default,schema,slapd.conf.default,slapd.ldif,slapd.ldif.default}
+chown -R root:root ${LDAPSERVERDIR}/include
+chown -R root:root ${LDAPSERVERDIR}/lib64
+chown -R root:root ${LDAPSERVERDIR}/libexec
+chown -R root:root ${LDAPSERVERDIR}/sbin
+chown -R root:root ${LDAPSERVERDIR}/var
+
+# Specifically adapt some files/directories owner and permissions
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
