@@ -12,8 +12,8 @@ grep -q -E "^ldap:" /etc/passwd || adduser --system --no-create-home --home /usr
 
 # Add syslog facility
 grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
-command -v initctl >/dev/null && initctl list | grep -q rsyslog
-if [ $? -eq 0 ]; then
+
+if command -v initctl >/dev/null && initctl list | grep -q rsyslog; then
 	# compatibility with ubuntu
 	initctl restart rsyslog
 else
