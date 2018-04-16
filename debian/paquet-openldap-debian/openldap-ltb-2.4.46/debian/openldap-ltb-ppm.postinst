@@ -1,14 +1,16 @@
 #!/bin/bash
 
+set -e
+
 BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
 
 # Change owner
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
-/bin/chmod +x "${LDAPSERVERDIR}/${_LIB}/ppm_test"
+chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
+chmod +x "${LDAPSERVERDIR}/${_LIB}/ppm_test"
 
-/bin/chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/ppm.conf
+chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/ppm.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/ppm.conf
 
 # add path to PPM config file if not present

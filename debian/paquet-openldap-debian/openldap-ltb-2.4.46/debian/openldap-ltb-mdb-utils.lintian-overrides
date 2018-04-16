@@ -1,0 +1,4 @@
+# OpenLDAP-LTB is installed in /usr/local/
+openldap-ltb-mdb-utils binary: dir-in-usr-local
+openldap-ltb-mdb-utils binary: file-in-usr-local
+openldap-ltb-mdb-utils binary: file-in-unusual-dir

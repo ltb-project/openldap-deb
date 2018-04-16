@@ -1,0 +1,9 @@
+# ignore presence of configuration file in /usr
+openldap-ltb-ppm binary: file-in-usr-marked-as-conffile usr/local/openldap/etc/openldap/ppm.conf
+# OpenLDAP-LTB is installed in /usr/local/
+openldap-ltb-ppm binary: dir-in-usr-local
+openldap-ltb-ppm binary: file-in-usr-local
+openldap-ltb-ppm binary: file-in-unusual-dir
+
+# modules are linked to private OpenLDAP-LTB shared libraries
+openldap-ltb-ppm binary: binary-or-shlib-defines-rpath usr/local/openldap/lib64/ppm_test .

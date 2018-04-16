@@ -1,9 +1,11 @@
 #!/bin/bash
 
+set -e
+
 BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
 
 # Change owner
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/share"
-/bin/chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/sbin"
+chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/share"
+chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/sbin"

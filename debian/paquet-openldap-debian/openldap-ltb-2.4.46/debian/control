@@ -27,6 +27,7 @@ Description: OpenLDAP server with addons from the LDAP Tool Box project
 Package: openldap-ltb-dbg
 Architecture: any
 Section: debug
+Priority: extra
 Depends: openldap-ltb (= ${binary:Version})
 Description: Debugging symbols for openldap-ltb
  OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
@@ -40,27 +41,31 @@ Description: Debugging symbols for openldap-ltb
 
 Package: openldap-ltb-check-password
 Architecture: any
-Depends: openldap-ltb, libcrack2
+Depends: openldap-ltb, libcrack2, libc6 (>= 2.4)
 Description: check_password module for password policy
- check_password.c is an OpenLDAP pwdPolicyChecker module used to check the strength
- and quality of user-provided passwords. This module is used as an extension of the
- OpenLDAP password policy controls, see slapo-ppolicy(5) section pwdCheckModule.
- check_password.c will run a number of checks on the passwords to ensure minimum
- strength and quality requirements are met. Passwords that do not meet these
- requirements are rejected.
+ check_password.c is an OpenLDAP pwdPolicyChecker module used to check the
+ strength and quality of user-provided passwords. This module is used as an
+ extension of the OpenLDAP password policy controls, see slapo-ppolicy(5)
+ section pwdCheckModule.
+ check_password.c will run a number of checks on the passwords to ensure
+ minimum strength and quality requirements are met. Passwords that do not meet
+ these requirements are rejected.
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
 Package: openldap-ltb-ppm
 Architecture: any
-Depends: openldap-ltb, libcrack2
+Depends: openldap-ltb, libcrack2, libc6 (>= 2.4)
 Description: OpenLDAP password policy module
- ppm.c is an OpenLDAP module for checking password quality when they are modified. Passwords are checked against the presence or absence of certain character classes.
- This module is used as an extension of the OpenLDAP password policy controls, see slapo-ppolicy(5) section pwdCheckModule.
+ ppm.c is an OpenLDAP module for checking password quality when they are
+ modified. Passwords are checked against the presence or absence of certain
+ character classes.
+ This module is used as an extension of the OpenLDAP password policy controls,
+ see slapo-ppolicy(5) section pwdCheckModule.
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
 Package: openldap-ltb-contrib-overlays
 Architecture: any
-Depends: openldap-ltb
+Depends: openldap-ltb, libc6 (>= 2.4)
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
  as contributions. This package provide some of them.
@@ -68,7 +73,7 @@ Description: Overlays contributed to OpenLDAP
 
 Package: openldap-ltb-mdb-utils
 Architecture: any
-Depends: openldap-ltb
+Depends: openldap-ltb, libc6 (>= 2.4)
 Description: utilities for mdb
  mdb utilities contain both mdb_stat and mdb_copy, and the associated
  documentation.
