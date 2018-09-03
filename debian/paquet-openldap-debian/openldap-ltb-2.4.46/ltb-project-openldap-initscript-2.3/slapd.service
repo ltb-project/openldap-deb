@@ -7,7 +7,6 @@ After=syslog.target network.target
 Type=forking
 PIDFile=/usr/local/openldap/var/run/slapd.pid
 ExecStart=/usr/local/openldap/sbin/slapd-cli start
-ExecRestart=/usr/local/openldap/sbin/slapd-cli restart
 ExecStop=/usr/local/openldap/sbin/slapd-cli stop
 
 [Install]
