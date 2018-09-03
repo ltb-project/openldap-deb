@@ -17,3 +17,4 @@ usr/local/openldap/share/man/man8
 usr/local/openldap/var
 usr/share/lintian/profiles/debian/openldap-ltb.profile
 etc
+lib

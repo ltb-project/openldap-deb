@@ -51,13 +51,26 @@ chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 
 
-# Automatize init script
-if [ -x "/etc/init.d/slapd" ]; then
-        update-rc.d slapd defaults >/dev/null
-        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-                invoke-rc.d slapd start || exit $?
-        else
-                /etc/init.d/slapd start || exit $?
-        fi
+# Manage Systemd / init script
+# systemctl if managed till debian 8,
+# but we require debian >= 9 for enabling systemd script
+if [ "${DEBIAN_VERSION}" -gt "8" ]; then
+  # SYSTEMD SCRIPT
+
+  systemctl enable slapd || exit $?
+  systemctl start slapd || exit $?
+
+else
+  # INIT SCRIPT
+
+  if [ -x "/etc/init.d/slapd" ]; then
+    update-rc.d slapd defaults >/dev/null
+    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+      invoke-rc.d slapd start || exit $?
+    else
+      /etc/init.d/slapd start || exit $?
+    fi
+  fi
+  
 fi
 

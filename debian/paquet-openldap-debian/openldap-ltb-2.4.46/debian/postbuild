@@ -8,16 +8,33 @@ source $BASEDIR/openldap-ltb.vars
 mkdir -p "${INSTALL_DIR}/${LDAPDATADIR}"
 mkdir -p "${INSTALL_DIR}/etc/logrotate.d"
 mkdir -p "${INSTALL_DIR}/etc/profile.d"
+mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 mkdir -p "${INSTALL_DIR}/etc/init.d"
+
+# Manage Systemd / init script
+# systemctl if managed till debian 8,
+# but we require debian >= 9 for enabling systemd script
+if [ "${DEBIAN_VERSION}" -gt "8" ]; then
+  # SYSTEMD SCRIPT
+  
+  cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
+  chmod 755 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
+
+else
+  # INIT SCRIPT
+
+  cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.init" "${INSTALL_DIR}/etc/init.d/slapd"
+  chmod 755 "${INSTALL_DIR}/etc/init.d/slapd"
+  # inject lsb functions loading in debian init script
+  sed -i '/^VERSION=/a . /lib/lsb/init-functions' "${INSTALL_DIR}/etc/init.d/slapd"
+  
+fi
+
 
 # copy some more files
 cp -f "../DB_CONFIG" "${INSTALL_DIR}/${LDAPDATADIR}"
 cp -f "../openldap.logrotate" "${INSTALL_DIR}/etc/logrotate.d/openldap"
 cp -f "../openldap.sh" "${INSTALL_DIR}/etc/profile.d"
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.init" "${INSTALL_DIR}/etc/init.d/slapd"
-chmod 755 "${INSTALL_DIR}/etc/init.d/slapd"
-# inject lsb functions loading in debian init script
-sed -i '/^VERSION=/a . /lib/lsb/init-functions' "${INSTALL_DIR}/etc/init.d/slapd"
 cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli" "${INSTALL_DIR}/usr/local/openldap/sbin/"
 cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli.conf" "${INSTALL_DIR}/usr/local/openldap/etc/openldap/"
 
