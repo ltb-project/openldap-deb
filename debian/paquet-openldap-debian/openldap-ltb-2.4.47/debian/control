@@ -63,6 +63,17 @@ Description: OpenLDAP password policy module
  see slapo-ppolicy(5) section pwdCheckModule.
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
+Package: openldap-ltb-explockout
+Architecture: any
+Depends: openldap-ltb, libc6 (>= 2.4)
+Description: OpenLDAP exponential time password lockout overlay
+ explockout.c is an OpenLDAP module for disabling user to bind to an LDAP
+ directory for an exponential time based on the delay after which he has
+ made a bind failure
+ This module must be used in conjunction with the OpenLDAP password policy
+ overlay, see slapo-ppolicy(5)
+ This is provided by LDAP Tool Box project: http://www.ltb-project.org
+
 Package: openldap-ltb-contrib-overlays
 Architecture: any
 Depends: openldap-ltb, libc6 (>= 2.4)

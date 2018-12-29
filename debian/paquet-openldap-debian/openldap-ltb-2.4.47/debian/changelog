@@ -1,3 +1,42 @@
+openldap-ltb (2.4.47.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.47 Release (2018/12/19)
+    -  Added slapd-sock DN qualifier for subtrees to be processed
+         (ITS#8051)
+    -  Added slapd-sock ability to send extended operations to external
+         listeners (ITS#8714)
+    -  Fixed liblber to avoid incremental access to user-supplied bv in dupbv
+         (ITS#8752)
+    -  Fixed libldap dn to domain parsing with bad input (ITS#8842)
+    -  Fixed slapd slapcat to correctly honor -g option (ITS#8667)
+    -  Fixed slapd to correctly handle NO_SUCH_OBJECT with dynamic groups
+         (ITS#8923)
+    -  Fixed slapd to check status of rdnNormalize (ITS#8932)
+    -  Fixed slapd cn=config when modifying slapo-syncprov config (ITS#8616)
+    -  Fixed slapd sasl authz-policy "all" behavior (ITS#8909)
+    -  Fixed slapd sasl minor typo (ITS#8918)
+    -  Fixed slapd to correctly hide hidden DBs in the rootDSE (ITS#8912)
+    -  Fixed slapd domainScope control to match Microsoft specification
+         (ITS#8840)
+    -  Fixed slapd-bdb/hdb/mdb to not convert certain IDLs to ranges (ITS#8868)
+    -  Fixed slapo-accesslog deadlock during cleanup (ITS#8752)
+    -  Fixed slapo-memberof cn=config modifications (ITS#8663)
+    -  Fixed slapo-ppolicy with multimaster replication (ITS#8927)
+    -  Fixed slapo-syncprov with NULL modlist (ITS#8843)
+    - Build Environment
+    -  Added slapd reproducible build support (ITS#8928)
+    -  Fixed missing includes with OpenSSL 1.0.2 (ITS#8809)
+    - Contrib
+    -  Fixed slapo-pbkdf2 hash generation (ITS#8878)
+    - Documentation
+    -  admin24 fixed minor typo (ITS#8887)
+    - LTB changes
+    -  Package should not set root:root owner recursively (#16)
+    -  make openldap ltb deb pass lintian checks (#15)
+    -  integrate explockout (#19)
+
+ -- David Coutadeur <dcoutadeur@linagora.com>  Sat, 29 Dec 2018 18:00:00 +0200
+
 openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.46 Release (2018/03/22)
@@ -59,8 +98,6 @@ openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
     -  use new 2.3 openldap-initscript (#13)
     -  Fix ppm compilation (https://github.com/ltb-project/ppm/issues/10)
 
-
- -- David Coutadeur <dcoutadeur@linagora.com>  Fri, 30 Mar 2018 16:15:36 +0200
 
 openldap-ltb (2.4.45.1) unstable; urgency=low
 
