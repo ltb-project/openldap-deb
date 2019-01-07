@@ -34,6 +34,11 @@ openldap-ltb (2.4.47.1) UNRELEASED; urgency=medium
     -  Package should not set root:root owner recursively (#16)
     -  make openldap ltb deb pass lintian checks (#15)
     -  integrate explockout (#19)
+    -  initscript updated to 2.4: 
+    -    #12 : possibility to disable LDIF wrapping
+    -    #13 : manage spaces in syncrepl options values
+    -    #14 : remove ExecRestart in systemd service
+
 
  -- David Coutadeur <dcoutadeur@linagora.com>  Sat, 29 Dec 2018 18:00:00 +0200
 

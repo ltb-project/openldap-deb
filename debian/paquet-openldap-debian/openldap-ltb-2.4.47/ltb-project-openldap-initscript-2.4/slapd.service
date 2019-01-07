@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenLDAP LTB startup script
+Documentation=https://ltb-project.org/documentation
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/openldap/var/run/slapd.pid
+ExecStart=/usr/local/openldap/sbin/slapd-cli start
+ExecStop=/usr/local/openldap/sbin/slapd-cli stop
+
+[Install]
+WantedBy=multi-user.target
