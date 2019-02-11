@@ -78,7 +78,7 @@ cd ..
 # explockout
 cd ${EXPL_NAME}-${EXPL_VERSION}
 make clean
-make "OLDAP_SOURCES=.." "LIBDIR=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
+make "OLDAP_SOURCES=.." "LIBDIR=${LDAPSERVERDIR}/libexec/openldap"
 cd ..
 
 # contrib-overlays
@@ -153,7 +153,7 @@ cd ..
 cd ${EXPL_NAME}-${EXPL_VERSION}
 mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
 mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5"
-make install "OLDAP_SOURCES=.." "LIBDIR=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
+make install "OLDAP_SOURCES=.." "DSTDIR=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
 install -m 644 "slapo-explockout.5" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5"
 cd ..
 
