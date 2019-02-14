@@ -21,8 +21,8 @@ export DH_OPTIONS
 	dh $@ 
 
 override_dh_clean:
-	cd build_unix && make clean
-	dh_clean
+	cd build_unix && make clean || echo
+	dh_clean || echo
 
 override_dh_auto_configure:
 	debian/configure
