@@ -57,8 +57,10 @@ chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 if [ "${DEBIAN_VERSION}" -gt "8" ]; then
   # SYSTEMD SCRIPT
 
-  systemctl enable slapd || exit $?
-  systemctl start slapd || exit $?
+  if [ -x "/bin/systemctl" ]; then
+    systemctl enable slapd || exit $?
+    systemctl start slapd || exit $?
+  fi
 
 else
   # INIT SCRIPT
