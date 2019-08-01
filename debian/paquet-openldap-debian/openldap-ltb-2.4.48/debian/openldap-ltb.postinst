@@ -23,7 +23,9 @@ else
 fi
 
 # Add syslog facility
-grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
+if [ -e "/etc/rsyslog.conf" ]; then
+  grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
+fi
 
 if command -v initctl >/dev/null && initctl list | grep -q rsyslog; then
 	# compatibility with ubuntu
@@ -67,10 +69,17 @@ chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 # systemctl if managed till debian 8,
 # but we require debian >= 9 for enabling systemd script
 if [ "${DEBIAN_VERSION}" -gt "8" ]; then
-  # SYSTEMD SCRIPT
 
-  systemctl enable slapd || exit $?
-  systemctl start slapd || exit $?
+  if ! type "systemctl" > /dev/null 2>&1; then
+    # No SYSTEMD available
+    # do not start on boot
+    # do not start slapd process now
+    echo && exit $?
+  else
+    # Assume SYSTEMD
+    systemctl enable slapd || exit $?
+    systemctl start slapd || exit $?
+  fi
 
 else
   # INIT SCRIPT
