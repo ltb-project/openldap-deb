@@ -7,8 +7,20 @@ source $BASEDIR/openldap-ltb.vars
 
 
 # Create user and group
-addgroup --system ${LDAPGROUP} || echo "group ${LDAPGROUP} already exists"
-grep -q -E "^ldap:" /etc/passwd || adduser --system --no-create-home --home /usr/local/openldap --ingroup ${LDAPGROUP} ${LDAPUSER}
+if ! getent group ldap > /dev/null 2>&1 ; then
+  addgroup --system ${LDAPGROUP}
+else
+  if ! grep -q -E "^ldap:" /etc/group ; then
+    echo "WARN: ${LDAPGROUP} group exists but is not a local group. This may cause slapd malfunction"
+  fi
+fi
+if ! getent passwd ldap > /dev/null 2>&1 ; then
+  adduser --system --no-create-home --home /usr/local/openldap --ingroup ${LDAPGROUP} ${LDAPUSER}
+else
+  if ! grep -q -E "^ldap:" /etc/passwd ; then
+    echo "WARN: ${LDAPGROUP} user exists but is not a local user. This may cause slapd malfunction"
+  fi
+fi
 
 # Add syslog facility
 grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
