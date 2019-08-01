@@ -18,7 +18,7 @@ if [ "${DEBIAN_VERSION}" -gt "8" ]; then
   # SYSTEMD SCRIPT
   
   cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
-  chmod 755 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
+  chmod 644 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
 
 else
   # INIT SCRIPT
