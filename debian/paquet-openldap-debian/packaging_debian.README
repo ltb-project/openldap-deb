@@ -28,9 +28,9 @@ To get a more recent version (beware: do this only if you are sure of OpenLDAP c
 
 get slapd
 ---------
-	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.46.tgz
-	tar xvzf openldap-2.4.46.tgz
-	cp -r openldap-2.4.46/* paquet-openldap-debian/openldap-ltb-2.4.46
+	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.48.tgz
+	tar xvzf openldap-2.4.48.tgz
+	cp -r openldap-2.4.48/* paquet-openldap-debian/openldap-ltb-2.4.48
 
 import some variables
 ---------------------
@@ -81,14 +81,14 @@ Update the package
 
 On one environment, do:
 
-        git mv openldap-ltb-2.4.45 openldap-ltb-2.4.46
-	cd openldap-ltb-2.4.46
-	dch -v 2.4.46.1
+        git mv openldap-ltb-2.4.47 openldap-ltb-2.4.48
+	cd openldap-ltb-2.4.48
+	dch -v 2.4.48.1
 
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.43/2.4.46/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
+	sed -i "s/2\.4\.47/2.4.48/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
 
 Commit every change, but do not update debian/control which is specific on Debian Lenny (libltdl3 dependency)
 

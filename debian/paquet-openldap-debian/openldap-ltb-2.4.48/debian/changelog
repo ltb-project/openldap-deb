@@ -1,3 +1,73 @@
+openldap-ltb (2.4.48.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.48 (2019/07/24)
+    -  Added libldap OpenSSL Elliptic Curve support (ITS#7595)
+    -  Added libldap Expose OpenLDAP specific interfaces via openldap.h
+         (ITS#8671)
+    -  Added slapd-monitor support for slapd-mdb (ITS#7770)
+    -  Fixed liblber leaks (ITS#8727)
+    -  Fixed liblber with partial flush (ITS#8864)
+    -  Fixed libldap ASYNC TLS so it works (ITS#8957,ITS#8980)
+    -  Fixed libldap ASYNC connections with Solaris 10 (ITS#8968)
+    -  Fixed libldap with SASL_NOCANON=on and ldapi connections (ITS#7585)
+    -  Fixed libldap to be able to unset syncrepl TLS options (ITS#7042)
+    -  Fixed libldap race condition in ldap_int_initialize (ITS#7996, ITS#8450)
+    -  Fixed libldap return code in ldap_create_assertion_control_value
+         (ITS#8674)
+    -  Fixed libldap to correctly disable IPv6 when configured to do so
+         (ITS#8754)
+    -  Fixed libldap to correctly close TLS connection (ITS#8755)
+    -  Fixed libldap_r handling of deprecated OpenSSL function (ITS#8353)
+    -  Fixed liblunicode case correspondance (ITS#8508)
+    -  Fixed slapd with an idletimeout of less than four seconds (ITS#8952)
+    -  Fixed slapd config parser variable for Windows64 (ITS#9012)
+    -  Fixed slapd syncrepl fallback handling with delta-syncrepl (ITS#9015)
+    -  Fixed slapd telephoneNumberNormalize, cert DN validation (ITS#8999)
+    -  Fixed slapd syncrepl for relax with delta-syncrepl (ITS#8037)
+    -  Fixed slapd to restrict rootDN proxyauthz to its own databases (ITS#9038)
+    -  Fixed slapd to initialize SASL SSF per connection (ITS#9052)
+    -  Fixed slapo-accesslog with SLAP_MOD_SOFT modifications (ITS#8990)
+    -  Fixed slapd-ldap starttls connections timeout behavior (ITS#8963)
+    -  Fixed slapd-ldap segfault when entry result doesn't match filter
+         (ITS#8997)
+    -  Fixed slapd-meta conversion from slapd.conf to cn=config (ITS#8743)
+    -  Fixed slapd-meta assertion when network interface goes down (ITS#8841)
+    -  Fixed slapd-mdb fix bitshift integer overflow (ITS#8989)
+    -  Fixed slapd-mdb index cleanup with cn=config (ITS#8472)
+    -  Fixed slapd-mdb to improve performance with alias deref (ITS#7657)
+    -  Fixed slapo-accesslog possible assert with exops (ITS#8971)
+    -  Fixed slapo-chain to correctly reject multiple chaining URIs (ITS#8637)
+    -  Fixed slapo-chain conversion from slapd.conf to cn=config (ITS#8799)
+    -  Fixed slapo-memberof conversion from slapd.conf to cn=config (ITS#8663)
+    -  Fixed slapo-memberof for group name change to itself (ITS#9000)
+    -  Fixed slapo-ppolicy behavior when pwdInHistory is changed (ITS#8349)
+    -  Fixed slapo-rwm to not free original filter (ITS#8964)
+    -  Fixed slapo-syncprov contextCSN generation (ITS#9015)
+    - Build Environment
+    -  Fixed slapd to only link to BDB libraries with static build (ITS#8948)
+    -  Fixed libldap implicit declaration with LDAP_CONNECTIONLESS (ITS#8794)
+    -  Fixed libldap double inclusion of limits.h in cyrus.c (ITS#9041)
+    - Documentation
+    -  General - Fixed minor typos (ITS#8764, ITS#8761)
+    -  admin24 - Miscellaneous updates promoting mdb and fixing examples
+         (ITS#9031)
+    -  slapd.access(5) - Note MDB is the primary backend (ITS#8881)
+    -  slapd.backends(5) - Note MDB is the recommended backend (ITS#8771)
+    -  slapd-ldap(5) - Document starttls parameter (ITS#8693)
+    - Contrib
+    -  Added slapo-lastbind capability to forward authTimestamp updates
+         (ITS#7721)
+    - LTB changes
+    -  conflict with remote ldap system user and group during openldap deb install (#34)
+    -  useless execution right is added to /lib/systemd/system/slapd.service (#33)
+    -  issue with Debian Stretch postinst when attempting to build a Docker image (#30)
+    -  explockout compilation fails when building openldap-ltb on Ubuntu 18.04 (#26)
+    -  compilation of berkeleydb-ltb packages fails on clean task (#25)
+    -  compile with --enable-rlookups (#23)
+
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 01 Aug 2019 10:05:55 +0200
+
 openldap-ltb (2.4.47.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.47 Release (2018/12/19)
@@ -39,8 +109,9 @@ openldap-ltb (2.4.47.1) UNRELEASED; urgency=medium
     -    #13 : manage spaces in syncrepl options values
     -    #14 : remove ExecRestart in systemd service
 
+  * 
 
- -- David Coutadeur <dcoutadeur@linagora.com>  Sat, 29 Dec 2018 18:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 08 Jan 2019 01:00:00 +0200
 
 openldap-ltb (2.4.46.1) UNRELEASED; urgency=medium
 
