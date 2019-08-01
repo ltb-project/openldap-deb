@@ -3,7 +3,7 @@ OpenLDAP module that denies authentication to users who have previously failed t
 
 ## TODO
 
-- improve explockout overlay to apply onlu for certain ppolicy (but it implies a strong interaction with the ppolicy)
+- improve explockout overlay to apply only for certain ppolicy (but it implies a strong interaction with the ppolicy)
 - create unit tests
 - create a markdown documentation?
 
