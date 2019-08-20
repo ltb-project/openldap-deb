@@ -58,6 +58,7 @@ openldap-ltb (2.4.48.1) UNRELEASED; urgency=medium
     -  Added slapo-lastbind capability to forward authTimestamp updates
          (ITS#7721)
     - LTB changes
+    -  include new ppm 1.8 release (#38)
     -  conflict with remote ldap system user and group during openldap deb install (#34)
     -  useless execution right is added to /lib/systemd/system/slapd.service (#33)
     -  issue with Debian Stretch postinst when attempting to build a Docker image (#30)
