@@ -60,6 +60,7 @@ chown -R root:root ${LDAPSERVERDIR}/var
 # Specifically adapt some files/directories owner and permissions
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
 chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
