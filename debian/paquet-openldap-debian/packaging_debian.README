@@ -81,14 +81,14 @@ Update the package
 
 On one environment, do:
 
-        git mv openldap-ltb-2.4.47 openldap-ltb-2.4.48
-	cd openldap-ltb-2.4.48
-	dch -v 2.4.48.1
+        git mv openldap-ltb-2.4.48 openldap-ltb-2.4.49
+	cd openldap-ltb-2.4.49
+	dch -v 2.4.49.1
 
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.47/2.4.48/g" files configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
+	sed -i "s/2\.4\.48/2.4.49/g" configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
 
 Commit every change, but do not update debian/control which is specific on Debian Lenny (libltdl3 dependency)
 
