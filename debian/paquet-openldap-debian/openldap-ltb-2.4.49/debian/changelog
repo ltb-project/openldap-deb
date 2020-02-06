@@ -1,4 +1,4 @@
-penldap-ltb (2.4.49.1) UNRELEASED; urgency=medium
+openldap-ltb (2.4.49.1) UNRELEASED; urgency=medium
   
     - OpenLDAP 2.4.49 (2020/01/30)
     -  Added slapd-monitor database entry count for slapd-mdb (ITS#9154)
