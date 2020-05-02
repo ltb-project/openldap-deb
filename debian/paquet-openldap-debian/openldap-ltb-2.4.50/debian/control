@@ -2,7 +2,7 @@ Source: openldap-ltb
 Section: net
 Priority: optional
 Maintainer: dcoutadeur <dcoutadeur@linagora.com>
-Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, berkeleydb-ltb (>= 4.6.21)
+Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, berkeleydb-ltb (>= 4.6.21), libsodium23, libsodium-dev
 Standards-Version: 3.8.4
 Homepage: http://ltb-project.org
 
@@ -76,7 +76,7 @@ Description: OpenLDAP exponential time password lockout overlay
 
 Package: openldap-ltb-contrib-overlays
 Architecture: any
-Depends: openldap-ltb, libc6 (>= 2.4)
+Depends: openldap-ltb, libc6 (>= 2.4), libsodium23
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
  as contributions. This package provide some of them.

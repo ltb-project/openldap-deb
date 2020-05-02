@@ -9,6 +9,17 @@ Instructions to build berkeleydb-ltb and openldap-ltb
 > Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
 > # apt-get install libkrb5-26-heimdal libhdb9-heimdal heimdal-dev
 
+For Debian 8 :
+        apt-get install libsodium13 libsodium-dev
+
+For Debian 9 :
+        apt-get install libsodium18 libsodium-dev
+
+For Debian 10 :
+        apt-get install libsodium23 libsodium-dev
+
+
+
 get the sources
 ---------------
 	cd /opt
@@ -52,30 +63,6 @@ building the source package (with no signing). Take care to create openldap-ltb_
 -----------------------------
 
 
-Instructions for debian lenny
-=============================
-replace libltdl7 by libltdl3 in debian/control (delete the specific 2.2.6b version)
-replace libltdl-dev by libltdl3-dev in debian/control
-
-> Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
-> Replace libkrb5-26-heimdal in debian/control by libkrb5-25-heimdal.
-> #apt-get install libkrb5-25-heimdal libhdb9-heimdal heimdal-dev
-
-	apt-get install libltdl3 et libltdl3-dev
-Use debian/rules.lenny target instead of debian/rules for berkeleydb
-
-in case of error for binary target:
-> dpkg-shlibdeps: erreur: impossible de trouver la bibliothèque libslapi-2.4.so.2 utilisée par debian/openldap-ltb/usr/local/openldap/libexec/slapd (format ELF : " elf64-x86-64 "; RPATH : "  ")
-
-do the following export just before running the target: (don't forget to un-export it to test the package)
-
-	export LD_LIBRARY_PATH=/opt/paquet-openldap-debian/openldap-ltb-2.4.46/debian/openldap-ltb/usr/local/openldap/lib64
-
-
-
------------------------------
-
-
 Update the package
 ==================
 
@@ -100,6 +87,23 @@ Get the new archive, and extract it into the directory:
 	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.XX.tgz
 	tar xvzf openldap-2.4.XX.tgz
 	cp -r openldap-2.4.XX/* openldap-ltb-2.4.XX/
+
+
+Adapt control files for libsodium:
+
+For Debian 7 :
+In "control" file, delete any reference to libsodium in Depends and Build-depends lines
+
+For Debian 8 :
+In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium13
+
+For Debian 9 :
+In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium18
+
+For Debian 10 :
+In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium23
+
+
 
 Regenerate the package thanks to the usual procedure
 

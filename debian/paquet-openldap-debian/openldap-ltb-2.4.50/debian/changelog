@@ -1,3 +1,34 @@
+
+openldap-ltb (2.4.50.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.50 Release (2020/04/28)
+    - Fixed client benign typos (ITS#8890)
+    -  Fixed libldap type cast (ITS#9175)
+    -  Fixed libldap retry loop in ldap_int_tls_connect (ITS#8650)
+    -  Fixed libldap_r race on Windows mutex initialization (ITS#9181)
+    -  Fixed liblunicode memory leak (ITS#9198)
+    -  Fixed slapd benign typos (ITS#8890)
+    -  Fixed slapd to limit depth of nested filters (ITS#9202)
+    -  Fixed slapd-mdb memory leak in dnSuperiorMatch (ITS#9214)
+    -  Fixed slapo-pcache database initialization (ITS#9182)
+    -  Fixed slapo-ppolicy callback (ITS#9171)
+    - Build
+    -  Fix olcDatabaseDummy initialization for windows (ITS#7074)
+    -  Fix detection for ws2tcpip.h for windows (ITS#8383)
+    -  Fix back-mdb types for windows (ITS#7878)
+    - Contrib
+    -  Update ldapc++ config.guess and config.sub to support newer architectures (ITS#7855)
+    -  Added pw-argon2 module (ITS#9233, ITS#8575, ITS#9203, ITS#9206)
+    - Documentation
+    -  slapd-ldap(5) - Clarify idassert-authzfrom behavior (ITS#9003)
+    -  slapd-meta(5) - Remove client-pr option (ITS#8683)
+    -  slapdinex(8) - Fix truncate option information for back-mdb (ITS#9230)
+    - LTB changes
+    -  packaging of argon2 in contrib-overlays (issue #32)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Sat, 02 May 2020 15:51:13 +0200
+
+
 openldap-ltb (2.4.49.1) UNRELEASED; urgency=medium
   
     - OpenLDAP 2.4.49 (2020/01/30)
@@ -35,7 +66,7 @@ openldap-ltb (2.4.49.1) UNRELEASED; urgency=medium
     - LTB changes
     -  nothing
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 06 Feb 2020 15:00:00 +0100
+ -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 06 Feb 2020 12:00:00 +0200
 
 openldap-ltb (2.4.48.1) UNRELEASED; urgency=medium
 

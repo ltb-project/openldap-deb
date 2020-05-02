@@ -118,6 +118,12 @@ cd noopsrch
 make clean
 make "prefix=${LDAPSERVERDIR}"
 cd ..
+## argon2
+cd passwd/argon2
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ../..
+
 cd ../..
 
 # mdb-utils
@@ -180,6 +186,10 @@ cd ..
 cd noopsrch
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
+cd passwd/argon2
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+cd ../..
+
 cd ../..
 
 # mdb-utils
