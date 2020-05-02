@@ -87,7 +87,8 @@ Get the new archive, and extract it into the directory:
 Adapt control files for libsodium:
 
 For Debian 7, 8 and 9:
-In "control" file, delete any reference to libsodium in Depends and Build-depends lines
+In "debian/control" file, delete any reference to libsodium in Depends and Build-depends lines
+In "debian/openldap-ltb-contrib-overlays.install", delete the line "usr/local/openldap/libexec/openldap/pw-argon2.*"
 
 
 Regenerate the package thanks to the usual procedure
