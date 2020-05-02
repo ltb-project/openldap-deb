@@ -119,10 +119,12 @@ make clean
 make "prefix=${LDAPSERVERDIR}"
 cd ..
 ## argon2
-cd passwd/argon2
-make clean
-make "prefix=${LDAPSERVERDIR}"
-cd ../..
+if [ "${DEBIAN_VERSION}" -gt "9" ]; then
+  cd passwd/argon2
+  make clean
+  make "prefix=${LDAPSERVERDIR}"
+  cd ../..
+fi
 
 cd ../..
 
@@ -186,9 +188,11 @@ cd ..
 cd noopsrch
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
-cd passwd/argon2
-make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
-cd ../..
+if [ "${DEBIAN_VERSION}" -gt "9" ]; then
+  cd passwd/argon2
+  make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+  cd ../..
+fi
 
 cd ../..
 

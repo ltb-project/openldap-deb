@@ -9,11 +9,6 @@ Instructions to build berkeleydb-ltb and openldap-ltb
 > Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
 > # apt-get install libkrb5-26-heimdal libhdb9-heimdal heimdal-dev
 
-For Debian 8 :
-        apt-get install libsodium13 libsodium-dev
-
-For Debian 9 :
-        apt-get install libsodium18 libsodium-dev
 
 For Debian 10 :
         apt-get install libsodium23 libsodium-dev
@@ -91,18 +86,8 @@ Get the new archive, and extract it into the directory:
 
 Adapt control files for libsodium:
 
-For Debian 7 :
+For Debian 7, 8 and 9:
 In "control" file, delete any reference to libsodium in Depends and Build-depends lines
-
-For Debian 8 :
-In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium13
-
-For Debian 9 :
-In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium18
-
-For Debian 10 :
-In "control" file, replace any reference to libsodiumXX in Depends lines by libsodium23
-
 
 
 Regenerate the package thanks to the usual procedure
