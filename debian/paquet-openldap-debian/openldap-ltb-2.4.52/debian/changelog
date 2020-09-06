@@ -1,3 +1,19 @@
+openldap-ltb (2.4.52.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.52 (2020/08/28)
+    -  Added libldap LDAP_OPT_X_TLS_REQUIRE_SAN option (ITS#9318)
+    -  Added libldap OpenSSL support for multiple EECDH curves (ITS#9054)
+    -  Added slapd OpenSSL support for multiple EECDH curves (ITS#9054)
+    -  Fixed librewrite malloc/free corruption (ITS#9249)
+    -  Fixed libldap hang when using UDP and server down (ITS#9328)
+    -  Fixed slapd syncrepl rare deadlock due to network issues (ITS#9324)
+    -  Fixed slapd syncrepl regression that could trigger an assert (ITS#9329)
+    -  Fixed slapd-mdb index error with collapsed range (ITS#9135)
+    - LTB changes
+    -  nothing
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Sun, 06 Sep 2020 16:11:19 +0200
+
 openldap-ltb (2.4.51.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.51 Release (2020/08/11)
@@ -23,7 +39,7 @@ openldap-ltb (2.4.51.1) UNRELEASED; urgency=medium
     - LTB changes
     -  nothing
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Sun, 16 Aug 2020 12:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 11 Aug 2020 12:00:00 +0200
 
 openldap-ltb (2.4.50.1) UNRELEASED; urgency=medium
 
