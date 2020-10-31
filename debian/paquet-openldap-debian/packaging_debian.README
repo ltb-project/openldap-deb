@@ -61,6 +61,12 @@ building the source package (with no signing). Take care to create openldap-ltb_
 Update the package
 ==================
 
+Update distribution:
+
+	apt update
+	apt upgrade
+
+
 On one environment, do:
 
         git mv openldap-ltb-2.4.48 openldap-ltb-2.4.49
@@ -92,6 +98,13 @@ In "debian/openldap-ltb-contrib-overlays.install", delete the line "usr/local/op
 
 
 Regenerate the package thanks to the usual procedure
+
+Test package
+
+If package is ok, create tag:
+
+	git tag v2.4.XX
+	git push --tags origin
 
 
 -----------------------------
