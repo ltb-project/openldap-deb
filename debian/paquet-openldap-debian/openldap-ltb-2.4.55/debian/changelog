@@ -1,3 +1,15 @@
+openldap-ltb (2.4.55.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.55 Release (2020/10/26)
+    -  Fixed slapd normalization handling with modrdn (ITS#9370)
+    -  Fixed slapd-meta to check ldap_install_tls return code (ITS#9366)
+    - Contrib
+    -  Fixed nssov misplaced semicolon (ITS#8731, ITS#9368)
+    - LTB changes
+    -  nothing
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 26 Oct 2020 12:00:00 +0100
+
 openldap-ltb (2.4.54.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.54 Release (2020/10/12)
@@ -17,7 +29,7 @@ openldap-ltb (2.4.54.1) UNRELEASED; urgency=medium
     - LTB changes
     -  nothing
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Sun, 18 Oct 2020 15:10:47 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 12 Oct 2020 12:00:00 +0200
 
 openldap-ltb (2.4.53.1) UNRELEASED; urgency=medium
 
