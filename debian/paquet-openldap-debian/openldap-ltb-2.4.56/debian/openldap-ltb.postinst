@@ -55,7 +55,7 @@ chown -R root:root ${LDAPSERVERDIR}/include
 chown -R root:root ${LDAPSERVERDIR}/lib*
 chown -R root:root ${LDAPSERVERDIR}/libexec
 chown -R root:root ${LDAPSERVERDIR}/sbin
-chown -R root:root ${LDAPSERVERDIR}/var
+chown root:root ${LDAPSERVERDIR}/var
 
 # Specifically adapt some files/directories owner and permissions
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
