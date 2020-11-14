@@ -1,4 +1,15 @@
-openldap-ltb (2.4.55.1) UNRELEASED; urgency=medium
+openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.56 Release (2020/11/10)
+    -  Fixed slapd to remove assert in certificateListValidate (ITS#9383)
+    -  Fixed slapd to remove assert in csnNormalize23 (ITS#9384)
+    -  Fixed slapd to better parse ldapi listener URIs (ITS#9379)
+    - LTB changes
+    -  fix 2.4.51 package for jessie still set root:root owner recursively #52
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 10 Nov 2020 12:00:00 +0100
+
+openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.55 Release (2020/10/26)
     -  Fixed slapd normalization handling with modrdn (ITS#9370)
@@ -9,6 +20,7 @@ openldap-ltb (2.4.55.1) UNRELEASED; urgency=medium
     -  nothing
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 26 Oct 2020 12:00:00 +0100
+
 
 openldap-ltb (2.4.54.1) UNRELEASED; urgency=medium
 
