@@ -5,7 +5,8 @@ openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
     -  Fixed slapd to remove assert in csnNormalize23 (ITS#9384)
     -  Fixed slapd to better parse ldapi listener URIs (ITS#9379)
     - LTB changes
-    -  fix 2.4.51 package for jessie still set root:root owner recursively #52
+    -  fix 2.4.51 package for jessie still set root:root owner recursively (#52)
+    -  fix Upgrading openldap-ltb package start the slapd service even if it was stopped (#53)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 10 Nov 2020 12:00:00 +0100
 

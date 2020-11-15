@@ -78,8 +78,16 @@ if [ "${DEBIAN_VERSION}" -gt "8" ]; then
     echo && exit $?
   else
     # Assume SYSTEMD
+    
+    # Start slapd at startup
     systemctl enable slapd || exit $?
-    systemctl start slapd || exit $?
+
+    # If this is slapd first installation or if slapd was started before
+    if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
+      # Start slapd
+      systemctl start slapd || exit $?
+    fi
+    rm -f /var/openldap-ltb-slapd-stopped
   fi
 
 else
@@ -88,9 +96,18 @@ else
   if [ -x "/etc/init.d/slapd" ]; then
     update-rc.d slapd defaults >/dev/null
     if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-      invoke-rc.d slapd start || exit $?
+      # If this is slapd first installation or if slapd was started before
+      if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
+        # Start slapd
+        invoke-rc.d slapd start || exit $?
+      fi
+      rm -f /var/openldap-ltb-slapd-stopped
     else
-      /etc/init.d/slapd start || exit $?
+      if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
+        # Start slapd
+        /etc/init.d/slapd start || exit $?
+      fi
+      rm -f /var/openldap-ltb-slapd-stopped
     fi
   fi
   

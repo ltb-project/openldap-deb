@@ -6,6 +6,28 @@ BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
 
+# detect OpenLDAP status if it was installed before
+if [ -x "/etc/init.d/slapd" ]; then
+        if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+		if invoke-rc.d slapd status 2>/dev/null | grep -q 'running' ; then
+			# OpenLDAP was installed and started before, so start it at the end
+			rm -f /var/openldap-ltb-slapd-stopped
+		else
+			# OpenLDAP was installed but not started before, so don't start it at the end
+			touch /var/openldap-ltb-slapd-stopped
+		fi
+        else
+		if /etc/init.d/slapd status 2>/dev/null | grep -q 'running' ; then
+			# OpenLDAP was installed and started before, so start it at the end
+			rm -f /var/openldap-ltb-slapd-stopped
+		else
+			# OpenLDAP was installed but not started before, so don't start it at the end
+			touch /var/openldap-ltb-slapd-stopped
+		fi
+        fi
+fi
+
+
 # stops OpenLDAP and removes startup links
 if [ -x "/etc/init.d/slapd" ]; then
         if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
