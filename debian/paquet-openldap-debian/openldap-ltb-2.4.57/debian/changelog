@@ -1,3 +1,26 @@
+openldap-ltb (2.4.57.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.57 Release (2021/01/18)
+    -  Fixed ldapexop to use correct return code (ITS#9417)
+    -  Fixed slapd to remove asserts in UUIDNormalize (ITS#9391)
+    -  Fixed slapd to remove assert in csnValidate (ITS#9410)
+    -  Fixed slapd validity checks for issuerAndThisUpdateCheck (ITS#9411, ITS#9427)
+    -  Fixed slapd validity checks for serialNumberAndIssuerCheck (ITS#9404, ITS#9424)
+    -  Fixed slapd AVA sort with invalid RDN (ITS#9412)
+    -  Fixed slapd ldap_X509dn2bv to check for invalid BER after RDN count (ITS#9423, ITS#9425)
+    -  Fixed slapd saslauthz to remove asserts in validation (ITS#9406, ITS#9407)
+    -  Fixed slapd saslauthz to use slap_sl_free on normalized DN (ITS#9409)
+    -  Fixed slapd saslauthz SEGV in slap_parse_user (ITS#9413)
+    -  Fixed slapd modrdn memory leak (ITS#9420)
+    -  Fixed slapd double-free in vrfilter (ITS#9408)
+    -  Fixed slapd cancel operation to correctly terminate (ITS#9428)
+    -  Fixed slapd-ldap fix binds on retry with closed connection (ITS#9400)
+    -  Fixed slapo-syncprov to ignore duplicate sessionlog entries (ITS#9394)
+    - LTB changes
+    -  nothing
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 18 Jan 2021 12:00:00 +0100
+
 openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.56 Release (2020/11/10)
@@ -10,7 +33,7 @@ openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 10 Nov 2020 12:00:00 +0100
 
-openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
+openldap-ltb (2.4.55.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.55 Release (2020/10/26)
     -  Fixed slapd normalization handling with modrdn (ITS#9370)
