@@ -50,7 +50,7 @@ mkdir -p ${LDAPBACKUPDIR}
 # Globally set owner to root:root
 chown root:root ${LDAPSERVERDIR}
 chown -R root:root ${LDAPSERVERDIR}/bin
-chown -R root:root ${LDAPSERVERDIR}/etc/openldap/{DB_CONFIG.example,ldap.conf,ldap.conf.default,schema,slapd.conf.default,slapd.ldif,slapd.ldif.default}
+chown -R root:root ${LDAPSERVERDIR}/etc/openldap/{ldap.conf,ldap.conf.default,schema,slapd.conf.default,slapd.ldif,slapd.ldif.default}
 chown -R root:root ${LDAPSERVERDIR}/include
 chown -R root:root ${LDAPSERVERDIR}/lib*
 chown -R root:root ${LDAPSERVERDIR}/libexec
