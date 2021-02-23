@@ -25,9 +25,9 @@ LDAP_INC=-I$(OLDAP_SOURCES)/include \
 # Where to find the OpenLDAP libraries.
 
 LDAP_LIBS_DIR=-L$(OLDAP_SOURCES)/libraries/liblber/.libs \
-              -L$(OLDAP_SOURCES)/libraries/libldap_r/.libs
+              -L$(OLDAP_SOURCES)/libraries/libldap/.libs
 
-LDAP_LIBS_NAME=-lldap_r -llber
+LDAP_LIBS_NAME=-lldap -llber
 
 PROGRAMS = explockout.la
 LTVER = 0:0:0

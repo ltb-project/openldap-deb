@@ -35,7 +35,7 @@
 #include <ac/time.h>
 #include <ac/string.h>
 #include <ac/ctype.h>
-#include "config.h"
+#include "slap-config.h"
 
 
 #define ATTR_PWDFAILURETIME                "pwdFailureTime"

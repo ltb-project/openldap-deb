@@ -106,7 +106,7 @@ cd ..
 ## smbk5pwd
 cd smbk5pwd
 make clean
-make "DEFS=-DDO_SAMBA -DDO_SHADOW" "HEIMDAL_LIB=" "LDAP_LIB=-L../../../libraries/liblber/.libs/ -L../../../libraries/libldap_r/.libs/ -lldap_r -llber" "prefix=${LDAPSERVERDIR}"
+make "DEFS=-DDO_SAMBA -DDO_SHADOW" "HEIMDAL_LIB=" "LDAP_LIB=-L../../../libraries/liblber/.libs/ -L../../../libraries/libldap/.libs/ -lldap -llber" "prefix=${LDAPSERVERDIR}"
 cd ..
 ## nssov
 cd nssov
