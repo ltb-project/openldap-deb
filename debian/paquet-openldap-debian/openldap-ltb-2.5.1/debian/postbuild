@@ -71,8 +71,8 @@ cd ..
 # ppm
 cd ${PPM_NAME}-${PPM_VERSION}
 make clean
-make "CONFIG=${PPM_CONF}" "OLDAP_SRC=.."
-make test
+make "CONFIG=${PPM_CONF}" "LDAP_SRC=.."
+make test "LDAP_SRC=.."
 cd ..
 
 # explockout

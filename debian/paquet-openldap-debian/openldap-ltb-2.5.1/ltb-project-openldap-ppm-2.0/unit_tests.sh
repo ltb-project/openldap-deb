@@ -6,8 +6,8 @@
 
 CONFIG_FILE="ppm.example"
 
-LDAP_SRC=".."
-LDAP_BUILD=${LDAP_SRC}
+LDAP_SRC="${LDAP_SRC:-../../..}"
+LDAP_BUILD=${LDAP_BUILD:-${LDAP_SRC}}
 CURRENT_DIR=$( dirname $0 )
 LIB_PATH="${LD_LIBRARY_PATH}:${CURRENT_DIR}:${LDAP_BUILD}/libraries/liblber/.libs:${LDAP_BUILD}/libraries/libldap/.libs"
 

@@ -29,7 +29,7 @@ then type:
 ```
 make clean
 make CONFIG=/etc/openldap/ppm.example LDAP_SRC=../../..
-make test
+make test LDAP_SRC=../../..
 make install CONFIG=/etc/openldap/ppm.example LIBDIR=/usr/lib/openldap
 ```
 
@@ -39,7 +39,7 @@ For LTB build, use rather:
 ```
 make clean
 make "CONFIG=/usr/local/openldap/etc/openldap/ppm.example" "LDAP_SRC=.."
-make test
+make test LDAP_SRC=..
 make install CONFIG=/usr/local/openldap/etc/openldap/ppm.example LIBDIR=/usr/local/openldap/lib64
 ```
 

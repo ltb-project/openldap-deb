@@ -68,6 +68,6 @@ clean:
 	$(RM) -rf .libs
 
 test: ppm ppm_test
-	$(TESTS)
+	LDAP_SRC=$(LDAP_SRC) $(TESTS)
 
 
