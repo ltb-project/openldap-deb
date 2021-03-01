@@ -71,7 +71,7 @@ cd ..
 # ppm
 cd ${PPM_NAME}-${PPM_VERSION}
 make clean
-make "CONFIG=${PPM_CONF}" "OLDAP_SOURCES=.."
+make "CONFIG=${PPM_CONF}" "OLDAP_SRC=.."
 make test
 cd ..
 
