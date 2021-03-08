@@ -71,7 +71,7 @@ cd ..
 # ppm
 cd ${PPM_NAME}-${PPM_VERSION}
 make clean
-make "CONFIG=${PPM_CONF}" "LDAP_SRC=.."
+make LDAP_SRC=.. prefix=/usr/local/openldap libdir=/usr/local/openldap/lib64
 make test "LDAP_SRC=.."
 cd ..
 
@@ -154,7 +154,7 @@ echo "minPunct ${CHECK_PASSWORD_MINPUNCT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CO
 cd ${PPM_NAME}-${PPM_VERSION}
 mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
-make install "CONFIG=${INSTALL_DIR}${PPM_CONF}" "LIBDIR=${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
+make install "prefix=/usr/local/openldap" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
 cd ..
 
 # explockout
