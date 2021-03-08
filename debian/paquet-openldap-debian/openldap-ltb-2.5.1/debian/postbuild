@@ -154,7 +154,7 @@ echo "minPunct ${CHECK_PASSWORD_MINPUNCT}" >> "${INSTALL_DIR}${CHECK_PASSWORD_CO
 cd ${PPM_NAME}-${PPM_VERSION}
 mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
-make install "prefix=/usr/local/openldap" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/${_LIB}"
 cd ..
 
 # explockout
