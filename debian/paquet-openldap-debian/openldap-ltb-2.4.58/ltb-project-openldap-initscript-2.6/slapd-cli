@@ -1,32 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 #====================================================================
-# Start/stop script for OpenLDAP (2.2 minimum)
+# CLI script for OpenLDAP
 # (http://www.openldap.org).
-# Use BerkeleyDB utilities and save data in LDIF format.
 # 
 # chkconfig: 2345 27 73
 # description: OpenLDAP
 #
-### BEGIN INIT INFO
-# Provides:          slapd
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Should-Start:      $network $time
-# Should-Stop:       $network $time
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: OpenLDAP
-# Description:       OpenLDAP init script provided by LTB-project.org
-### END INIT INFO
-#
+# Copyright (C) 2017 David COUTADEUR
 # Copyright (C) 2008 Jonathan CLARKE
 # Copyright (C) 2007 Olivier LI-KIANG-CHEONG
 # Copyright (C) 2007 Thomas CHEMINEAU
 # Copyright (C) 2005 Sebastien BAHLOUL 
 # Copyright (C) 2005 Raphael OUAZANA 
 # Copyright (C) 2005 Clement OUDOT
-# Copyright (C) 2010 LTB-project.org
+# Copyright (C) 2010-2021 LTB-project.org
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -45,10 +33,10 @@
 #====================================================================
 # Version
 #====================================================================
-VERSION="2.2"
+VERSION="2.6"
 
 #====================================================================
-# Default parameters (if /etc/default/{script_name} is not present)
+# Default parameters (unless /usr/local/openldap/etc/openldap/{script_name}.conf)
 #====================================================================
 # IP and port to listen (use wildcard * in IP to listen on all interfaces)
 IP="*"
@@ -75,6 +63,7 @@ DATA_PATH="$SLAPD_PATH/var/openldap-data"
 SLAPADD_BIN="$SLAPD_PATH/sbin/slapadd"
 SLAPADD_PARAMS="-q"
 SLAPCAT_BIN="$SLAPD_PATH/sbin/slapcat"
+SLAPCAT_PARAMS="-o ldif-wrap=no"
 SLAPINDEX_BIN="$SLAPD_PATH/sbin/slapindex"
 SLAPTEST_BIN="$SLAPD_PATH/sbin/slaptest"
 
@@ -108,6 +97,7 @@ OS=`uname -s`   # To adapt message printing
 MYUID=`id -u`     # For UNIX compatibility => modify this command
 MYGID=`id -g`     # For UNIX compatibility => modify this command
 PS_COMMAND="ps -efww"	# This ensures full width for ps output but doesn't work on Solaris - use "ps -ef"
+declare -a PROVIDER
 
 # Return functions' value
 RETVAL=""
@@ -182,7 +172,7 @@ backconfig_get_values() {
 		return
 	fi
 
-	slapcat_cmd="$SLAPCAT_BIN -F $SLAPD_CONF_DIR -b cn=config"
+	slapcat_cmd="$SLAPCAT_BIN $SLAPCAT_PARAMS -F $SLAPD_CONF_DIR -b cn=config"
 	if [ -n "$2" ]
 	then
 		if [ -n "$SU" ]; then
@@ -205,16 +195,54 @@ backconfig_get_values() {
 	fi
 }
 
+syncrepl_get_value() {
+	# $1: syncrepl value
+	# $2: parameter in syncrepl value
+	# $RETVAL: value
+
+	syncrepl=$1
+	parameter=$2
+
+	# Check if parameter value is surrounded with quotes
+	echo "$syncrepl" | grep -e $parameter'="' > /dev/null
+	noquotes=$?
+
+	if [ $noquotes -gt 0 ]
+	then
+		RETVAL=$( echo "$syncrepl" | sed -e 's/.*'$parameter'[ \t]*=[ \t]*\([^ \t]\+\).*$/\1/' | sed -e 's/["]//g' | sed -e "s/[']//g")
+	else
+		RETVAL=$( echo "$syncrepl" | sed -e 's/.*'$parameter'[ \t]*=[ \t]*"\([^"\t]\+\)".*$/\1/' | sed -e 's/["]//g' | sed -e "s/[']//g");
+	fi
+}
 
 #====================================================================
 # Load specific parameters
 #====================================================================
-if [ -f /etc/default/$PROG_NAME ]
+CLI_CONF_FILE=/usr/local/openldap/etc/openldap/${PROG_NAME}.conf
+if [ -f ${CLI_CONF_FILE} ]
 then
-	. /etc/default/$PROG_NAME
-	message "info" "[INFO] Using /etc/default/$PROG_NAME for configuration"
+	. ${CLI_CONF_FILE}
+	message "info" "[INFO] Using ${CLI_CONF_FILE} for configuration"
 else
 	message "info" "[INFO] Using built-in configuration - this may cause some problems"
+fi
+
+# Use systemd to manage the service if it's present
+_use_systemctl=0
+
+# When systemd runs a shell script, bash sets PPID to 1 (init)
+if [ $PPID -ne 1 ] && \
+    # This variable lets the user disable systemd redirection
+    [ -z "$SYSTEMCTL_SKIP_REDIRECT" ] && \
+    # This tests whether systemd is currently managing the systemd
+    [ -d /run/systemd/system ] && \
+    # This variable is set when systemd >=232 runs a service
+    # We need this test in case systemd does not run the slapd-cli script
+    # directly (PPID>1) but runs it through /etc/init.d/slapd
+    [ -z "$INVOCATION_ID" ]  ;
+then
+	SYSTEMD_SERVICE_NAME=slapd
+	_use_systemctl=1
 fi
 
 #====================================================================
@@ -289,7 +317,6 @@ then
     [ -z "$SLAPD_GROUP" ] || chgrp -R "$SLAPD_GROUP" "$LDAPI_SOCKETDIR"
 fi
 
-
 #====================================================================
 # Functions
 #====================================================================
@@ -361,7 +388,11 @@ start_slapd() {
 	if [ -n "$1" ]; then
 		$SLAPD_BIN -h "$SLAPD_SERVICES" $SLAPD_PARAMS -d $1
 	else
-		$SLAPD_BIN -h "$SLAPD_SERVICES" $SLAPD_PARAMS
+		if [ $_use_systemctl -eq 1 ] ; then
+			systemctl start "$SYSTEMD_SERVICE_NAME"
+		else
+			$SLAPD_BIN -h "$SLAPD_SERVICES" $SLAPD_PARAMS
+		fi
 		sleep 1
 
 		# Presence of PID file
@@ -438,24 +469,29 @@ stop_slapd() {
 		message "info" "[INFO] Can't read PID file, to stop OpenLDAP try: $0 forcestop"
 		return 1
 	else
-		PID=`cat $SLAPD_PID_FILE`
-		kill -INT $PID
+		if [ $_use_systemctl -eq 1 ] ; then
+			systemctl stop "$SYSTEMD_SERVICE_NAME"
+			message "info" "[OK] OpenLDAP stopped"
+		else
+			PID=`cat $SLAPD_PID_FILE`
+			kill -INT $PID
+			# Waiting loop
+			i=0
+			while [ -e /proc/$PID ]
+			do
+				if [ $i -eq $TIMEOUT ]
+				then
+					# Timeout
+					message "alert" "[ALERT] OpenLDAP still running (PID $PID), try: $0 forcestop"
+					exit 1
+				fi
+				i=`expr $i + 1`
+				sleep 1
+			done
 
-		# Waiting loop
-		i=0
-		while [ -e /proc/$PID ]
-		do
-			if [ $i -eq $TIMEOUT ]
-			then
-				# Timeout
-				message "alert" "[ALERT] OpenLDAP still running (PID $PID), try: $0 forcestop"
-				exit 1
-			fi
-			i=`expr $i + 1`
-			sleep 1
-		done
+			message "info" "[OK] OpenLDAP stopped after $i seconds"
+		fi
 
-		message "info" "[OK] OpenLDAP stopped after $i seconds"
 	fi
 
 	# Backup if necessary
@@ -579,6 +615,16 @@ forcestop() {
 }
 
 slapd_status() {
+	if [ $_use_systemctl -eq 1 ]
+	then
+		if systemctl --quiet is-active "$SYSTEMD_SERVICE_NAME"
+		then
+			return 0
+		else
+			return 1
+		fi
+	fi
+
 	# Return 0 if slapd is running, 1 if slapd is stopped, 2 if we can't say
 	if [ ! -r $SLAPD_PID_FILE ]
 	then
@@ -679,12 +725,7 @@ configtest() {
 	fi
 
 	# slaptest
-	if [ -z "$SU" ]
-	then
-		$SLAPTEST_BIN $SLAPTEST_PARAMS > /dev/null 2>&1
-	else
-		$SU "$SLAPTEST_BIN $SLAPTEST_PARAMS > /dev/null 2>&1"
-	fi
+	$SLAPTEST_BIN $SLAPTEST_PARAMS > /dev/null 2>&1
 
 	if [ $? -eq 0 ]
 	then
@@ -853,10 +894,10 @@ backup() {
 
 	if [ "$SLAPD_CONF_DIR" ]
 	then
-		SLAPCAT_PARAMS="-F $SLAPD_CONF_DIR"
+		SLAPCAT_PARAMS="$SLAPCAT_PARAMS -F $SLAPD_CONF_DIR"
 	elif [ "$SLAPD_CONF" ]
 	then
-		SLAPCAT_PARAMS="-f $SLAPD_CONF"
+		SLAPCAT_PARAMS="$SLAPCAT_PARAMS -f $SLAPD_CONF"
 	fi
 
 	# Do backup for all databases
@@ -892,10 +933,10 @@ backup() {
 			# slapcat
 			if [ -z "$SU" ]
 			then
-				$SLAPCAT_BIN -b "$sufprint" $SLAPCAT_PARAMS -l "$file"
+				$UMASK $MASK && $SLAPCAT_BIN -b "$sufprint" $SLAPCAT_PARAMS -l "$file"
 				ret=$?
 			else
-				$SU "$SLAPCAT_BIN -b \"$sufprint\" $SLAPCAT_PARAMS" > "$file"
+				$SU "$UMASK $MASK && $SLAPCAT_BIN -b \"$sufprint\" $SLAPCAT_PARAMS > \"$file\""
 				ret=$?
 				chown $SLAPD_USER:$SLAPD_GROUP $file
 			fi
@@ -914,9 +955,9 @@ backup() {
 			else
 				if [ -z "$SU" ]
 				then
-					$BACKUP_COMPRESS_BIN "$file"
+					$UMASK $MASK && $BACKUP_COMPRESS_BIN "$file"
 				else
-					$SU "$BACKUP_COMPRESS_BIN $file"
+					$SU "$UMASK $MASK && $BACKUP_COMPRESS_BIN $file"
 				fi
 
 				# alert
@@ -950,10 +991,10 @@ backupconfig() {
 		# slapcat
 		if [ -z "$SU" ]
 		then
-			$SLAPCAT_BIN -n0 -F $SLAPD_CONF_DIR -l "$file"
+			$UMASK $MASK && $SLAPCAT_BIN $SLAPCAT_PARAMS -n0 -F $SLAPD_CONF_DIR -l "$file"
 			ret=$?
 		else
-			$SU "$SLAPCAT_BIN -n0 -F $SLAPD_CONF_DIR" > "$file"
+			$SU "$UMASK $MASK && $SLAPCAT_BIN $SLAPCAT_PARAMS -n0 -F $SLAPD_CONF_DIR > \"$file\""
 			ret=$?
 			chown $SLAPD_USER:$SLAPD_GROUP $file
 		fi
@@ -1148,6 +1189,129 @@ restoreconfig() {
 	message "info" "[OK] Configuration restored"
 }
 
+get_provider_config() {
+	i=0
+	if [ "$SLAPD_CONF_DIR" ]
+	then
+		# Get list of provider
+		PROVIDERS=$( $SLAPCAT_BIN -n0 -F "$SLAPD_CONF_DIR" -o ldif-wrap=no | grep -E '^olcSyncrepl' )
+		while echo $PROVIDERS | grep -q -E '^olcSyncrepl'
+		do
+			# deletes first syncrepl keyword
+			PROVIDERS=$( echo $PROVIDERS | sed -e 's/^olcSyncrepl//' )
+			# store first provider found
+			PROVIDER[$i]=$( echo $PROVIDERS | sed -e 's/olcSyncrepl.*$//' )
+			# delete first provider from list of providers
+			PROVIDERS=$( echo $PROVIDERS | sed -e 's/^.*\(olcSyncrepl.*\)$/\1/' )
+
+			i=$[i+1]
+		done
+
+	elif [ "$SLAPD_CONF" ]
+	then
+		# Get list of provider
+		PROVIDERS=$( sed -n '/^syncrepl/,/^([^ \t]|$)/p' $SLAPD_CONF )
+		while echo $PROVIDERS | grep -q -E '^syncrepl'
+		do
+			# deletes first syncrepl keyword
+			PROVIDERS=$( echo $PROVIDERS | sed -e 's/^syncrepl//' )
+			# store first provider found
+			PROVIDER[$i]=$( echo $PROVIDERS | sed -e 's/syncrepl.*$//' )
+			# delete first provider from list of providers
+			PROVIDERS=$( echo $PROVIDERS | sed -e 's/^.*\(syncrepl.*\)$/\1/')
+
+			i=$[i+1]
+		done
+	fi
+}
+
+check_sync() {
+	message "info" "[INFO] Checking synchronization..."
+	get_provider_config
+	get_confvalues "suffix"
+	SUFFIX=$RETVAL
+	RES=0 # result OK by default (if nothing to check, sync=OK)
+
+	# Is there any provider configuration?
+	if [[ ${#PROVIDER[@]} -eq "0" ]]; then
+		message "info" "[OK] No provider found in configuration - sync status not checked"
+		exit $RES
+	fi
+
+	# Parse PROVIDERS
+	for index in "${!PROVIDER[@]}"
+	do
+		PROVIDER[$index]=$( echo "${PROVIDER[index]}" | sed -e 's/#.*$//g' )
+		# get provider config parameters
+		syncrepl_get_value "${PROVIDER[$index]}" "provider"
+		PHOST=$RETVAL
+		syncrepl_get_value "${PROVIDER[$index]}" "binddn"
+		PBINDDN=$RETVAL
+		syncrepl_get_value "${PROVIDER[$index]}" "credentials"
+		PBINDPW=$RETVAL
+		syncrepl_get_value "${PROVIDER[$index]}" "searchbase"
+		PBASEDN=$RETVAL
+		echo "Checking host ${PHOST}"
+		# Get remote provider contextCSN (one contextCSN per line)
+		CONTEXTCSN=$( ${SLAPD_PATH}/bin/ldapsearch -x -H "${PHOST}" -D "${PBINDDN}" -w "${PBINDPW}" -b "${PBASEDN}" -o nettimeout=5 -s base contextCSN -LLL 2>/dev/null )
+
+		# Checking status of previous command
+		if [ $? -ne 0 ]; then
+			echo "    ERROR: search on remote host impossible!"
+			let "RES=-1"
+			break
+		fi
+		CONTEXTCSN=$( echo "$CONTEXTCSN" | grep contextCSN | sed -e 's/^contextCSN: //i' )
+
+		# get local contextCSN
+		# TODO: improve this test to check via ldapsearch (need manager account)
+		if [ "$SLAPD_CONF_DIR" ]; then
+			localContextCSN=$( $SLAPCAT_BIN -b $SUFFIX -F "$SLAPD_CONF_DIR" -o ldif-wrap=no 2>/dev/null | head -n 100 | sed -e '/^$/,$d' | grep 'contextCSN' | sed -e 's/^contextCSN: //' )
+		elif [ "$SLAPD_CONF" ]; then
+			localContextCSN=$( $SLAPCAT_BIN -b $SUFFIX -f "$SLAPD_CONF" -o ldif-wrap=no 2>/dev/null | head -n 100 | sed -e '/^$/,$d' | grep 'contextCSN' | sed -e 's/^contextCSN: //' )
+		else
+			echo "No acceptable configuration found"
+			exit 1
+		fi
+
+		# compare contextCSN values
+		# for each provider contextCSN
+		for CSN in $CONTEXTCSN; do
+			#  identify sid part
+			#  contextCSN = 20171128170017.708386Z#000000#001#000000
+			#                                             ^^^
+			SID=$( echo ${CSN} | sed -e 's/^.*\(#[0-9]\+#\)[^#]*$/\1/' )
+			echo "  Checking SID ${SID}"
+			
+			#  check matching local slave ContextCSN
+			if echo "$localContextCSN" | grep -q "$SID" ; then
+				# get corresponding local slave contextCSN
+				matchingLocalContextCSN=$( echo -e "$localContextCSN" | grep "$SID" )
+				# Check if corresponding local slave contextCSN is identical to remote provider contextCSN
+				if echo "$matchingLocalContextCSN" | grep -q "$CSN" ; then
+					echo "    INFO: remote ($CSN) and local ($matchingLocalContextCSN) contextCSN found and synchronized"
+				else
+					echo "    ERROR: remote ($CSN) and local ($matchingLocalContextCSN) contextCSN found, but not synchronized!"
+					let "RES=RES+1"
+				fi
+			else
+				echo "    ERROR: no matching local contextCSN ($localContextCSN) found for remote ($CSN) contextCSN!"
+				let "RES=RES+1"
+			fi
+		done
+
+		# return result (OK|KO)
+	done
+	if [[ "$RES" -eq "0" ]]; then
+		message "info" "[OK] Local directory synchronized to every declared provider"
+	elif [[ "$RES" -eq "-1" ]]; then
+		message "error" "[KO] Error while checking synchronization"
+	else
+		message "error" "[KO] Local directory not synchronized to one of its declared providers"
+	fi
+	exit $RES
+}
+
 #====================================================================
 # Action switch
 #====================================================================
@@ -1219,8 +1383,11 @@ case $1 in
 	start_slurpd
 	start_slapd
 	;;
+	checksync)
+	check_sync
+	;;
 	*)
-	echo "Usage: $0 {start|stop|forcestop|restart|debug|force-reload|status|configtest|db_recover|reindex|removelogs|backup|restore|backupconfig|restoreconfig}"
+	echo "Usage: $0 {start|stop|forcestop|restart|debug|force-reload|status|configtest|db_recover|reindex|removelogs|backup|restore|backupconfig|restoreconfig|checksync}"
 	exit 1
 	;;
 esac
