@@ -1,3 +1,15 @@
+openldap-ltb (2.4.58.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.4.58 Release (2021/03/16)
+    -  Fixed slapd validity checks for issuerAndThisUpdateCheck (ITS#9454)
+    -  Fixed slapd to alloc new conn struct after freeing old one (ITS#9458)
+    -  Fixed slapd syncrepl to check all contextCSNs (ITS#9282)
+    -  Fixed slapd-bdb lockdetect config (ITS#9449)
+    - LTB changes
+    -  Use OpenLDAP init script v2.6 (#58) (Fix insecure default permissions in backup script)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 16 Mar 2021 12:00:00 +0100
+
 openldap-ltb (2.4.57.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.4.57 Release (2021/01/18)
@@ -19,7 +31,7 @@ openldap-ltb (2.4.57.1) UNRELEASED; urgency=medium
     - LTB changes
     -  nothing
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 18 Jan 2021 12:00:00 +0100
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 18 Jan 2021 12:00:00 +0100
 
 openldap-ltb (2.4.56.1) UNRELEASED; urgency=medium
 
