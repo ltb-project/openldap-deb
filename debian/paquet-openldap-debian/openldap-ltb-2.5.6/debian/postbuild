@@ -178,6 +178,7 @@ cd ..
 cd ppm
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
+cp ppm_test "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap/"
 cd ..
 
 

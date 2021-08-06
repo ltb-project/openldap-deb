@@ -1,6 +1,6 @@
-openldap-ltb (2.5.1.1) UNRELEASED; urgency=medium
+openldap-ltb (2.5.6.1) UNRELEASED; urgency=medium
 
-    - OpenLDAP 2.5.1.1 Release (2021/XX/XX)
+    - OpenLDAP 2.5.6.1 Release (2021/XX/XX)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 23 Jan 2021 12:00:00 +0100
 
