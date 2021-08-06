@@ -7,7 +7,7 @@ source $BASEDIR/openldap-ltb.vars
 
 
 # Change owner
-chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/${_LIB}"
+chown -R ${LDAPUSER}:${LDAPGROUP} "${LDAPSERVERDIR}/libexec/openldap/ppm*"
 chmod +x "${LDAPSERVERDIR}/${_LIB}/ppm_test"
 
 chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/ppm.example

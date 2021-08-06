@@ -5,4 +5,3 @@ usr/local/openldap/libexec/openldap/nssov.*
 usr/local/openldap/libexec/openldap/pw-pbkdf2.*
 usr/local/openldap/libexec/openldap/pw-sha2.*
 usr/local/openldap/libexec/openldap/smbk5pwd.*
-usr/local/openldap/libexec/openldap/pw-argon2.*
