@@ -16,5 +16,4 @@ if [[ ${REAL_VERSION} == "2.4.43" ]]; then
   patch --forward -p0 -d ${BUILD_DIR} < ${BASEDIR}/0001-Fix-robust-mutex-detection-for-glibc-2.10-and-2.11.patch
 fi
 
-./configure --prefix=${LDAPDIR} --libdir=${LDAPDIR}/${_LIB} --enable-overlays --enable-modules --enable-dynamic=yes --with-tls=openssl --enable-debug --with-cyrus-sasl --enable-spasswd --enable-ppolicy --enable-crypt --enable-ldap -enable-slapi --enable-meta --enable-sock --enable-wrappers --enable-rlookups
-
+./configure --prefix=${LDAPDIR} --libdir=${LDAPDIR}/${_LIB} --enable-modules=yes --enable-overlays=mod --enable-backends=mod --enable-dynamic=yes --with-tls=openssl --enable-debug --with-cyrus-sasl --enable-spasswd --enable-ppolicy=mod --enable-crypt --enable-slapi --enable-mdb=mod --enable-ldap=mod --enable-meta=mod --enable-sock=mod --enable-wrappers --enable-rlookups --enable-argon2=yes --enable-otp=mod --enable-balancer=mod --enable-sql=no --enable-ndb=no --enable-wt=no --enable-shell=no --enable-perl=no
