@@ -106,12 +106,21 @@ cd noopsrch
 make clean
 make "prefix=${LDAPSERVERDIR}"
 cd ..
-
 # ppm
 cd ppm
 make clean
-make LDAP_SRC=../../.. prefix=/usr/local/openldap libdir=/usr/local/openldap/lib64
+make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
 make test "LDAP_SRC=../../.."
+cd ..
+# variant
+cd variant
+make clean
+make "prefix=${LDAPSERVERDIR}"
+cd ..
+# vc
+cd vc
+make clean
+make "prefix=${LDAPSERVERDIR}"
 cd ..
 
 
@@ -161,6 +170,12 @@ cd ppm
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
 cp ppm_test "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap/"
+cd ..
+cd variant
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
+cd ..
+cd vc
+make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
 
 

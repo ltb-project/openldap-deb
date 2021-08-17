@@ -1,14 +1,14 @@
 Source: openldap-ltb
 Section: net
 Priority: optional
-Maintainer: dcoutadeur <dcoutadeur@linagora.com>
-Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, berkeleydb-ltb (>= 4.6.21), libsodium23, libsodium-dev
+Maintainer: dcoutadeur <david.coutadeur@gmail.com>
+Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, libsodium23, libsodium-dev, libevent-dev
 Standards-Version: 3.8.4
 Homepage: http://ltb-project.org
 
 Package: openldap-ltb
 Architecture: any
-Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, berkeleydb-ltb (>= 4.6.21)
+Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl
 Suggests: openldap-ltb-check-password, openldap-ltb-contrib-overlays
 Description: OpenLDAP server with addons from the LDAP Tool Box project
  OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
@@ -55,7 +55,8 @@ Architecture: any
 Depends: openldap-ltb, libc6 (>= 2.4), libsodium23
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
- as contributions. This package provide some of them.
+ as contributions. This package provide these ones:
+ autogroup lastbind noopsrch nssov pw-pbkdf2 pw-sha2 smbk5pwd ppm variant vc
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
 Package: openldap-ltb-mdb-utils
