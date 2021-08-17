@@ -4,6 +4,8 @@ usr/local/openldap/etc/openldap/*.ldif
 usr/local/openldap/etc/openldap/ldap.conf
 usr/local/openldap/etc/openldap/slapd.conf
 usr/local/openldap/etc/openldap/slapd-cli.conf
+usr/local/openldap/etc/openldap/config-template.ldif
+usr/local/openldap/etc/openldap/data-template.ldif
 usr/local/openldap/etc/openldap/schema
 usr/local/openldap/include
 usr/local/openldap/lib*/lib*
@@ -26,6 +28,7 @@ usr/local/openldap/share/man/man3
 # man pages (all but slapo-lastbind slapo-nssov slapo-smbk5pwd slapo-ppm slapo-variant slapo-explockout
 usr/local/openldap/share/man/man5/l*
 usr/local/openldap/share/man/man5/slapd*
+usr/local/openldap/share/man/man5/slapo-accesslog.5
 usr/local/openldap/share/man/man5/slapo-auditlog.5
 usr/local/openldap/share/man/man5/slapo-autoca.5
 usr/local/openldap/share/man/man5/slapo-chain.5
