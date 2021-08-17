@@ -4,14 +4,7 @@ Instructions to build berkeleydb-ltb and openldap-ltb
 	apt-get install build-essential
 	apt-get install autoconf automake autotools-dev debhelper dh-make devscripts fakeroot file gnupg git lintian patch patchutils pbuilder
 
-	apt-get install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libslp1 libwrap0-dev libevent-dev
-
-> Update : heimdal is not used any more because conflicting with debian wheezy hdb version.
-> # apt-get install libkrb5-26-heimdal libhdb9-heimdal heimdal-dev
-
-
-For Debian 10 :
-        apt-get install libsodium23 libsodium-dev
+	apt-get install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libwrap0-dev libevent-dev libsodium23 libsodium-dev
 
 
 
@@ -23,6 +16,7 @@ get the sources
 
 get berkeleydb
 --------------
+Notice: BerkeleyDB is deprecated and should not be used any more.
 To get a more recent version (beware: do this only if you are sure of OpenLDAP compatibility, and if patches 1, 2, 3, and 4 are integrated to the current berkeleydb version), go to:
 
 [http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html](http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html)
@@ -34,9 +28,9 @@ To get a more recent version (beware: do this only if you are sure of OpenLDAP c
 
 get slapd
 ---------
-	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.48.tgz
-	tar xvzf openldap-2.4.48.tgz
-	cp -r openldap-2.4.48/* paquet-openldap-debian/openldap-ltb-2.4.48
+	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.7.tgz
+	tar xvzf openldap-2.5.7.tgz
+	cp -r openldap-2.5.7/* paquet-openldap-debian/openldap-ltb-2.5.7
 
 import some variables
 ---------------------
@@ -69,30 +63,28 @@ Update distribution:
 
 On one environment, do:
 
-        git mv openldap-ltb-2.4.48 openldap-ltb-2.4.49
-	cd openldap-ltb-2.4.49
-	dch -v 2.4.49.1
+        git mv openldap-ltb-2.5.7 openldap-ltb-2.5.8
+	cd openldap-ltb-2.5.8
+	dch -v 2.5.8.1
 
 make the changes in the changelog file
 
 	cd debian
-	sed -i "s/2\.4\.48/2.4.49/g" configure openldap-ltb-check-password.postinst openldap-ltb.postinst openldap-ltb.prerm openldap-ltb-mdb-utils.postinst postbuild openldap-ltb.vars
-
-Commit every change, but do not update debian/control which is specific on Debian Lenny (libltdl3 dependency)
+	sed -i "s/2\.5\.7/2.5.8/g" openldap-ltb.vars
 
 
 On every environment, update all the changes, and do:
 
 Get the new archive, and extract it into the directory:
 
-	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.XX.tgz
-	tar xvzf openldap-2.4.XX.tgz
-	cp -r openldap-2.4.XX/* openldap-ltb-2.4.XX/
+	wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.XX.tgz
+	tar xvzf openldap-2.5.XX.tgz
+	cp -r openldap-2.5.XX/* openldap-ltb-2.5.XX/
 
 
 Adapt control files for libsodium:
 
-For Debian 7, 8 and 9:
+For Debian 9:
 In "debian/control" file, delete any reference to libsodium in Depends and Build-depends lines
 In "debian/openldap-ltb-contrib-overlays.install", delete the line "usr/local/openldap/libexec/openldap/pw-argon2.*"
 
@@ -103,7 +95,7 @@ Test package
 
 If package is ok, create tag:
 
-	git tag v2.4.XX
+	git tag v2.5.XX
 	git push --tags origin
 
 
