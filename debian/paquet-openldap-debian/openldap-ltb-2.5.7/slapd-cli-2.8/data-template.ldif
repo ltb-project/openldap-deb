@@ -1,0 +1,94 @@
+dn: DATA_SUFFIX
+o: DATA_ORGANIZATION
+dc: DATA_RDNSUFFIX
+description: DATA_ORGANIZATION
+objectClass: dcObject
+objectClass: organization
+objectClass: top
+
+dn: ou=people,DATA_SUFFIX
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: ou=groups,DATA_SUFFIX
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+dn: ou=ppolicies,DATA_SUFFIX
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+ou: ppolicies
+
+dn: cn=default,ou=ppolicies,DATA_SUFFIX
+objectClass: pwdPolicy
+objectClass: pwdPolicyChecker
+objectClass: organizationalRole
+cn: default
+pwdAttribute: userPassword
+pwdCheckQuality: 2
+pwdMinAge: 3600
+pwdMaxAge: 7776000
+pwdInHistory: 5
+pwdLockout: TRUE
+pwdMaxFailure: 5
+pwdFailureCountInterval: 86400
+pwdMinLength: 8
+pwdMaxLength: 30
+pwdExpireWarning: 432000
+pwdMustChange: TRUE
+pwdAllowUserChange: TRUE
+pwdMaxIdle: 31536000
+#pwdCheckModule: /usr/local/openldap/libexec/openldap/ppm.so
+#pwdCheckModuleArg: bWluUXVhbGl0eSAzCmNoZWNrUkROIDAKZm9yYmlkZGVuQ2hhcnMKbWF4Q29uc2VjdXRpdmVQZXJDbGFzcyAwCnVzZUNyYWNrbGliIDAKY3JhY2tsaWJEaWN0IC92YXIvY2FjaGUvY3JhY2tsaWIvY3JhY2tsaWJfZGljdApjbGFzcy11cHBlckNhc2UgQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVogMCAxCmNsYXNzLWxvd2VyQ2FzZSBhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5eiAwIDEKY2xhc3MtZGlnaXQgMDEyMzQ1Njc4OSAwIDEKY2xhc3Mtc3BlY2lhbCA8Piw/Oy46LyHCp8O5JSrCtV7CqCTCo8KyJsOpfiIjJ3soWy18w6hgX1zDp17DoEApXcKwPX0rIDAgMQ==
+
+dn: cn=admin-policy,ou=ppolicies,DATA_SUFFIX
+objectClass: pwdPolicy
+objectClass: pwdPolicyChecker
+objectClass: organizationalRole
+cn: default
+pwdAttribute: userPassword
+pwdCheckQuality: 2
+pwdMinAge: 3600
+pwdMaxAge: 7776000
+pwdInHistory: 5
+pwdLockout: TRUE
+pwdMaxFailure: 3
+pwdFailureCountInterval: 0
+pwdMinLength: 12
+pwdMaxLength: 30
+pwdExpireWarning: 432000
+pwdMustChange: TRUE
+pwdAllowUserChange: TRUE
+pwdMaxIdle: 15552000
+#pwdCheckModule: /usr/local/openldap/libexec/openldap/ppm.so
+#pwdCheckModuleArg: bWluUXVhbGl0eSAzCmNoZWNrUkROIDAKZm9yYmlkZGVuQ2hhcnMKbWF4Q29uc2VjdXRpdmVQZXJDbGFzcyAwCnVzZUNyYWNrbGliIDAKY3JhY2tsaWJEaWN0IC92YXIvY2FjaGUvY3JhY2tsaWIvY3JhY2tsaWJfZGljdApjbGFzcy11cHBlckNhc2UgQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVogMCAxCmNsYXNzLWxvd2VyQ2FzZSBhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5eiAwIDEKY2xhc3MtZGlnaXQgMDEyMzQ1Njc4OSAwIDEKY2xhc3Mtc3BlY2lhbCA8Piw/Oy46LyHCp8O5JSrCtV7CqCTCo8KyJsOpfiIjJ3soWy18w6hgX1zDp17DoEApXcKwPX0rIDAgMQ==
+
+dn: cn=nopolicy,ou=ppolicies,DATA_SUFFIX
+objectClass: pwdPolicy
+objectClass: pwdPolicyChecker
+objectClass: organizationalRole
+cn: nopolicy
+pwdAttribute: userPassword
+
+dn: ou=infrastructure,DATA_SUFFIX
+objectClass: organizationalUnit
+objectClass: top
+ou: infrastructure
+
+dn: ou=accounts,ou=infrastructure,DATA_SUFFIX
+objectClass: organizationalUnit
+objectClass: top
+ou: accounts
+
+dn: DATA_SERVICEACCOUNT_DN
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+objectClass: top
+cn: DATA_SERVICEACCOUNT_RDN
+userPassword: DATA_SERVICEACCOUNT_PW
+pwdPolicySubentry: cn=nopolicy,ou=ppolicies,DATA_SUFFIX
+memberOf: cn=admin,ou=groups,DATA_SUFFIX
+

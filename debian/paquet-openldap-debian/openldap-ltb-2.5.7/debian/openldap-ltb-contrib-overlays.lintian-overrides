@@ -12,3 +12,10 @@ openldap-ltb-contrib-overlays binary: binary-or-shlib-defines-rpath usr/local/op
 openldap-ltb-contrib-overlays binary: binary-or-shlib-defines-rpath usr/local/openldap/libexec/openldap/nssov.so.0.0.0 /usr/local/openldap/lib64
 openldap-ltb-contrib-overlays binary: binary-or-shlib-defines-rpath usr/local/openldap/libexec/openldap/pw-sha2.so.0.0.0 /usr/local/openldap/lib64
 openldap-ltb-contrib-overlays binary: binary-or-shlib-defines-rpath usr/local/openldap/libexec/openldap/smbk5pwd.so.0.0.0 /usr/local/openldap/lib64
+
+
+# ignore presence of ppm example configuration file in /usr
+openldap-ltb-contrib-overlays binary: file-in-usr-marked-as-conffile usr/local/openldap/etc/openldap/ppm.example
+
+# ppm_test linked to private OpenLDAP-LTB shared libraries
+openldap-ltb-contrib-overlays binary: binary-or-shlib-defines-rpath usr/local/openldap/libexec/openldap/ppm_test .
