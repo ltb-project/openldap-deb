@@ -1144,7 +1144,7 @@ compute_hash()
 {
 	PASS="$1"
 
-	$SLAPD_PATH/sbin/slappasswd -o module-path="${SLAPD_MODULEDIR}" -o module-load="pw-argon2" -h "{ARGON2}" -s "${PASS}"
+	$SLAPD_PATH/sbin/slappasswd -o module-path="${SLAPD_MODULEDIR}" -o module-load="argon2" -h "{ARGON2}" -s "${PASS}"
 }
 
 
@@ -1154,6 +1154,12 @@ import_test_config() {
 	if [ -z ${SLAPD_CONF_DIR+x} ] || [ "${SLAPD_CONF_DIR}" = "" ]; then
 		message "alert" "[ALERT] No SLAPD_CONF_DIR defined. You should set this variable to the directory hosting the configuration"
 		exit 1;
+	fi
+
+
+	if [ ! -z "$( ls -A ${SLAPD_CONF_DIR} )" ] ; then
+		message "info" "[INFO] Configuration data found, launch configuration backup"
+		backupconfig
 	fi
 
 	if [ -z ${CONFIG_TEMPLATE_FILE+x} ] || [ "${CONFIG_TEMPLATE_FILE}" = "" ]; then
@@ -1504,10 +1510,8 @@ case $1 in
 	check_sync
 	;;
 	importtestconfig)
-	backupconfig
 	stop_slapd
 	import_test_config
-	start_slapd
 	;;
 	importtestdata)
 	backup

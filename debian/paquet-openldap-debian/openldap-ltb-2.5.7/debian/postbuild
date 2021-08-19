@@ -10,7 +10,7 @@ mkdir -p "${INSTALL_DIR}/etc/logrotate.d"
 mkdir -p "${INSTALL_DIR}/etc/profile.d"
 mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
 chmod 644 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
 
 
@@ -18,26 +18,21 @@ chmod 644 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
 cp -f "../DB_CONFIG" "${INSTALL_DIR}/${LDAPDATADIR}"
 cp -f "../openldap.logrotate" "${INSTALL_DIR}/etc/logrotate.d/openldap"
 cp -f "../openldap.sh" "${INSTALL_DIR}/etc/profile.d"
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli" "${INSTALL_DIR}/usr/local/openldap/sbin/"
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/slapd-cli.conf" "${INSTALL_DIR}/usr/local/openldap/etc/openldap/"
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/config-template.ldif" "${INSTALL_DIR}/usr/local/openldap/etc/openldap/"
-cp -f "${SLAPD_INIT_NAME}-${SLAPD_INIT_VERSION}/data-template.ldif" "${INSTALL_DIR}/usr/local/openldap/etc/openldap/"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli" "${INSTALL_DIR}${SLAPD_CLI_BIN}"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli.conf" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/config-template.ldif" "${INSTALL_DIR}${SLAPD_CLI_CONFIG_TEMPLATE}"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/data-template.ldif" "${INSTALL_DIR}${SLAPD_CLI_DATA_TEMPLATE}"
 
 # replace variable in default file
-sed -i "s:^SLAPD_PATH.*:SLAPD_PATH=\"${LDAPDIR}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^SLAPD_USER.*:SLAPD_USER=\"${LDAPUSER}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^SLAPD_GROUP.*:SLAPD_GROUP=\"${LDAPGROUP}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^BDB_PATH.*:BDB_PATH=\"${BDBDIR}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^DB_ARCHIVE_BIN.*:DB_ARCHIVE_BIN=\"${BDBARCHIVEBIN}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^DB_RECOVER_BIN.*:DB_RECOVER_BIN=\"${BDBRECOVERBIN}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
-sed -i "s:^BACKUP_PATH.*:BACKUP_PATH=\"${LDAPBACKUPDIR}\":" "${INSTALL_DIR}${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf"
+sed -i "s:^SLAPD_PATH.*:SLAPD_PATH=\"${LDAPDIR}\":" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
+sed -i "s:^SLAPD_USER.*:SLAPD_USER=\"${LDAPUSER}\":" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
+sed -i "s:^SLAPD_GROUP.*:SLAPD_GROUP=\"${LDAPGROUP}\":" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
+sed -i "s:^BACKUP_PATH.*:BACKUP_PATH=\"${LDAPBACKUPDIR}\":" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
+sed -i "s:^SLAPD_CONF_DIR.*:SLAPD_CONF_DIR=\"${LDAPCONFDIR}\":" "${INSTALL_DIR}${SLAPD_CLI_CONF}"
 
 # PATH modification
 sed -i "s:^OL_BIN.*:OL_BIN=\"${LDAPDIR}/bin\":" "${INSTALL_DIR}/etc/profile.d/openldap.sh"
 sed -i "s:^OL_SBIN.*:OL_SBIN=\"${LDAPDIR}/sbin\":" "${INSTALL_DIR}/etc/profile.d/openldap.sh"
-
-# BDB configuration
-sed -i "s:^set_lg_dir.*:set_lg_dir\t${LDAPLOGSDIR}:" "${INSTALL_DIR}${LDAPDATADIR}/DB_CONFIG"
 
 # Modify data directory in slapd.conf
 sed -i "s:^directory.*:directory\t\"${LDAPDATADIR}\":" "${INSTALL_DIR}${LDAPDIR}/etc/openldap/slapd.conf"

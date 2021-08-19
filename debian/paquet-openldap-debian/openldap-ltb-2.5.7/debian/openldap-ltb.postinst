@@ -36,15 +36,9 @@ else
 	fi
 fi
 
-# If migrating to new initscript (+cli), migrate default/slapd to cli conf file
-if [ -e "/etc/default/slapd" ]; then
-	mv /etc/default/slapd ${LDAPSERVERDIR}/etc/openldap/slapd-cli.conf
-fi
-
 
 # Create some dirs and change owner
 mkdir -p ${LDAPDATADIR}
-mkdir -p ${LDAPLOGSDIR}
 mkdir -p ${LDAPBACKUPDIR}
 
 # Globally set owner to root:root
@@ -59,57 +53,38 @@ chown root:root ${LDAPSERVERDIR}/var
 
 # Specifically adapt some files/directories owner and permissions
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
-chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGSDIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
 chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 
+# Add configuration directory if it does not exist
+mkdir -p ${LDAPCONFDIR}
+chown root:${LDAPGROUP} ${LDAPCONFDIR}
+chmod 770 ${LDAPCONFDIR}
 
-# Manage Systemd / init script
-# systemctl if managed till debian 8,
-# but we require debian >= 9 for enabling systemd script
-if [ "${DEBIAN_VERSION}" -gt "8" ]; then
+if [ -z "$( ls -A ${LDAPCONFDIR} )" ]; then
+  # Empty configuration directory, so import a new fresh config from template
+  ${SLAPD_CLI_BIN} importtestconfig
+fi
 
-  if ! type "systemctl" > /dev/null 2>&1; then
-    # No SYSTEMD available
-    # do not start on boot
-    # do not start slapd process now
-    echo && exit $?
-  else
-    # Assume SYSTEMD
-    
-    # Start slapd at startup
-    systemctl enable slapd || exit $?
 
-    # If this is slapd first installation or if slapd was started before
-    if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
-      # Start slapd
-      systemctl start slapd || exit $?
-    fi
-    rm -f /var/openldap-ltb-slapd-stopped
-  fi
-
+if ! type "systemctl" > /dev/null 2>&1; then
+  # No SYSTEMD available
+  # do not start on boot
+  # do not start slapd process now
+  echo && exit $?
 else
-  # INIT SCRIPT
-
-  if [ -x "/etc/init.d/slapd" ]; then
-    update-rc.d slapd defaults >/dev/null
-    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-      # If this is slapd first installation or if slapd was started before
-      if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
-        # Start slapd
-        invoke-rc.d slapd start || exit $?
-      fi
-      rm -f /var/openldap-ltb-slapd-stopped
-    else
-      if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
-        # Start slapd
-        /etc/init.d/slapd start || exit $?
-      fi
-      rm -f /var/openldap-ltb-slapd-stopped
-    fi
-  fi
+  # Assume SYSTEMD
   
+  # Start slapd at startup
+  systemctl enable slapd || exit $?
+
+  # If this is slapd first installation or if slapd was started before
+  if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
+    # Start slapd
+    systemctl start slapd || exit $?
+  fi
+  rm -f /var/openldap-ltb-slapd-stopped
 fi
 
