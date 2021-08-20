@@ -73,6 +73,7 @@ SLAPCAT_BIN="$SLAPD_PATH/sbin/slapcat"
 SLAPCAT_PARAMS="-o ldif-wrap=no"
 SLAPINDEX_BIN="$SLAPD_PATH/sbin/slapindex"
 SLAPTEST_BIN="$SLAPD_PATH/sbin/slaptest"
+LDAPSEARCH_BIN="${SLAPD_PATH}/bin/ldapsearch"
 
 # Backup
 BACKUP_AT_SHUTDOWN="1"
@@ -269,7 +270,7 @@ if [ ! -d "$piddir" ]; then
 fi
 
 # Rights to execute binaries
-for i in "$SLAPD_BIN" "$SLAPCAT_BIN" "$SLAPINDEX_BIN" "$SLAPTEST_BIN"
+for i in "$SLAPD_BIN" "$SLAPCAT_BIN" "$SLAPINDEX_BIN" "$SLAPTEST_BIN" "$LDAPSEARCH_BIN"
 do
 	if [ ! -x $i ]
 	then
@@ -311,6 +312,36 @@ fi
 #====================================================================
 # Functions
 #====================================================================
+
+display_usage() {
+	bold=$(tput bold)
+	normal=$(tput sgr0)
+	printf "%s\n" "${bold}Usage: $0 action [optional arguments]${normal}"
+	printf "%s\n" " action is a keyword between:"
+	printf "%s\n" "  - ${bold}start${normal}: start the slapd server"
+	printf "%s\n" "  - ${bold}stop${normal}: stop the slapd server"
+	printf "%s\n" "  - ${bold}forcestop${normal}: kill the slapd server if it can't stop"
+	printf "%s\n" "  - ${bold}restart${normal}: restart the slapd server"
+	printf "%s\n" "  - ${bold}debug${normal}: start the slapd server in debug mode (stay attached)"
+	printf "%s\n" "  - ${bold}force-restart${normal}: forcestop + start"
+	printf "%s\n" "  - ${bold}status${normal}: get the status of currently running slapd server"
+	printf "%s\n" "  - ${bold}configtest${normal}: test configuration syntax"
+	printf "%s\n" "  - ${bold}reindex${normal}: index or reindex database"
+	printf "%s\n" "  - ${bold}backup${normal}: backup the data"
+	printf "%s\n" "  - ${bold}restore${normal}: restore the data"
+	printf "%s\n" "  - ${bold}backupconfig${normal}: backup the configuration"
+	printf "%s\n" "  - ${bold}restoreconfig${normal}: restore the configuration"
+	printf "%s\n" "  - ${bold}checksync${normal}: check the synchronization state of the current instance to every provider found in configuration"
+	printf "%s\n" "  - ${bold}importflatconfigtemplate${normal}: import the flat template configuration file, after setting the variables"
+	printf "%s\n" "  - ${bold}importldifconfigtemplate${normal}: import the ldif template configuration file, after setting the variables"
+	printf "%s\n" "  - ${bold}convertconfig inputfile.conf outputfile.ldif${normal}: convert the input slapd configuration file into the equivalent ldif configuration"
+	printf "%s\n" "  - ${bold}buildconfigtemplate inputfile.ldif outputfile.ldif${normal}: Get the input ldif configuration file and transform it into a template configuration"
+	printf "%s\n" "  - ${bold}importdatatemplate${normal}: import the template data file, after setting the variables"
+	printf "\n"
+
+}
+
+
 start_slapd() {
 
 	# $1: debug level
@@ -1129,6 +1160,7 @@ replace_pattern()
 	VALUE="$2"
 	FILE="$3"
 
+	PATTERN=$( escape_value "$PATTERN" )
 	VALUE=$( escape_value "$VALUE" )
 
 	if [ ! -z ${PATTERN+x} ] && [ ! -z ${VALUE+x} ] && [ ! -z ${FILE+x} ]; then
@@ -1148,8 +1180,53 @@ compute_hash()
 }
 
 
-import_test_config() {
-	message "info" "[INFO] Import test configuration..."
+import_flat_config_template() {
+	message "info" "[INFO] Import flat configuration..."
+
+	if [ -z ${SLAPD_CONF+x} ] || [ "${SLAPD_CONF}" = "" ]; then
+		message "alert" "[ALERT] No SLAPD_CONF defined. You should set this variable to the directory hosting the configuration"
+		exit 1;
+	fi
+
+
+	if [ ! -z "$( ls -A ${SLAPD_CONF} 2>/dev/null )" ] ; then
+		message "info" "[INFO] Configuration data found, launch configuration backup"
+		cp -a "${SLAPD_CONF}" "$BACKUP_PATH/slapd-`date +%Y%m%d%H%M%S`.conf"
+	fi
+
+	if [ -z ${CONFIG_FLAT_TEMPLATE_FILE+x} ] || [ "${CONFIG_FLAT_TEMPLATE_FILE}" = "" ]; then
+		message "alert" "[ALERT] No CONFIG_FLAT_TEMPLATE_FILE defined."
+	fi
+
+	# Prepare template for replacement
+	CONFIG_TEMPLATE_PATH="${CLI_CONF_FILE%/*}/${CONFIG_FLAT_TEMPLATE_FILE}"
+	if [ -f ${CONFIG_TEMPLATE_PATH} ]
+	then
+		message "info" "[INFO] Using ${CONFIG_TEMPLATE_PATH} as template"
+	else
+		message "error" "[ERROR] No data template found at ${CONFIG_TEMPLATE_PATH}"
+		exit 1
+	fi
+
+	CONFIG_FILE_PATH="${SLAPD_CONF}"
+	cp -f ${CONFIG_TEMPLATE_PATH} ${CONFIG_FILE_PATH}
+	chown $SLAPD_USER:$SLAPD_GROUP ${CONFIG_FILE_PATH}
+	chmod 640 ${CONFIG_FILE_PATH}
+
+	replace_pattern "CONFIG_FQDN" "${CONFIG_FQDN}" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_LOGLEVEL" "${CONFIG_LOGLEVEL}" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_MANAGERROOTDN" "${CONFIG_MANAGERROOTDN}" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_MANAGERROOTPW" "$( compute_hash ${CONFIG_MANAGERROOTPW} )" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_CONFIGROOTDN" "${CONFIG_CONFIGROOTDN}" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_CONFIGROOTPW" "$( compute_hash ${CONFIG_CONFIGROOTPW} )" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_SUFFIX" "${CONFIG_SUFFIX}" "${CONFIG_FILE_PATH}"
+	replace_pattern "CONFIG_DATADIR" "${CONFIG_DATADIR}" "${CONFIG_FILE_PATH}"
+
+}
+
+
+import_ldif_config_template() {
+	message "info" "[INFO] Import ldif configuration..."
 
 	if [ -z ${SLAPD_CONF_DIR+x} ] || [ "${SLAPD_CONF_DIR}" = "" ]; then
 		message "alert" "[ALERT] No SLAPD_CONF_DIR defined. You should set this variable to the directory hosting the configuration"
@@ -1162,12 +1239,12 @@ import_test_config() {
 		backupconfig
 	fi
 
-	if [ -z ${CONFIG_TEMPLATE_FILE+x} ] || [ "${CONFIG_TEMPLATE_FILE}" = "" ]; then
-		message "alert" "[ALERT] No CONFIG_TEMPLATE_FILE defined."
+	if [ -z ${CONFIG_LDIF_TEMPLATE_FILE+x} ] || [ "${CONFIG_LDIF_TEMPLATE_FILE}" = "" ]; then
+		message "alert" "[ALERT] No CONFIG_LDIF_TEMPLATE_FILE defined."
 	fi
 
 	# Prepare template for replacement
-	CONFIG_TEMPLATE_PATH="${CLI_CONF_FILE%/*}/${CONFIG_TEMPLATE_FILE}"
+	CONFIG_TEMPLATE_PATH="${CLI_CONF_FILE%/*}/${CONFIG_LDIF_TEMPLATE_FILE}"
 	if [ -f ${CONFIG_TEMPLATE_PATH} ]
 	then
 		message "info" "[INFO] Using ${CONFIG_TEMPLATE_PATH} as template"
@@ -1189,6 +1266,12 @@ import_test_config() {
 	replace_pattern "CONFIG_CONFIGROOTPW" "$( compute_hash ${CONFIG_CONFIGROOTPW} )" "${CONFIG_FILE_PATH}"
 	replace_pattern "CONFIG_SUFFIX" "${CONFIG_SUFFIX}" "${CONFIG_FILE_PATH}"
 	replace_pattern "CONFIG_DATADIR" "${CONFIG_DATADIR}" "${CONFIG_FILE_PATH}"
+	if [ ! -z ${SLAPD_CONF+x} ] && [ "${SLAPD_CONF}" != "" ]; then
+		replace_pattern "^olcConfigFile: .*$" "olcConfigFile: ${SLAPD_CONF}" "${CONFIG_FILE_PATH}"
+	fi
+	if [ ! -z ${SLAPD_CONF_DIR+x} ] && [ "${SLAPD_CONF_DIR}" != "" ]; then
+		replace_pattern "^olcConfigDir: .*$" "olcConfigDir: ${SLAPD_CONF_DIR}" "${CONFIG_FILE_PATH}"
+	fi
 
 
 	# Delete current data
@@ -1209,11 +1292,126 @@ import_test_config() {
 	else
 		$SU "$SLAPADD_BIN $SLAPADD_PARAMS"
 	fi
+	rm "${CONFIG_FILE_PATH}"
 
 }
 
 
-import_test_data() {
+convert_config() {
+	message "info" "[INFO] Convert configuration from flat .conf to .ldif..."
+
+	TMP_CONF_DIR="/tmp/slapd.d-tmp"
+
+	if [ $# -ne 2 ] ; then
+		message "alert" "[ALERT] Missing argument: you need to supply flat and ldif configuration filenames"
+		exit 1
+	fi
+	if [ ! -f ${1} ] ; then
+		message "alert" "[ALERT] flat input configuration file does not exist"
+		exit 2
+	fi
+	if [ -e ${2} ] ; then
+		message "alert" "[ALERT] ldif output configuration file already exist"
+		exit 3
+	fi
+	message "info" "[INFO] Convert configuration from ${1} flat configuration to ${2} ldif configuration..."
+
+	rm -rf ${TMP_CONF_DIR}
+	mkdir -p ${TMP_CONF_DIR}
+
+	# import configuration into the temporary configuration directory
+	SLAPTEST_PARAMS=" -n0 -F ${TMP_CONF_DIR} -f ${1}"
+	$SLAPTEST_BIN $SLAPTEST_PARAMS > /dev/null 2>&1
+
+	if [ $? -ne 0 ] ; then
+		message "alert" "[ALERT] conversion failed during import"
+		rm -rf "${TMP_CONF_DIR}"
+		exit 4
+	fi
+
+	# export configuration in ldif
+	$SLAPCAT_BIN $SLAPCAT_PARAMS -n0 -F ${TMP_CONF_DIR} -l "$2"
+	if [ $? -ne 0 ] ; then
+		message "alert" "[ALERT] conversion failed during export"
+		rm -rf "${TMP_CONF_DIR}"
+		exit 5
+	fi
+
+	# remove temporary configuration directory
+	rm -rf "${TMP_CONF_DIR}"
+
+	# remove operational attributes
+	OPATTRS="structuralObjectClass
+		entryUUID
+		creatorsName
+		createTimestamp
+		entryCSN
+		modifiersName
+		modifyTimestamp"
+
+	for A in ${OPATTRS} ; do
+		sed -i -e "/^${A}: /d" "${2}"
+	done
+
+	if [ ! -z ${SLAPD_CONF+x} ] && [ "${SLAPD_CONF}" != "" ]; then
+		replace_pattern "^olcConfigFile: .*$" "olcConfigFile: ${SLAPD_CONF}" "$2"
+	fi
+	if [ ! -z ${SLAPD_CONF_DIR+x} ] && [ "${SLAPD_CONF_DIR}" != "" ]; then
+		replace_pattern "^olcConfigDir: .*$" "olcConfigDir: ${SLAPD_CONF_DIR}" "$2"
+	fi
+
+	message "info" "[INFO] Conversion succeeded"
+
+}
+
+
+build_config_template() {
+	message "info" "[INFO] Build configuration template from given ldif file..."
+
+	if [ $# -ne 2 ] ; then
+		message "alert" "[ALERT] Missing argument: you need to supply input ldif configuration and output ldif template filenames"
+		exit 1
+	fi
+	if [ ! -f ${1} ] ; then
+		message "alert" "[ALERT] input ldif configuration file does not exist"
+		exit 2
+	fi
+	if [ -e ${2} ] ; then
+		message "alert" "[ALERT] output ldif template already exist"
+		exit 3
+	fi
+	message "info" "[INFO] Convert ldif configuration ${1} to ldif template ${2}..."
+
+	cp -a ${1} ${2}
+
+	sed -i -e "/^olcRootPW:.*$/d" "${2}"
+	if [ ! -z ${SLAPD_CONF+x} ] && [ "${SLAPD_CONF}" != "" ]; then
+		replace_pattern "^olcConfigFile: .*$" "olcConfigFile: ${SLAPD_CONF}" "$2"
+	fi
+	if [ ! -z ${SLAPD_CONF_DIR+x} ] && [ "${SLAPD_CONF_DIR}" != "" ]; then
+		replace_pattern "^olcConfigDir: .*$" "olcConfigDir: ${SLAPD_CONF_DIR}" "$2"
+	fi
+	if [ ! -z ${CONFIG_MANAGERROOTDN+x} ] && [ "${CONFIG_MANAGERROOTDN}" != "" ]; then
+		sed -i -e "s/^olcRootDN: ${CONFIG_MANAGERROOTDN}$/olcRootDN: CONFIG_MANAGERROOTDN\nolcRootPW: CONFIG_MANAGERROOTPW/" "$2"
+	fi
+	if [ ! -z ${CONFIG_CONFIGROOTDN+x} ] && [ "${CONFIG_CONFIGROOTDN}" != "" ]; then
+		sed -i -e "s/^olcRootDN: ${CONFIG_CONFIGROOTDN}$/olcRootDN: CONFIG_CONFIGROOTDN\nolcRootPW: CONFIG_CONFIGROOTPW/" "$2"
+	fi
+	if [ ! -z ${CONFIG_DATADIR+x} ] && [ "${CONFIG_DATADIR}" != "" ]; then
+		replace_pattern "^olcDbDirectory: ${CONFIG_DATADIR}$" "olcDbDirectory: CONFIG_DATADIR" "$2"
+	fi
+	replace_pattern "^olcLogLevel: .*$" "olcLogLevel: CONFIG_LOGLEVEL" "${2}"
+	replace_pattern "^olcSaslHost: .*$" "olcSaslHost: CONFIG_FQDN" "${2}"
+	if [ ! -z ${CONFIG_SUFFIX+x} ] && [ "${CONFIG_SUFFIX}" != "" ]; then
+		replace_pattern "${CONFIG_SUFFIX}" "CONFIG_SUFFIX" "$2"
+	fi
+
+	message "info" "[INFO] Build configuration template succeeded"
+
+}
+
+
+import_data_template() {
 	message "info" "[INFO] Import test data..."
 
 	if [ -z ${DATA_TEMPLATE_FILE+x} ] || [ "${DATA_TEMPLATE_FILE}" = "" ]; then
@@ -1475,7 +1673,7 @@ case $1 in
 	stop_slapd
 	start_slapd $DEBUG_LEVEL
 	;;
-	force-reload)
+	force-restart)
 	configtest
 	forcestop
 	start_slapd
@@ -1509,18 +1707,30 @@ case $1 in
 	checksync)
 	check_sync
 	;;
-	importtestconfig)
+	importflatconfigtemplate)
 	stop_slapd
-	import_test_config
+	import_flat_config_template
 	;;
-	importtestdata)
+	importldifconfigtemplate)
+	stop_slapd
+	import_ldif_config_template
+	;;
+	convertconfig)
+	shift
+	convert_config $*
+	;;
+	buildconfigtemplate)
+	shift
+	build_config_template $*
+	;;
+	importdatatemplate)
 	backup
 	stop_slapd
-	import_test_data
+	import_data_template
 	start_slapd
 	;;
 	*)
-	echo "Usage: $0 {start|stop|forcestop|restart|debug|force-reload|status|configtest|reindex|backup|restore|backupconfig|restoreconfig|checksync|importtestconfig|importtestdata}"
+	display_usage
 	exit 1
 	;;
 esac

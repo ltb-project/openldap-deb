@@ -32,7 +32,7 @@ olcSockbufMaxIncomingAuth: 16777215
 olcThreads: 16
 olcThreadQueues: 1
 olcTLSCRLCheck: none
-olcTLSVerifyClient: never
+olcTLSVerifyClient: demand
 olcTLSProtocolMin: 0.0
 olcToolThreads: 1
 olcWriteTimeout: 0
@@ -661,12 +661,12 @@ objectClass: olcFrontendConfig
 olcDatabase: {-1}frontend
 olcAccess: {0}to dn.base=""  by * read
 olcAccess: {1}to dn.base="cn=subschema"  by * read
-olcAccess: {2}to attrs="userPassword" by group.exact="cn=admin,ou=groups,CONFIG_SUFFIX" =wdx  by self =wdx  by * auth
-olcAccess: {3}to *  by group.exact="cn=admin,ou=groups,CONFIG_SUFFIX" write  by users read
-olcLimits: {0}group="cn=admin,ou=groups,CONFIG_SUFFIX" size=unlimited time=unlimited
+olcAccess: {2}to attrs=userPassword  by group/groupOfNames/member.exact="cn=admin,ou=groups,CONFIG_SUFFIX" =wxd  by self =wxd  by * auth
+olcAccess: {3}to *  by group/groupOfNames/member.exact="cn=admin,ou=groups,CONFIG_SUFFIX" write  by users read
 olcAddContentAcl: FALSE
 olcLastMod: TRUE
 olcLastBind: TRUE
+olcLimits: {0}group/groupOfNames/member="cn=admin,ou=groups,CONFIG_SUFFIX" size=unlimited  time=unlimited
 olcMaxDerefDepth: 0
 olcReadOnly: FALSE
 olcSchemaDN: cn=Subschema
@@ -692,16 +692,17 @@ dn: olcDatabase={1}mdb,cn=config
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
 olcDatabase: {1}mdb
-olcDbDirectory: CONFIG_DATADIR
 olcSuffix: CONFIG_SUFFIX
 olcAddContentAcl: FALSE
 olcLastMod: TRUE
+olcLastBind: TRUE
 olcMaxDerefDepth: 15
 olcReadOnly: FALSE
 olcRootDN: CONFIG_MANAGERROOTDN
 olcRootPW: CONFIG_MANAGERROOTPW
 olcSyncUseSubentry: FALSE
 olcMonitoring: TRUE
+olcDbDirectory: CONFIG_DATADIR
 olcDbNoSync: FALSE
 olcDbIndex: objectClass eq
 olcDbIndex: cn eq,sub
@@ -715,6 +716,7 @@ olcDbMaxReaders: 0
 olcDbMaxSize: 4294967296
 olcDbMode: 0600
 olcDbSearchStack: 16
+olcDbMaxEntrySize: 0
 olcDbRtxnSize: 10000
 
 dn: olcOverlay={0}ppolicy,olcDatabase={1}mdb,cn=config
@@ -725,19 +727,20 @@ olcPPolicyDefault: cn=default,ou=ppolicies,CONFIG_SUFFIX
 olcPPolicyHashCleartext: TRUE
 olcPPolicyUseLockout: FALSE
 olcPPolicyForwardUpdates: FALSE
+olcPPolicyDisableWrite: FALSE
 olcPPolicySendNetscapeControls: FALSE
 
 dn: olcOverlay={1}memberof,olcDatabase={1}mdb,cn=config
 objectClass: olcOverlayConfig
-objectClass: olcMemberOf
+objectClass: olcMemberOfConfig
 olcOverlay: {1}memberof
 olcMemberOfDangling: ignore
 olcMemberOfRefInt: FALSE
 
-dn: olcOverlay={3}unique,olcDatabase={1}mdb,cn=config
+dn: olcOverlay={2}unique,olcDatabase={1}mdb,cn=config
 objectClass: olcOverlayConfig
 objectClass: olcUniqueConfig
-olcOverlay: {3}unique
+olcOverlay: {2}unique
 olcUniqueURI: ldap:///?mail?sub?
 
 dn: olcDatabase={2}monitor,cn=config
