@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+BASEDIR=$(dirname $0)
+source $BASEDIR/openldap-ltb.vars
+
+
+# Change owner
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/libexec/openldap/ppm*
+chmod +x "${LDAPSERVERDIR}/libexec/openldap/ppm_test"
+
+chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/ppm.example
+chmod 640 ${LDAPSERVERDIR}/etc/openldap/ppm.example
+
+# add path to PPM config file if not present
+grep -q -E "PPM_CONFIG_FILE" /etc/profile.d/openldap.sh || echo "export PPM_CONFIG_FILE='$PPM_CONF'" >> /etc/profile.d/openldap.sh
+

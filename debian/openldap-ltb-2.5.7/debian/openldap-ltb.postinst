@@ -1,0 +1,90 @@
+#!/bin/bash
+
+set -e
+
+BASEDIR=$(dirname $0)
+source $BASEDIR/openldap-ltb.vars
+
+
+# Create user and group
+if ! getent group ldap > /dev/null 2>&1 ; then
+  addgroup --system ${LDAPGROUP}
+else
+  if ! grep -q -E "^ldap:" /etc/group ; then
+    echo "WARN: ${LDAPGROUP} group exists but is not a local group. This may cause slapd malfunction"
+  fi
+fi
+if ! getent passwd ldap > /dev/null 2>&1 ; then
+  adduser --system --no-create-home --home /usr/local/openldap --ingroup ${LDAPGROUP} ${LDAPUSER}
+else
+  if ! grep -q -E "^ldap:" /etc/passwd ; then
+    echo "WARN: ${LDAPGROUP} user exists but is not a local user. This may cause slapd malfunction"
+  fi
+fi
+
+# Add syslog facility
+if [ -e "/etc/rsyslog.conf" ]; then
+  grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
+fi
+
+if command -v initctl >/dev/null && initctl list | grep -q rsyslog; then
+	# compatibility with ubuntu
+	initctl restart rsyslog
+else
+	if [ -x "/etc/init.d/rsyslog" ]; then
+		/etc/init.d/rsyslog restart > /dev/null 2>&1
+	fi
+fi
+
+
+# Create some dirs and change owner
+mkdir -p ${LDAPDATADIR}
+mkdir -p ${LDAPBACKUPDIR}
+
+# Globally set owner to root:root
+chown root:root ${LDAPSERVERDIR}
+chown -R root:root ${LDAPSERVERDIR}/bin
+chown -R root:root ${LDAPSERVERDIR}/etc/openldap/{ldap.conf,ldap.conf.default,schema,slapd.conf.default,slapd.ldif,slapd.ldif.default}
+chown -R root:root ${LDAPSERVERDIR}/include
+chown -R root:root ${LDAPSERVERDIR}/lib*
+chown -R root:root ${LDAPSERVERDIR}/libexec
+chown -R root:root ${LDAPSERVERDIR}/sbin
+chown root:root ${LDAPSERVERDIR}/var
+
+# Specifically adapt some files/directories owner and permissions
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPDATADIR}
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
+chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
+chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
+
+# Add configuration directory if it does not exist
+mkdir -p ${LDAPCONFDIR}
+chown root:${LDAPGROUP} ${LDAPCONFDIR}
+chmod 770 ${LDAPCONFDIR}
+
+if [ -z "$( ls -A ${LDAPCONFDIR} )" ]; then
+  # Empty configuration directory, so import a new fresh config from template
+  ${SLAPD_CLI_BIN} importtestconfig
+fi
+
+
+if ! type "systemctl" > /dev/null 2>&1; then
+  # No SYSTEMD available
+  # do not start on boot
+  # do not start slapd process now
+  echo && exit $?
+else
+  # Assume SYSTEMD
+  
+  # Start slapd at startup
+  systemctl enable slapd || exit $?
+
+  # If this is slapd first installation or if slapd was started before
+  if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
+    # Start slapd
+    systemctl start slapd || exit $?
+  fi
+  rm -f /var/openldap-ltb-slapd-stopped
+fi
+

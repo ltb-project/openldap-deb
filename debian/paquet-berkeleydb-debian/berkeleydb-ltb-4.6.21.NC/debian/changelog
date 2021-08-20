@@ -1,5 +1,0 @@
-berkeleydb-ltb (4.6.21.NC-4-patch4) unstable; urgency=low
-
-  * Initial release (Closes: #1000)
-
- -- David Coutadeur <dcoutadeur@linagora.com>  Thu, 12 Sep 2013 17:24:13 +0200
