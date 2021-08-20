@@ -20,7 +20,6 @@ olcIndexIntLen: 4
 olcListenerThreads: 1
 olcLocalSSF: 71
 olcLogLevel: CONFIG_LOGLEVEL
-olcLogFileOnly: FALSE
 olcMaxFilterDepth: 1000
 olcPidFile: /usr/local/openldap/var/run/slapd.pid
 olcReadOnly: FALSE
@@ -103,8 +102,6 @@ olcLdapSyntaxes: ( 1.3.6.1.4.1.1466.115.121.1.10 DESC 'Certificate Pair' X-BINAR
 olcLdapSyntaxes: ( 1.3.6.1.4.1.4203.666.11.10.2.1 DESC 'X.509 AttributeCertificate' X-BINARY-TRANSFER-REQUIRED 'TRUE' X-NOT-HUMAN-READABLE 'TRUE' )
 olcLdapSyntaxes: ( 1.3.6.1.4.1.1466.115.121.1.12 DESC 'Distinguished Name' )
 olcLdapSyntaxes: ( 1.2.36.79672281.1.5.0 DESC 'RDN' )
-olcLdapSyntaxes: ( 1.2.36.79672281.1.5.3 DESC 'allComponents' )
-olcLdapSyntaxes: ( 1.2.36.79672281.1.5.2 DESC 'componentFilterMatch assertion' )
 olcLdapSyntaxes: ( 1.3.6.1.4.1.1466.115.121.1.13 DESC 'Data Quality' )
 olcLdapSyntaxes: ( 1.3.6.1.4.1.1466.115.121.1.14 DESC 'Delivery Method' )
 olcLdapSyntaxes: ( 1.3.6.1.4.1.1466.115.121.1.15 DESC 'Directory String' )
@@ -168,18 +165,16 @@ olcAttributeTypes: ( 2.5.4.0 NAME 'objectClass' DESC 'RFC4512: object classes of
 olcAttributeTypes: ( 2.5.21.9 NAME 'structuralObjectClass' DESC 'RFC4512: structural object class of entry' EQUALITY objectIdentifierMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.38 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 2.5.18.1 NAME 'createTimestamp' DESC 'RFC4512: time which object was created' EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 2.5.18.2 NAME 'modifyTimestamp' DESC 'RFC4512: time which object was last modified' EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
+olcAttributeTypes: ( 2.5.18.3 NAME 'creatorsName' DESC 'RFC4512: name of creator' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 2.5.18.4 NAME 'modifiersName' DESC 'RFC4512: name of last modifier' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 2.5.18.9 NAME 'hasSubordinates' DESC 'X.501: entry has children' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 2.5.18.10 NAME 'subschemaSubentry' DESC 'RFC4512: name of controlling subschema entry' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
-olcAttributeTypes: ( 2.5.18.12 NAME 'collectiveAttributeSubentries' DESC 'RFC3671: collective attribute subentries' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 NO-USER-MODIFICATION USAGE directoryOperation )
-olcAttributeTypes: ( 2.5.18.7 NAME 'collectiveExclusions' DESC 'RFC3671: collective attribute exclusions' EQUALITY objectIdentifierMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.38 USAGE directoryOperation )
 olcAttributeTypes: ( 1.3.6.1.1.20 NAME 'entryDN' DESC 'DN of the entry' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 1.3.6.1.1.16.4 NAME 'entryUUID' DESC 'UUID of the entry' EQUALITY UUIDMatch ORDERING UUIDOrderingMatch SYNTAX 1.3.6.1.1.16.1 SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.4203.666.1.7 NAME 'entryCSN' DESC 'change sequence number of the entry content' EQUALITY CSNMatch ORDERING CSNOrderingMatch SYNTAX 1.3.6.1.4.1.4203.666.11.2.1{64} SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.4203.666.1.13 NAME 'namingCSN' DESC 'change sequence number of the entry naming (RDN)' EQUALITY CSNMatch ORDERING CSNOrderingMatch SYNTAX 1.3.6.1.4.1.4203.666.11.2.1{64} SINGLE-VALUE NO-USER-MODIFICATION USAGE directoryOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.4203.666.1.23 NAME 'syncreplCookie' DESC 'syncrepl Cookie for shadow copy' EQUALITY octetStringMatch ORDERING octetStringOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 SINGLE-VALUE NO-USER-MODIFICATION USAGE dSAOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.4203.666.1.25 NAME 'contextCSN' DESC 'the largest committed CSN of a context' EQUALITY CSNMatch ORDERING CSNOrderingMatch SYNTAX 1.3.6.1.4.1.4203.666.11.2.1{64} NO-USER-MODIFICATION USAGE dSAOperation )
-olcAttributeTypes: ( 1.3.6.1.4.1.4203.666.1.26 NAME 'syncTimestamp' DESC 'Time which object was replicated' EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE NO-USER-MODIFICATION USAGE dSAOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.1466.101.120.6 NAME 'altServer' DESC 'RFC4512: alternative servers' SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 USAGE dSAOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.1466.101.120.5 NAME 'namingContexts' DESC 'RFC4512: naming contexts' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 USAGE dSAOperation )
 olcAttributeTypes: ( 1.3.6.1.4.1.1466.101.120.13 NAME 'supportedControl' DESC 'RFC4512: supported controls' SYNTAX 1.3.6.1.4.1.1466.115.121.1.38 USAGE dSAOperation )
@@ -254,14 +249,11 @@ olcAttributeTypes: ( OLcfgGlAt:23 NAME 'olcIndexSubstrAnyStep' EQUALITY integerM
 olcAttributeTypes: ( OLcfgGlAt:84 NAME 'olcIndexIntLen' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgDbAt:0.4 NAME 'olcLastMod' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgDbAt:0.22 NAME 'olcLastBind' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
-olcAttributeTypes: ( OLcfgDbAt:0.23 NAME 'olcLastBindPrecision' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgGlAt:85 NAME 'olcLdapSyntaxes' DESC 'OpenLDAP ldapSyntax' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX OMsDirectoryString X-ORDERED 'VALUES' )
 olcAttributeTypes: ( OLcfgDbAt:0.5 NAME 'olcLimits' EQUALITY caseIgnoreMatch SYNTAX OMsDirectoryString X-ORDERED 'VALUES' )
 olcAttributeTypes: ( OLcfgGlAt:93 NAME 'olcListenerThreads' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgGlAt:26 NAME 'olcLocalSSF' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgGlAt:27 NAME 'olcLogFile' EQUALITY caseExactMatch SYNTAX OMsDirectoryString SINGLE-VALUE )
-olcAttributeTypes: ( OLcfgGlAt:102 NAME 'olcLogFileOnly' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
-olcAttributeTypes: ( OLcfgGlAt:103 NAME 'olcLogFileRotate' EQUALITY caseIgnoreMatch SYNTAX OMsDirectoryString SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgGlAt:28 NAME 'olcLogLevel' EQUALITY caseIgnoreMatch SYNTAX OMsDirectoryString )
 olcAttributeTypes: ( OLcfgDbAt:0.6 NAME 'olcMaxDerefDepth' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgGlAt:101 NAME 'olcMaxFilterDepth' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
@@ -423,16 +415,14 @@ olcAttributeTypes: ( 1.3.6.1.4.1.42.2.27.8.1.24 NAME 'pwdMinDelay' EQUALITY inte
 olcAttributeTypes: ( 1.3.6.1.4.1.42.2.27.8.1.25 NAME 'pwdMaxDelay' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 olcAttributeTypes: ( 1.3.6.1.4.1.42.2.27.8.1.26 NAME 'pwdMaxIdle' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 olcAttributeTypes: ( 1.3.6.1.4.1.42.2.27.8.1.32 NAME 'pwdMaxRecordedFailure' EQUALITY integerMatch ORDERING integerOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
-olcAttributeTypes: ( 1.3.6.1.4.1.4754.1.99.1 NAME 'pwdCheckModule' DESC 'Obsolete, no longer used' OBSOLETE EQUALITY caseExactIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.4754.1.99.1 NAME 'pwdCheckModule' DESC 'Loadable module that instantiates check_password() function' EQUALITY caseExactIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
 olcAttributeTypes: ( 1.3.6.1.4.1.4754.1.99.2 NAME 'pwdCheckModuleArg' DESC 'Argument to pass to check_password() function' EQUALITY octetStringMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 SINGLE-VALUE )
-olcAttributeTypes: ( 1.3.6.1.4.1.4754.1.99.3 NAME 'pwdUseCheckModule' DESC 'Toggle use of the loaded pwdCheckModule' EQUALITY booleanMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.1 NAME 'olcPPolicyDefault' DESC 'DN of a pwdPolicy object for uncustomized objects' EQUALITY distinguishedNameMatch SYNTAX OMsDN SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.2 NAME 'olcPPolicyHashCleartext' DESC 'Hash passwords on add or modify' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.4 NAME 'olcPPolicyForwardUpdates' DESC 'Allow policy state updates to be forwarded via updateref' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.3 NAME 'olcPPolicyUseLockout' DESC 'Warn clients with AccountLocked' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.5 NAME 'olcPPolicyDisableWrite' DESC 'Prevent all policy overlay writes' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:12.6 NAME 'olcPPolicySendNetscapeControls' DESC 'Send Netscape policy controls' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
-olcAttributeTypes: ( OLcfgOvAt:12.7 NAME 'olcPPolicyCheckModule' DESC 'Loadable module that instantiates check_password() function' EQUALITY caseExactIA5Match SYNTAX OMsIA5String SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:1.1 NAME 'olcSpCheckpoint' DESC 'ContextCSN checkpoint interval in ops and minutes' EQUALITY caseIgnoreMatch SYNTAX OMsDirectoryString SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:1.2 NAME 'olcSpSessionlog' DESC 'Session log size in ops' EQUALITY integerMatch SYNTAX OMsInteger SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:1.3 NAME 'olcSpNoPresent' DESC 'Omit Present phase processing' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
@@ -444,7 +434,6 @@ olcAttributeTypes: ( OLcfgOvAt:10.3 NAME 'olcUniqueAttribute' DESC 'Attributes f
 olcAttributeTypes: ( OLcfgOvAt:10.4 NAME 'olcUniqueStrict' DESC 'Enforce uniqueness of null values' EQUALITY booleanMatch SYNTAX OMsBoolean SINGLE-VALUE )
 olcAttributeTypes: ( OLcfgOvAt:10.5 NAME 'olcUniqueURI' DESC 'List of keywords and LDAP URIs for a uniqueness domain' EQUALITY caseExactMatch ORDERING caseExactOrderingMatch SUBSTR caseExactSubstringsMatch SYNTAX OMsDirectoryString )
 olcAttributeTypes: ( olmDatabaseAttributes:1 NAME 'olmDbDirectory' DESC 'Path name of the directory where the database environment resides' SUP monitoredInfo NO-USER-MODIFICATION USAGE dSAOperation )
-olcAttributeTypes: ( olmDatabaseAttributes:2 NAME 'olmDbNotIndexed' DESC 'Missing indexes resulting from candidate selection' SUP monitoredInfo NO-USER-MODIFICATION USAGE dSAOperation )
 olcAttributeTypes: ( olmMDBAttributes:1 NAME 'olmMDBPagesMax' DESC 'Maximum number of pages' SUP monitorCounter NO-USER-MODIFICATION USAGE dSAOperation )
 olcAttributeTypes: ( olmMDBAttributes:2 NAME 'olmMDBPagesUsed' DESC 'Number of pages in use' SUP monitorCounter NO-USER-MODIFICATION USAGE dSAOperation )
 olcAttributeTypes: ( olmMDBAttributes:3 NAME 'olmMDBPagesFree' DESC 'Number of free pages' SUP monitorCounter NO-USER-MODIFICATION USAGE dSAOperation )
@@ -458,16 +447,15 @@ olcObjectClasses: ( 2.16.840.1.113730.3.2.6 NAME 'referral' DESC 'namedref: name
 olcObjectClasses: ( 1.3.6.1.4.1.4203.1.4.1 NAME ( 'OpenLDAProotDSE' 'LDAProotDSE' ) DESC 'OpenLDAP Root DSE object' SUP top STRUCTURAL MAY cn )
 olcObjectClasses: ( 2.5.17.0 NAME 'subentry' DESC 'RFC3672: subentry' SUP top STRUCTURAL MUST ( cn $ subtreeSpecification ) )
 olcObjectClasses: ( 2.5.20.1 NAME 'subschema' DESC 'RFC4512: controlling subschema (sub)entry' AUXILIARY MAY ( dITStructureRules $ nameForms $ dITContentRules $ objectClasses $ attributeTypes $ matchingRules $ matchingRuleUse ) )
-olcObjectClasses: ( 2.5.17.2 NAME 'collectiveAttributeSubentry' DESC 'RFC3671: collective attribute subentry' AUXILIARY )
 olcObjectClasses: ( 1.3.6.1.4.1.1466.101.119.2 NAME 'dynamicObject' DESC 'RFC2589: Dynamic Object' SUP top AUXILIARY )
 olcObjectClasses: ( 1.3.6.1.4.1.4203.666.3.4 NAME 'glue' DESC 'Glue Entry' SUP top STRUCTURAL )
 olcObjectClasses: ( 1.3.6.1.4.1.4203.666.3.5 NAME 'syncConsumerSubentry' DESC 'Persistent Info for SyncRepl Consumer' AUXILIARY MAY syncreplCookie )
 olcObjectClasses: ( 1.3.6.1.4.1.4203.666.3.6 NAME 'syncProviderSubentry' DESC 'Persistent Info for SyncRepl Producer' AUXILIARY MAY contextCSN )
 olcObjectClasses: ( OLcfgGlOc:0 NAME 'olcConfig' DESC 'OpenLDAP configuration object' SUP top ABSTRACT )
-olcObjectClasses: ( OLcfgGlOc:1 NAME 'olcGlobal' DESC 'OpenLDAP Global configuration options' SUP olcConfig STRUCTURAL MAY ( cn $ olcConfigFile $ olcConfigDir $ olcAllows $ olcArgsFile $ olcAttributeOptions $ olcAuthIDRewrite $ olcAuthzPolicy $ olcAuthzRegexp $ olcConcurrency $ olcConnMaxPending $ olcConnMaxPendingAuth $ olcDisallows $ olcGentleHUP $ olcIdleTimeout $ olcIndexSubstrIfMaxLen $ olcIndexSubstrIfMinLen $ olcIndexSubstrAnyLen $ olcIndexSubstrAnyStep $ olcIndexHash64 $ olcIndexIntLen $ olcListenerThreads $ olcLocalSSF $ olcLogFile $ olcLogLevel $ olcLogFileOnly $ olcLogFileRotate $ olcMaxFilterDepth $ olcPasswordCryptSaltFormat $ olcPasswordHash $ olcPidFile $ olcPluginLogFile $ olcReadOnly $ olcReferral $ olcReplogFile $ olcRequires $ olcRestrict $ olcReverseLookup $ olcRootDSE $ olcSaslAuxprops $ olcSaslAuxpropsDontUseCopy $ olcSaslAuxpropsDontUseCopyIgnore $ olcSaslCBinding $ olcSaslHost $ olcSaslRealm $ olcSaslSecProps $ olcSecurity $ olcServerID $ olcSizeLimit $ olcSockbufMaxIncoming $ olcSockbufMaxIncomingAuth $ olcTCPBuffer $ olcThreads $ olcThreadQueues $ olcTimeLimit $ olcTLSCACertificateFile $ olcTLSCACertificatePath $ olcTLSCertificateFile $ olcTLSCertificateKeyFile $ olcTLSCipherSuite $ olcTLSCRLCheck $ olcTLSCACertificate $ olcTLSCertificate $ olcTLSCertificateKey $ olcTLSRandFile $ olcTLSVerifyClient $ olcTLSDHParamFile $ olcTLSECName $ olcTLSCRLFile $ olcTLSProtocolMin $ olcToolThreads $ olcWriteTimeout $ olcObjectIdentifier $ olcAttributeTypes $ olcObjectClasses $ olcDitContentRules $ olcLdapSyntaxes ) )
+olcObjectClasses: ( OLcfgGlOc:1 NAME 'olcGlobal' DESC 'OpenLDAP Global configuration options' SUP olcConfig STRUCTURAL MAY ( cn $ olcConfigFile $ olcConfigDir $ olcAllows $ olcArgsFile $ olcAttributeOptions $ olcAuthIDRewrite $ olcAuthzPolicy $ olcAuthzRegexp $ olcConcurrency $ olcConnMaxPending $ olcConnMaxPendingAuth $ olcDisallows $ olcGentleHUP $ olcIdleTimeout $ olcIndexSubstrIfMaxLen $ olcIndexSubstrIfMinLen $ olcIndexSubstrAnyLen $ olcIndexSubstrAnyStep $ olcIndexHash64 $ olcIndexIntLen $ olcListenerThreads $ olcLocalSSF $ olcLogFile $ olcLogLevel $ olcMaxFilterDepth $ olcPasswordCryptSaltFormat $ olcPasswordHash $ olcPidFile $ olcPluginLogFile $ olcReadOnly $ olcReferral $ olcReplogFile $ olcRequires $ olcRestrict $ olcReverseLookup $ olcRootDSE $ olcSaslAuxprops $ olcSaslAuxpropsDontUseCopy $ olcSaslAuxpropsDontUseCopyIgnore $ olcSaslCBinding $ olcSaslHost $ olcSaslRealm $ olcSaslSecProps $ olcSecurity $ olcServerID $ olcSizeLimit $ olcSockbufMaxIncoming $ olcSockbufMaxIncomingAuth $ olcTCPBuffer $ olcThreads $ olcThreadQueues $ olcTimeLimit $ olcTLSCACertificateFile $ olcTLSCACertificatePath $ olcTLSCertificateFile $ olcTLSCertificateKeyFile $ olcTLSCipherSuite $ olcTLSCRLCheck $ olcTLSCACertificate $ olcTLSCertificate $ olcTLSCertificateKey $ olcTLSRandFile $ olcTLSVerifyClient $ olcTLSDHParamFile $ olcTLSECName $ olcTLSCRLFile $ olcTLSProtocolMin $ olcToolThreads $ olcWriteTimeout $ olcObjectIdentifier $ olcAttributeTypes $ olcObjectClasses $ olcDitContentRules $ olcLdapSyntaxes ) )
 olcObjectClasses: ( OLcfgGlOc:2 NAME 'olcSchemaConfig' DESC 'OpenLDAP schema object' SUP olcConfig STRUCTURAL MAY ( cn $ olcObjectIdentifier $ olcLdapSyntaxes $ olcAttributeTypes $ olcObjectClasses $ olcDitContentRules ) )
 olcObjectClasses: ( OLcfgGlOc:3 NAME 'olcBackendConfig' DESC 'OpenLDAP Backend-specific options' SUP olcConfig STRUCTURAL MUST olcBackend )
-olcObjectClasses: ( OLcfgGlOc:4 NAME 'olcDatabaseConfig' DESC 'OpenLDAP Database-specific options' SUP olcConfig STRUCTURAL MUST olcDatabase MAY ( olcDisabled $ olcHidden $ olcSuffix $ olcSubordinate $ olcAccess $ olcAddContentAcl $ olcLastMod $ olcLastBind $ olcLastBindPrecision $ olcLimits $ olcMaxDerefDepth $ olcPlugin $ olcReadOnly $ olcReplica $ olcReplicaArgsFile $ olcReplicaPidFile $ olcReplicationInterval $ olcReplogFile $ olcRequires $ olcRestrict $ olcRootDN $ olcRootPW $ olcSchemaDN $ olcSecurity $ olcSizeLimit $ olcSyncUseSubentry $ olcSyncrepl $ olcTimeLimit $ olcUpdateDN $ olcUpdateRef $ olcMultiProvider $ olcMonitoring $ olcExtraAttrs ) )
+olcObjectClasses: ( OLcfgGlOc:4 NAME 'olcDatabaseConfig' DESC 'OpenLDAP Database-specific options' SUP olcConfig STRUCTURAL MUST olcDatabase MAY ( olcDisabled $ olcHidden $ olcSuffix $ olcSubordinate $ olcAccess $ olcAddContentAcl $ olcLastMod $ olcLastBind $ olcLimits $ olcMaxDerefDepth $ olcPlugin $ olcReadOnly $ olcReplica $ olcReplicaArgsFile $ olcReplicaPidFile $ olcReplicationInterval $ olcReplogFile $ olcRequires $ olcRestrict $ olcRootDN $ olcRootPW $ olcSchemaDN $ olcSecurity $ olcSizeLimit $ olcSyncUseSubentry $ olcSyncrepl $ olcTimeLimit $ olcUpdateDN $ olcUpdateRef $ olcMultiProvider $ olcMonitoring $ olcExtraAttrs ) )
 olcObjectClasses: ( OLcfgGlOc:5 NAME 'olcOverlayConfig' DESC 'OpenLDAP Overlay-specific options' SUP olcConfig STRUCTURAL MUST olcOverlay MAY olcDisabled )
 olcObjectClasses: ( OLcfgGlOc:6 NAME 'olcIncludeFile' DESC 'OpenLDAP configuration include file' SUP olcConfig STRUCTURAL MUST olcInclude MAY ( cn $ olcRootDSE ) )
 olcObjectClasses: ( OLcfgGlOc:7 NAME 'olcFrontendConfig' DESC 'OpenLDAP frontend configuration' AUXILIARY MAY ( olcDefaultSearchBase $ olcPasswordHash $ olcSortVals ) )
@@ -487,12 +475,12 @@ olcObjectClasses: ( OLcfgBkOc:12.1 NAME 'olcMdbBkConfig' DESC 'MDB backend confi
 olcObjectClasses: ( OLcfgDbOc:12.1 NAME 'olcMdbConfig' DESC 'MDB database configuration' SUP olcDatabaseConfig STRUCTURAL MUST olcDbDirectory MAY ( olcDbCheckpoint $ olcDbEnvFlags $ olcDbNoSync $ olcDbIndex $ olcDbMaxReaders $ olcDbMaxSize $ olcDbMode $ olcDbSearchStack $ olcDbMaxEntrySize $ olcDbRtxnSize $ olcDbMultival ) )
 olcObjectClasses: ( OLcfgOvOc:8.1 NAME ( 'olcDynListConfig' 'olcDynamicList' ) DESC 'Dynamic list configuration' SUP olcOverlayConfig STRUCTURAL MAY olcDynListAttrSet )
 olcObjectClasses: ( OLcfgOvOc:18.1 NAME ( 'olcMemberOfConfig' 'olcMemberOf' ) DESC 'Member-of configuration' SUP olcOverlayConfig STRUCTURAL MAY ( olcMemberOfDN $ olcMemberOfDangling $ olcMemberOfDanglingError $ olcMemberOfRefInt $ olcMemberOfGroupOC $ olcMemberOfMemberAD $ olcMemberOfMemberOfAD ) )
-olcObjectClasses: ( 1.3.6.1.4.1.4754.2.99.1 NAME 'pwdPolicyChecker' SUP top AUXILIARY MAY ( pwdCheckModule $ pwdCheckModuleArg $ pwdUseCheckModule ) )
+olcObjectClasses: ( 1.3.6.1.4.1.4754.2.99.1 NAME 'pwdPolicyChecker' SUP top AUXILIARY MAY ( pwdCheckModule $ pwdCheckModuleArg ) )
 olcObjectClasses: ( 1.3.6.1.4.1.42.2.27.8.2.1 NAME 'pwdPolicy' SUP top AUXILIARY MUST pwdAttribute MAY ( pwdMinAge $ pwdMaxAge $ pwdInHistory $ pwdCheckQuality $ pwdMinLength $ pwdMaxLength $ pwdExpireWarning $ pwdGraceAuthNLimit $ pwdGraceExpiry $ pwdLockout $ pwdLockoutDuration $ pwdMaxFailure $ pwdFailureCountInterval $ pwdMustChange $ pwdAllowUserChange $ pwdSafeModify $ pwdMinDelay $ pwdMaxDelay $ pwdMaxIdle $ pwdMaxRecordedFailure ) )
-olcObjectClasses: ( OLcfgOvOc:12.1 NAME 'olcPPolicyConfig' DESC 'Password Policy configuration' SUP olcOverlayConfig STRUCTURAL MAY ( olcPPolicyDefault $ olcPPolicyHashCleartext $ olcPPolicyUseLockout $ olcPPolicyForwardUpdates $ olcPPolicyDisableWrite $ olcPPolicySendNetscapeControls $ olcPPolicyCheckModule ) )
+olcObjectClasses: ( OLcfgOvOc:12.1 NAME 'olcPPolicyConfig' DESC 'Password Policy configuration' SUP olcOverlayConfig STRUCTURAL MAY ( olcPPolicyDefault $ olcPPolicyHashCleartext $ olcPPolicyUseLockout $ olcPPolicyForwardUpdates $ olcPPolicyDisableWrite $ olcPPolicySendNetscapeControls ) )
 olcObjectClasses: ( OLcfgOvOc:1.1 NAME 'olcSyncProvConfig' DESC 'SyncRepl Provider configuration' SUP olcOverlayConfig STRUCTURAL MAY ( olcSpCheckpoint $ olcSpSessionlog $ olcSpNoPresent $ olcSpReloadHint $ olcSpSessionlogSource ) )
 olcObjectClasses: ( OLcfgOvOc:10.1 NAME 'olcUniqueConfig' DESC 'Attribute value uniqueness configuration' SUP olcOverlayConfig STRUCTURAL MAY ( olcUniqueBase $ olcUniqueIgnore $ olcUniqueAttribute $ olcUniqueStrict $ olcUniqueURI ) )
-olcObjectClasses: ( olmMDBObjectClasses:2 NAME 'olmMDBDatabase' SUP top AUXILIARY MAY ( olmDbDirectory $ olmDbNotIndexed $ olmMDBPagesMax $ olmMDBPagesUsed $ olmMDBPagesFree $ olmMDBReadersMax $ olmMDBReadersUsed $ olmMDBEntries ) )
+olcObjectClasses: ( olmMDBObjectClasses:2 NAME 'olmMDBDatabase' SUP top AUXILIARY MAY ( olmDbDirectory $ olmMDBPagesMax $ olmMDBPagesUsed $ olmMDBPagesFree $ olmMDBReadersMax $ olmMDBReadersUsed $ olmMDBEntries ) )
 
 dn: cn={0}core,cn=schema,cn=config
 objectClass: olcSchemaConfig
@@ -518,7 +506,7 @@ olcAttributeTypes: {17}( 2.5.4.21 NAME 'telexNumber' DESC 'RFC2256: Telex Number
 olcAttributeTypes: {18}( 2.5.4.22 NAME 'teletexTerminalIdentifier' DESC 'RFC2256: Teletex Terminal Identifier' SYNTAX 1.3.6.1.4.1.1466.115.121.1.51 )
 olcAttributeTypes: {19}( 2.5.4.23 NAME ( 'facsimileTelephoneNumber' 'fax' ) DESC 'RFC2256: Facsimile (Fax) Telephone Number' SYNTAX 1.3.6.1.4.1.1466.115.121.1.22 )
 olcAttributeTypes: {20}( 2.5.4.24 NAME 'x121Address' DESC 'RFC2256: X.121 Address' EQUALITY numericStringMatch SUBSTR numericStringSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.36{15} )
-olcAttributeTypes: {21}( 2.5.4.25 NAME 'internationalISDNNumber' DESC 'RFC2256: international ISDN number' EQUALITY numericStringMatch SUBSTR numericStringSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.36{16} )
+olcAttributeTypes: {21}( 2.5.4.25 NAME 'internationaliSDNNumber' DESC 'RFC2256: international ISDN number' EQUALITY numericStringMatch SUBSTR numericStringSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.36{16} )
 olcAttributeTypes: {22}( 2.5.4.26 NAME 'registeredAddress' DESC 'RFC2256: registered postal address' SUP postalAddress SYNTAX 1.3.6.1.4.1.1466.115.121.1.41 )
 olcAttributeTypes: {23}( 2.5.4.27 NAME 'destinationIndicator' DESC 'RFC2256: destination indicator' EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.44{128} )
 olcAttributeTypes: {24}( 2.5.4.28 NAME 'preferredDeliveryMethod' DESC 'RFC2256: preferred delivery method' SYNTAX 1.3.6.1.4.1.1466.115.121.1.14 SINGLE-VALUE )
@@ -551,13 +539,13 @@ olcAttributeTypes: {50}( 0.9.2342.19200300.100.1.37 NAME 'associatedDomain' DESC
 olcAttributeTypes: {51}( 1.2.840.113549.1.9.1 NAME ( 'email' 'emailAddress' 'pkcs9email' ) DESC 'RFC3280: legacy attribute for email addresses in DNs' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{128} )
 olcObjectClasses: {0}( 2.5.6.2 NAME 'country' DESC 'RFC2256: a country' SUP top STRUCTURAL MUST c MAY ( searchGuide $ description ) )
 olcObjectClasses: {1}( 2.5.6.3 NAME 'locality' DESC 'RFC2256: a locality' SUP top STRUCTURAL MAY ( street $ seeAlso $ searchGuide $ st $ l $ description ) )
-olcObjectClasses: {2}( 2.5.6.4 NAME 'organization' DESC 'RFC2256: an organization' SUP top STRUCTURAL MUST o MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
-olcObjectClasses: {3}( 2.5.6.5 NAME 'organizationalUnit' DESC 'RFC2256: an organizational unit' SUP top STRUCTURAL MUST ou MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
+olcObjectClasses: {2}( 2.5.6.4 NAME 'organization' DESC 'RFC2256: an organization' SUP top STRUCTURAL MUST o MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
+olcObjectClasses: {3}( 2.5.6.5 NAME 'organizationalUnit' DESC 'RFC2256: an organizational unit' SUP top STRUCTURAL MUST ou MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
 olcObjectClasses: {4}( 2.5.6.6 NAME 'person' DESC 'RFC2256: a person' SUP top STRUCTURAL MUST ( sn $ cn ) MAY ( userPassword $ telephoneNumber $ seeAlso $ description ) )
-olcObjectClasses: {5}( 2.5.6.7 NAME 'organizationalPerson' DESC 'RFC2256: an organizational person' SUP person STRUCTURAL MAY ( title $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l ) )
-olcObjectClasses: {6}( 2.5.6.8 NAME 'organizationalRole' DESC 'RFC2256: an organizational role' SUP top STRUCTURAL MUST cn MAY ( x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l $ description ) )
+olcObjectClasses: {5}( 2.5.6.7 NAME 'organizationalPerson' DESC 'RFC2256: an organizational person' SUP person STRUCTURAL MAY ( title $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l ) )
+olcObjectClasses: {6}( 2.5.6.8 NAME 'organizationalRole' DESC 'RFC2256: an organizational role' SUP top STRUCTURAL MUST cn MAY ( x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ seeAlso $ roleOccupant $ preferredDeliveryMethod $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ ou $ st $ l $ description ) )
 olcObjectClasses: {7}( 2.5.6.9 NAME 'groupOfNames' DESC 'RFC2256: a group of names (DNs)' SUP top STRUCTURAL MUST ( member $ cn ) MAY ( businessCategory $ seeAlso $ owner $ ou $ o $ description ) )
-olcObjectClasses: {8}( 2.5.6.10 NAME 'residentialPerson' DESC 'RFC2256: an residential person' SUP person STRUCTURAL MUST l MAY ( businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ preferredDeliveryMethod $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l ) )
+olcObjectClasses: {8}( 2.5.6.10 NAME 'residentialPerson' DESC 'RFC2256: an residential person' SUP person STRUCTURAL MUST l MAY ( businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ preferredDeliveryMethod $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l ) )
 olcObjectClasses: {9}( 2.5.6.11 NAME 'applicationProcess' DESC 'RFC2256: an application process' SUP top STRUCTURAL MUST cn MAY ( seeAlso $ ou $ l $ description ) )
 olcObjectClasses: {10}( 2.5.6.12 NAME 'applicationEntity' DESC 'RFC2256: an application entity' SUP top STRUCTURAL MUST ( presentationAddress $ cn ) MAY ( supportedApplicationContext $ seeAlso $ ou $ o $ l $ description ) )
 olcObjectClasses: {11}( 2.5.6.13 NAME 'dSA' DESC 'RFC2256: a directory system agent (a server)' SUP applicationEntity STRUCTURAL MAY knowledgeInformation )
@@ -568,7 +556,7 @@ olcObjectClasses: {15}( 2.5.6.17 NAME 'groupOfUniqueNames' DESC 'RFC2256: a grou
 olcObjectClasses: {16}( 2.5.6.18 NAME 'userSecurityInformation' DESC 'RFC2256: a user security information' SUP top AUXILIARY MAY supportedAlgorithms )
 olcObjectClasses: {17}( 2.5.6.16.2 NAME 'certificationAuthority-V2' SUP certificationAuthority AUXILIARY MAY deltaRevocationList )
 olcObjectClasses: {18}( 2.5.6.19 NAME 'cRLDistributionPoint' SUP top STRUCTURAL MUST cn MAY ( certificateRevocationList $ authorityRevocationList $ deltaRevocationList ) )
-olcObjectClasses: {19}( 2.5.6.20 NAME 'dmd' SUP top STRUCTURAL MUST dmdName MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationalISDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
+olcObjectClasses: {19}( 2.5.6.20 NAME 'dmd' SUP top STRUCTURAL MUST dmdName MAY ( userPassword $ searchGuide $ seeAlso $ businessCategory $ x121Address $ registeredAddress $ destinationIndicator $ preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $ telephoneNumber $ internationaliSDNNumber $ facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $ postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )
 olcObjectClasses: {20}( 2.5.6.21 NAME 'pkiUser' DESC 'RFC2587: a PKI user' SUP top AUXILIARY MAY userCertificate )
 olcObjectClasses: {21}( 2.5.6.22 NAME 'pkiCA' DESC 'RFC2587: PKI certificate authority' SUP top AUXILIARY MAY ( authorityRevocationList $ certificateRevocationList $ cACertificate $ crossCertificatePair ) )
 olcObjectClasses: {22}( 2.5.6.23 NAME 'deltaCRL' DESC 'RFC4523: X.509 delta CRL' SUP top AUXILIARY MAY deltaRevocationList )
@@ -679,7 +667,6 @@ olcLimits: {0}group="cn=admin,ou=groups,CONFIG_SUFFIX" size=unlimited time=unlim
 olcAddContentAcl: FALSE
 olcLastMod: TRUE
 olcLastBind: TRUE
-olcLastBindPrecision: 0
 olcMaxDerefDepth: 0
 olcReadOnly: FALSE
 olcSchemaDN: cn=Subschema
@@ -694,7 +681,6 @@ olcAccess: {0}to *  by * none
 olcAddContentAcl: TRUE
 olcLastMod: TRUE
 olcLastBind: TRUE
-olcLastBindPrecision: 0
 olcMaxDerefDepth: 15
 olcReadOnly: FALSE
 olcRootDN: CONFIG_CONFIGROOTDN
@@ -760,7 +746,6 @@ olcDatabase: {2}monitor
 olcAddContentAcl: FALSE
 olcLastMod: TRUE
 olcLastBind: TRUE
-olcLastBindPrecision: 0
 olcMaxDerefDepth: 15
 olcReadOnly: FALSE
 olcSyncUseSubentry: FALSE
