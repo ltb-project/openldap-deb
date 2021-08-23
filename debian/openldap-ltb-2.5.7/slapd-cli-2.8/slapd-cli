@@ -237,6 +237,7 @@ if [ $PPID -ne 1 ] && \
     [ -z "$INVOCATION_ID" ]  ;
 then
 	SYSTEMD_SERVICE_NAME=slapd
+	SYSTEMD_LLOAD_SERVICE_NAME=lload
 	_use_systemctl=1
 fi
 
@@ -337,6 +338,9 @@ display_usage() {
 	printf "%s\n" "  - ${bold}convertconfig inputfile.conf outputfile.ldif${normal}: convert the input slapd configuration file into the equivalent ldif configuration"
 	printf "%s\n" "  - ${bold}buildconfigtemplate inputfile.ldif outputfile.ldif${normal}: Get the input ldif configuration file and transform it into a template configuration"
 	printf "%s\n" "  - ${bold}importdatatemplate${normal}: import the template data file, after setting the variables"
+	printf "%s\n" "  - ${bold}lloadstart${normal}: start the load-balancer"
+	printf "%s\n" "  - ${bold}lloadstop${normal}: stop the load-balancer"
+	printf "%s\n" "  - ${bold}lloadstatus${normal}: get the status of currently running load-balancer"
 	printf "\n"
 
 }
@@ -476,6 +480,210 @@ stop_slapd() {
 	fi
 }
 
+start_lload() {
+
+	# $1: debug level
+	
+	# Exit 0 if lload is already running
+	# LSB compliance
+	lload_status
+	
+	if [ $? -eq 0 ]
+	then 
+		message "info" "[OK] lload is already running"
+		exit 0
+	fi   
+
+	# Start message
+	message "info" "[INFO] Launching OpenLDAP..."
+
+	# File descriptor limit, only for root
+	if [ $MYUID -eq 0 ]
+	then
+		ulimit -n $FD_LIMIT
+		if [ $? -eq 0 ]
+		then
+			message "info" "[OK] File descriptor limit set to $FD_LIMIT"
+		else
+			message "warning" "[WARNING] Fail to set file descriptor limit to $FD_LIMIT, going to next step"
+		fi
+	else
+		message "info" "[INFO] File descriptor limit not modified (require root privileges)"
+	fi
+
+	# Parameters
+	if [ "$LLOAD_CONF_DIR" ]
+	then
+		LLOAD_PARAMS="$LLOAD_PARAMS -F $LLOAD_CONF_DIR"
+	elif [ "$LLOAD_CONF" ]
+	then
+		LLOAD_PARAMS="$LLOAD_PARAMS -f $LLOAD_CONF"
+	fi
+
+	if [  "$SLAPD_USER" -a $MYUID -eq 0 ]
+	then
+		LLOAD_PARAMS="$LLOAD_PARAMS -u $SLAPD_USER"
+	fi
+
+	if [ "$SLAPD_GROUP" -a $MYGID -eq 0 ]
+	then
+		LLOAD_PARAMS="$LLOAD_PARAMS -g $SLAPD_GROUP"
+	fi
+
+	if [ "$SLAPD_SYSLOG_LOCAL_USER" ]
+	then
+		LLOAD_PARAMS="$LLOAD_PARAMS -l $SLAPD_SYSLOG_LOCAL_USER" 
+	fi
+
+	# It's time to start lload
+
+	if [ -n "$1" ]; then
+		$SLAPD_BIN -h "$LLOAD_SERVICES" $LLOAD_PARAMS -d $1
+	else
+		if [ $_use_systemctl -eq 1 ] ; then
+			systemctl start "$SYSTEMD_LLOAD_SERVICE_NAME"
+		else
+			$SLAPD_BIN -h "$LLOAD_SERVICES" $LLOAD_PARAMS
+		fi
+		sleep 1
+
+		# Presence of PID file
+		if [ ! -r $LLOAD_PID_FILE ]
+		then
+			message "alert" "[ALERT] No PID file for lload"
+			exit 1
+		fi
+
+		# Is lload launched?
+		PID=`cat $LLOAD_PID_FILE`
+		if [ ! -e /proc/$PID ]
+		then
+			message "alert" "[ALERT] lload not running"
+			exit 1
+		else
+			message "info" "[OK] lload started"
+		fi
+	fi
+}
+
+stop_lload() {
+	# Stop message
+	message "info" "[INFO] Halting lload..."
+
+	# Presence of PID file
+	if [ ! -r $LLOAD_PID_FILE ]
+	then
+		message "info" "[INFO] Can't read PID file, try to stop lload manually"
+		return 1
+	else
+		if [ $_use_systemctl -eq 1 ] ; then
+			systemctl stop "$SYSTEMD_LLOAD_SERVICE_NAME"
+			message "info" "[OK] lload stopped"
+		else
+			PID=`cat $LLOAD_PID_FILE`
+			if [ $( ${PS_COMMAND_PID} | grep "${PID}" | wc -l ) -eq 0 ] ; then
+				message "info" "[OK] lload already stopped"
+				exit 0
+			fi
+			kill -INT $PID
+			# Waiting loop
+			i=0
+			while [ -e /proc/$PID ]
+			do
+				if [ $i -eq $TIMEOUT ]
+				then
+					# Timeout
+					message "alert" "[ALERT] lload still running (PID $PID), try to stop lload manually"
+					exit 1
+				fi
+				i=`expr $i + 1`
+				sleep 1
+			done
+
+			message "info" "[OK] lload stopped after $i seconds"
+		fi
+
+	fi
+}
+
+lload_status() {
+	if [ $_use_systemctl -eq 1 ]
+	then
+		if systemctl --quiet is-active "$SYSTEMD_LLOAD_SERVICE_NAME"
+		then
+			return 0
+		else
+			return 1
+		fi
+	fi
+
+	# Return 0 if lload is running, 1 if slapd is stopped, 2 if we can't say
+	if [ ! -r $LLOAD_PID_FILE ]
+	then
+		# Escape special characters into $LLOAD_SERVICES
+		lload_services="`echo "$LLOAD_SERVICES" | sed 's/\*/\\\*/g'`"
+
+		# Check if any slapd process are running
+		if [ `${PS_COMMAND_CMD} | grep $SLAPD_BIN | grep "$lload_services" | grep -v grep | wc -l` -eq 0 ]
+		then
+			return 1
+		else
+			return 2
+		fi
+	else
+		PID=`cat $LLOAD_PID_FILE`
+	fi
+
+	if [ ! -e /proc/$PID ]
+	then
+		return 1
+	else
+		return 0
+	fi
+}
+
+display_lload_status() {
+
+	# Print script version
+	message "info" "[INFO] LDAP Tool Box slapd-cli script version $VERSION" 
+
+	# Get status
+	lload_status
+
+	status=$?
+
+	if [ $status -eq 0 ]
+	then
+		PID=`cat $LLOAD_PID_FILE`
+
+		message "info" "[INFO] Process lload is running (PID $PID)"
+		VER="$( slapd_version )"
+		if [ "${VER}" != "" ] ; then
+			message "info" "[INFO] Detected OpenLDAP version: $( slapd_version )"
+		fi
+		message "info" "[INFO] Listening to services $LLOAD_SERVICES"
+
+		CPU=`ps -p $PID -o %cpu=`
+		MEM=`ps -p $PID -o %mem=`
+
+		message "info" "[INFO] lload process usage: $CPU% CPU / $MEM% MEM"
+
+
+	fi
+
+	if [ $status -eq 1 ]
+	then
+		message "info" "[INFO] Process lload is not running"
+	fi
+
+	if [ $status -eq 2 ]
+	then
+		message "info" "[INFO] Unable to determine lload status"
+	fi
+
+	exit $status
+}
+
 forcestop() {
 	# Stop message
 	message "info" "[INFO] Killing OpenLDAP with force..."
@@ -568,7 +776,7 @@ slapd_version() {
 
 	if [ "${VERSION}" = "" ] ; then
 		if [ ! -z ${SLAPD_BIN+x} ] && [ "${SLAPD_BIN}" != "" ] ; then
-			VERSION="$( ${SLAPD_BIN} -V 2>&1 | grep slapd )"
+			VERSION="$( ${SLAPD_BIN} -V 2>&1 | grep 'OpenLDAP' )"
 		fi
 	fi
 	VERSION=$( printf "%s" "${VERSION}" | sed -e 's/^.*\(slapd .*(.*)\).*$/\1/' )
@@ -1728,6 +1936,15 @@ case $1 in
 	stop_slapd
 	import_data_template
 	start_slapd
+	;;
+	lloadstart)
+	start_lload
+	;;
+	lloadstop)
+	stop_lload
+	;;
+	lloadstatus)
+	display_lload_status
 	;;
 	*)
 	display_usage

@@ -13,6 +13,9 @@ mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
 chmod 644 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
 
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/lload.service" "${INSTALL_DIR}/lib/systemd/system"
+chmod 644 "${INSTALL_DIR}/lib/systemd/system/lload.service"
+
 
 # copy some more files
 cp -f "../DB_CONFIG" "${INSTALL_DIR}/${LDAPDATADIR}"
@@ -23,6 +26,7 @@ cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli.conf" "${INSTALL_DIR}${S
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/config-template.conf" "${INSTALL_DIR}${SLAPD_CLI_FLAT_CONFIG_TEMPLATE}"
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/config-template.ldif" "${INSTALL_DIR}${SLAPD_CLI_LDIF_CONFIG_TEMPLATE}"
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/data-template.ldif" "${INSTALL_DIR}${SLAPD_CLI_DATA_TEMPLATE}"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/lload.conf" "${INSTALL_DIR}${SLAPD_CLI_LLOAD_CONF}"
 mkdir -p "${INSTALL_DIR}/etc/bash_completion.d/"
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli-prompt" "${INSTALL_DIR}/etc/bash_completion.d/"
 

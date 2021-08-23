@@ -3,6 +3,7 @@
 /usr/local/openldap/etc/openldap/config-template.conf
 /usr/local/openldap/etc/openldap/config-template.ldif
 /usr/local/openldap/etc/openldap/data-template.ldif
+/usr/local/openldap/etc/openldap/lload.conf
 /usr/local/openldap/etc/openldap/ldap.conf
 /usr/local/openldap/var/openldap-data/DB_CONFIG
 /etc/bash_completion.d/slapd-cli-prompt

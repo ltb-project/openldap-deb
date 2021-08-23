@@ -4,7 +4,7 @@ _slapd-cli()
     COMPREPLY=()
     CUR="${COMP_WORDS[COMP_CWORD]}"
     PREV="${COMP_WORDS[COMP_CWORD-1]}"
-    ACTIONS="start stop forcestop restart debug force-restart status configtest reindex backup restore backupconfig restoreconfig checksync importflatconfigtemplate importldifconfigtemplate convertconfig buildconfigtemplate importdatatemplate"
+    ACTIONS="start stop forcestop restart debug force-restart status configtest reindex backup restore backupconfig restoreconfig checksync importflatconfigtemplate importldifconfigtemplate convertconfig buildconfigtemplate importdatatemplate lloadstart lloadstop lloadstatus"
 
 
     if [[ ${COMP_WORDS[*]} == *"convertconfig"* ]] || [[ ${COMP_WORDS[*]} == *"buildconfigtemplate"* ]] ; then
