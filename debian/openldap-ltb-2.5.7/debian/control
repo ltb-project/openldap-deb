@@ -2,7 +2,7 @@ Source: openldap-ltb
 Section: net
 Priority: optional
 Maintainer: dcoutadeur <david.coutadeur@gmail.com>
-Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, libsodium23, libsodium-dev, libevent-dev
+Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mime-support, mawk, libcrack2-dev, libsodium23, libsodium-dev, libevent-dev, pandoc
 Standards-Version: 3.8.4
 Homepage: http://ltb-project.org
 

@@ -97,6 +97,7 @@ cd ..
 cd ppm
 make clean
 make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
+make doc prefix=${LDAPSERVERDIR}
 make test "LDAP_SRC=../../.."
 cd ..
 # variant
