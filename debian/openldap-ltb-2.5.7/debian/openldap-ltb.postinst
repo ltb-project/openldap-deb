@@ -5,6 +5,28 @@ set -e
 BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
+add_systemd_service()
+{
+
+  SERV="${1}"
+  KEEPSTOPPEDFLAG="/var/openldap-ltb-${SERV}-keepstopped"
+
+  # Starting service on boot
+  systemctl enable ${SERV}
+
+  # If KEEPSTOPPEDFLAG is absent (means fresh install or previous OpenLDAP stopped)
+  if [ ! -f ${KEEPSTOPPEDFLAG} ]; then
+    # Start service
+    systemctl start ${SERV}
+  else
+    # don't start service
+
+    # delete KEEPSTOPPEDFLAG (will be set by prerm script)
+    rm -f ${KEEPSTOPPEDFLAG}
+  fi
+
+}
+
 
 # Create user and group
 if ! getent group ldap > /dev/null 2>&1 ; then
@@ -26,16 +48,6 @@ fi
 if [ -e "/etc/rsyslog.conf" ]; then
   grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
 fi
-
-if command -v initctl >/dev/null && initctl list | grep -q rsyslog; then
-	# compatibility with ubuntu
-	initctl restart rsyslog
-else
-	if [ -x "/etc/init.d/rsyslog" ]; then
-		/etc/init.d/rsyslog restart > /dev/null 2>&1
-	fi
-fi
-
 
 # Create some dirs and change owner
 mkdir -p ${LDAPDATADIR}
@@ -91,15 +103,11 @@ if ! type "systemctl" > /dev/null 2>&1; then
   echo && exit $?
 else
   # Assume SYSTEMD
-  
-  # Start slapd at startup
-  systemctl enable ${SYSTEMD_SERVICE_NAME} || exit $?
 
-  # If this is slapd first installation or if slapd was started before
-  if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
-    # Start slapd
-    systemctl start ${SYSTEMD_SERVICE_NAME} || exit $?
-  fi
-  rm -f /var/openldap-ltb-slapd-stopped
+  # enable slapd-ltb on boot + start slapd-ltb process now
+  add_systemd_service ${SYSTEMD_SERVICE_NAME}
+
+  # don't start lload-ltb automatically
+
 fi
 
