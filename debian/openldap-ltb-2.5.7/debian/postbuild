@@ -10,11 +10,11 @@ mkdir -p "${INSTALL_DIR}/etc/logrotate.d"
 mkdir -p "${INSTALL_DIR}/etc/profile.d"
 mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 
-cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd.service" "${INSTALL_DIR}/lib/systemd/system"
-chmod 644 "${INSTALL_DIR}/lib/systemd/system/slapd.service"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system"
+chmod 644 "${INSTALL_DIR}/lib/systemd/system/${SYSTEMD_SERVICE_NAME}.service"
 
-cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/lload.service" "${INSTALL_DIR}/lib/systemd/system"
-chmod 644 "${INSTALL_DIR}/lib/systemd/system/lload.service"
+cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system"
+chmod 644 "${INSTALL_DIR}/lib/systemd/system/${SYSTEMD_LLOAD_SERVICE_NAME}.service"
 
 
 # copy some more files

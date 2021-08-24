@@ -64,6 +64,7 @@ SLAPD_BIN="$SLAPD_PATH/libexec/slapd"
 SLAPD_USER=""
 SLAPD_GROUP=""
 SLAPD_SYSLOG_LOCAL_USER="local4"
+SLAPD_MODULEDIR="$SLAPD_PATH/libexec/openldap"
 
 DATA_PATH="$SLAPD_PATH/var/openldap-data"
 
@@ -236,8 +237,8 @@ if [ $PPID -ne 1 ] && \
     # directly (PPID>1) but runs it through /etc/init.d/slapd
     [ -z "$INVOCATION_ID" ]  ;
 then
-	SYSTEMD_SERVICE_NAME=slapd
-	SYSTEMD_LLOAD_SERVICE_NAME=lload
+	SYSTEMD_SERVICE_NAME=slapd-ltb
+	SYSTEMD_LLOAD_SERVICE_NAME=lload-ltb
 	_use_systemctl=1
 fi
 
