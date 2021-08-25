@@ -33,14 +33,14 @@ get latest slapd release: (replace Y by slapd version)
 ```
 curl -O ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
 tar xvzf openldap-2.5.Y.tgz
-cp -r openldap-2.5.Y/* paquet-openldap-debian/openldap-ltb-2.5.Y
+cp -r openldap-2.5.Y/* openldap-ltb/
 ```
 
 get the source of the latest slapd-cli release: (replace N by slapd-cli version)
 ```
 cd 3rdparty
 curl -O https://codeload.github.com/ltb-project/slapd-cli/tar.gz/refs/tags/vN
-tar xvzf vX.Y
+tar xvzf vN
 ```
 
 
@@ -75,8 +75,7 @@ dpkg-buildpackage -us -uc
 On one environment, prepare the move to the new version and write the changes in the changelog file:
 
 ```
-git mv openldap-ltb-2.5.X openldap-ltb-2.5.Y
-cd openldap-ltb-2.5.Y
+cd openldap-ltb
 dch -v 2.5.Y.1
 ```
 
@@ -103,7 +102,7 @@ Get the new archive, and extract it into the directory:
 ```
 curl -O ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
 tar xvzf openldap-2.5.Y.tgz
-cp -r openldap-2.5.Y/* openldap-ltb-2.5.Y/
+cp -r openldap-2.5.Y/* openldap-ltb/
 ```
 
 
