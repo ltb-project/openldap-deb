@@ -17,10 +17,9 @@ Install dependencies:
 
 ```
 apt install build-essential
-apt install autoconf automake autotools-dev debhelper dh-make devscripts fakeroot file gnupg git lintian patch patchutils pbuilder
+apt install autoconf automake autotools-dev debhelper dh-make devscripts fakeroot file gnupg git lintian patch patchutils pbuilder curl
 apt install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libwrap0-dev libevent-dev libsodium23 libsodium-dev pandoc
 ```
-
 
 get the sources:
 
@@ -29,13 +28,21 @@ cd /opt
 git clone git@github.com:ltb-project/openldap-deb.git
 ```
 
-get slapd:
+get latest slapd release: (replace Y by slapd version)
 
 ```
-wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.7.tgz
-tar xvzf openldap-2.5.7.tgz
-cp -r openldap-2.5.7/* paquet-openldap-debian/openldap-ltb-2.5.7
+curl -O ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
+tar xvzf openldap-2.5.Y.tgz
+cp -r openldap-2.5.Y/* paquet-openldap-debian/openldap-ltb-2.5.Y
 ```
+
+get the source of the latest slapd-cli release: (replace N by slapd-cli version)
+```
+cd 3rdparty
+curl -O https://codeload.github.com/ltb-project/slapd-cli/tar.gz/refs/tags/vN
+tar xvzf vX.Y
+```
+
 
 import some variables:
 
@@ -54,7 +61,7 @@ debian/rules build
 debian/rules binary
 ```
 
-building the source package (with no signing). Take care to create `openldap-ltb_2.4.XX.orig.tar.gz` from original OpenLDAP package:
+building the source package (with no signing). Take care to create `openldap-ltb_2.5.Y.orig.tar.gz` from original OpenLDAP package:
 
 ```
 dpkg-buildpackage -us -uc
@@ -81,6 +88,7 @@ sed -i "s/2\.5\.X/2.5.Y/g" openldap-ltb.vars
 ```
 
 
+
 On every environment, get the previous changes, and do the following:
 
 Update distribution:
@@ -93,7 +101,7 @@ apt upgrade
 Get the new archive, and extract it into the directory:
 
 ```
-wget ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
+curl -O ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
 tar xvzf openldap-2.5.Y.tgz
 cp -r openldap-2.5.Y/* openldap-ltb-2.5.Y/
 ```
@@ -104,6 +112,9 @@ Adapt control files for libsodium:
 For Debian 9:
 * in `debian/control` file, delete any reference to libsodium in Depends and Build-depends lines
 * in `debian/openldap-ltb-contrib-overlays.install`, delete the line `usr/local/openldap/libexec/openldap/pw-argon2.*`
+
+
+Optionally, update the 3dparty directory with new release of other tools (slapd-cli)
 
 
 Regenerate the package thanks to the usual procedure
