@@ -18,7 +18,6 @@ chmod 644 "${INSTALL_DIR}/lib/systemd/system/${SYSTEMD_LLOAD_SERVICE_NAME}.servi
 
 
 # copy some more files
-cp -f "../DB_CONFIG" "${INSTALL_DIR}/${LDAPDATADIR}"
 cp -f "../openldap.logrotate" "${INSTALL_DIR}/etc/logrotate.d/openldap"
 cp -f "../openldap.sh" "${INSTALL_DIR}/etc/profile.d"
 cp -f "${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli" "${INSTALL_DIR}${SLAPD_CLI_BIN}"
