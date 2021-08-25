@@ -5,5 +5,7 @@ set -e
 # Remove syslog facility
 sed -i '/local4\..*/d' /etc/rsyslog.conf
 
-# clean remaining KEEPSTOPPEDFLAG when purging the services
-rm -f /var/openldap-ltb-*-keepstopped
+# clean remaining KEEPSTOPPEDFLAG when removing the service
+if [ "$1" != "upgrade" ]; then
+  rm -f /var/openldap-ltb-*-keepstopped
+fi
