@@ -78,19 +78,7 @@ chmod 770 ${LDAPCONFDIR}
 # Empty configuration directory, so import a new fresh config from template
 if [ -z "$( ls -A ${LDAPCONFDIR} )" ]; then
 
-  # Import slapd.conf from template
-  ${SLAPD_CLI_BIN} importflatconfigtemplate
-
-  # convert the slapd.conf file to cn=config format
-  rm -f "${LDAPSERVERDIR}/etc/openldap/cn=config.ldif"
-  ${SLAPD_CLI_BIN} convertconfig "${LDAPSERVERDIR}/etc/openldap/slapd.conf" "${LDAPSERVERDIR}/etc/openldap/cn=config.ldif"
-
-  # build a new ldif configuration template from the previous cn=config.ldif file
-  rm -f "${SLAPD_CLI_LDIF_CONFIG_TEMPLATE}"
-  ${SLAPD_CLI_BIN} buildconfigtemplate "${LDAPSERVERDIR}/etc/openldap/cn=config.ldif" "${SLAPD_CLI_LDIF_CONFIG_TEMPLATE}"
-  rm -f "${LDAPSERVERDIR}/etc/openldap/cn=config.ldif"
-
-  # import ldif configuration from ldif template
+  # Import configuration from ldif template
   ${SLAPD_CLI_BIN} importldifconfigtemplate
 
 fi
