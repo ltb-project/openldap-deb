@@ -69,6 +69,8 @@ chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPBACKUPDIR}
 chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPSERVERDIR}/var/run
 chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
+chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/lload.conf
+chmod 640 ${LDAPSERVERDIR}/etc/openldap/lload.conf
 
 # Add configuration directory if it does not exist
 mkdir -p ${LDAPCONFDIR}

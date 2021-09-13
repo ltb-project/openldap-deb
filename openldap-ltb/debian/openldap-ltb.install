@@ -14,7 +14,7 @@ usr/local/openldap/lib*/lib*
 usr/local/openldap/libexec/slapd
 usr/local/openldap/sbin/slap*
 
-# man1 pages (all but ldapvc)
+# man1 pages (all but ldapvc and mdb_stat, mdb_copy )
 usr/local/openldap/share/man/man1/ldapadd.1
 usr/local/openldap/share/man/man1/ldapcompare.1
 usr/local/openldap/share/man/man1/ldapdelete.1
