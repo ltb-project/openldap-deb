@@ -81,7 +81,7 @@ chmod 770 ${LDAPCONFDIR}
 if [ -z "$( ls -A ${LDAPCONFDIR} )" ]; then
 
   # Import configuration from ldif template
-  ${SLAPD_CLI_BIN} importldifconfigtemplate
+  ${SLAPD_CLI_BIN} importldifconfigtemplate > /dev/null
 
 fi
 
