@@ -10,7 +10,7 @@ remove_systemd_service()
 {
 
   SERV="${1}"
-  KEEPSTOPPEDFLAG="/var/openldap-ltb-${SERV}-keepstopped"
+  STARTEDFLAG="/var/openldap-ltb-${SERV}-started"
 
   # Stop starting service on boot
   systemctl disable ${SERV} || echo "${SERV} already disabled"
@@ -18,18 +18,18 @@ remove_systemd_service()
   # return 0 if service is started, 3 if stopped, 4 if not known
   systemctl status ${SERV} >/dev/null 2>&1 && RES=$? || RES=$?
 
-  # If this service is unknown (first installation)
+  # If this service is unknown
   if [ ${RES} -eq 4 ] ; then
-    rm -f ${KEEPSTOPPEDFLAG} # foresee to start the service automatically in the future
+    rm -f ${STARTEDFLAG} # foresee to keep the service stopped in the future
 
   # if service was started before
   elif [ ${RES} -eq 0 ]; then
     systemctl stop ${SERV} # stop the service
-    rm -f ${KEEPSTOPPEDFLAG} # foresee to start the service automatically in the future
+    touch ${STARTEDFLAG} # foresee to start the service automatically in the future
 
   # in all other cases (including service was stopped before)
   else
-    touch ${KEEPSTOPPEDFLAG} # foresee to keep the service stopped in the future
+    rm -f ${STARTEDFLAG} # foresee to keep the service stopped in the future
   fi
 
 }

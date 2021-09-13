@@ -5,29 +5,6 @@ set -e
 BASEDIR=$(dirname $0)
 source $BASEDIR/openldap-ltb.vars
 
-add_systemd_service()
-{
-
-  SERV="${1}"
-  KEEPSTOPPEDFLAG="/var/openldap-ltb-${SERV}-keepstopped"
-
-  # Starting service on boot
-  systemctl enable ${SERV}
-
-  # If KEEPSTOPPEDFLAG is absent (means fresh install or previous OpenLDAP stopped)
-  if [ ! -f ${KEEPSTOPPEDFLAG} ]; then
-    # Start service
-    systemctl start ${SERV}
-  else
-    # don't start service
-
-    # delete KEEPSTOPPEDFLAG (will be set by prerm script)
-    rm -f ${KEEPSTOPPEDFLAG}
-  fi
-
-}
-
-
 # Create user and group
 if ! getent group ldap > /dev/null 2>&1 ; then
   addgroup --system ${LDAPGROUP}
@@ -94,10 +71,64 @@ if ! type "systemctl" > /dev/null 2>&1; then
 else
   # Assume SYSTEMD
 
-  # enable slapd-ltb on boot + start slapd-ltb process now
-  add_systemd_service ${SYSTEMD_SERVICE_NAME}
+  ###################
+  # slapd-ltb service
+  ###################
 
-  # don't start lload-ltb automatically
+  STARTEDFLAG="/var/openldap-ltb-${SYSTEMD_SERVICE_NAME}-started"
+
+  # Starting service on boot
+  systemctl enable ${SYSTEMD_SERVICE_NAME}
+
+  # $2 = previously installed version of package, or null
+  if [ -z "${2}" ]; then
+    # This is a first install
+
+    # Start service
+    systemctl start ${SYSTEMD_SERVICE_NAME}
+    
+  else
+    # This is an upgrade
+
+    # If STARTEDFLAG is present (means previous service was started)
+    if [ -f ${STARTEDFLAG} ]; then
+      # Start service
+      systemctl start ${SYSTEMD_SERVICE_NAME}
+    fi
+  fi
+  # delete STARTEDFLAG (will be set by prerm script)
+  rm -f ${STARTEDFLAG}
+
+
+  ###################
+  # lload-ltb service
+  ###################
+
+  STARTEDFLAG="/var/openldap-ltb-${SYSTEMD_LLOAD_SERVICE_NAME}-started"
+
+  # Don't start service on boot
+  # systemctl enable ${SYSTEMD_LLOAD_SERVICE_NAME}
+
+  # $2 = previously installed version of package, or null
+  if [ -z "${2}" ]; then
+    # This is a first install
+
+    # Don't start service
+    #systemctl start ${SYSTEMD_LLOAD_SERVICE_NAME}
+    :
+
+  else
+    # This is an upgrade
+
+    # If STARTEDFLAG is present (means previous service was started)
+    if [ -f ${STARTEDFLAG} ]; then
+      # Start service
+      systemctl start ${SYSTEMD_LLOAD_SERVICE_NAME}
+    fi
+  fi
+  # delete STARTEDFLAG (will be set by prerm script)
+  rm -f ${STARTEDFLAG}
+
 
 fi
 
