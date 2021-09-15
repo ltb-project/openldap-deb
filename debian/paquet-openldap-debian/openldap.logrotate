@@ -12,7 +12,7 @@
     sharedscripts
     postrotate
 	# reload syslog
-        /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
-        /bin/kill -HUP `cat /var/run/rsyslogd.pid 2> /dev/null` 2> /dev/null || true
+	/usr/lib/rsyslog/rsyslog-rotate || true
+	invoke-rc.d syslog-ng reload || true
     endscript
 }
