@@ -85,7 +85,7 @@ if [ "${DEBIAN_VERSION}" -gt "8" ]; then
     # If this is slapd first installation or if slapd was started before
     if [ ! -f /var/openldap-ltb-slapd-stopped ]; then
       # Start slapd
-      systemctl start slapd || exit $?
+      invoke-rc.d slapd start || exit $?
     fi
     rm -f /var/openldap-ltb-slapd-stopped
   fi
