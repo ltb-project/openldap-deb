@@ -15,6 +15,6 @@ usr/local/openldap/libexec/openldap/vc.*
 usr/local/openldap/share/man/man5/slapo-lastbind.5
 usr/local/openldap/share/man/man5/slapo-nssov.5
 usr/local/openldap/share/man/man5/slapo-smbk5pwd.5
-usr/local/openldap/share/man/man5/ppm.5
+usr/local/openldap/share/man/man5/slapm-ppm.5
 usr/local/openldap/share/man/man5/slapo-variant.5
 usr/local/openldap/share/man/man1/ldapvc.1
