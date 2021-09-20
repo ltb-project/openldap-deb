@@ -12,7 +12,7 @@
     sharedscripts
     postrotate
 	# reload syslog
-        systemctl kill -s HUP rsyslog.service
-        systemctl kill -s HUP syslog-ng.service
+        systemctl kill -s HUP rsyslog.service > /dev/null 2>&1 || true
+        systemctl kill -s HUP syslog-ng.service > /dev/null 2>&1 || true
     endscript
 }
