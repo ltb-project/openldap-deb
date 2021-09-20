@@ -85,7 +85,8 @@ else
     # This is a first install
 
     # Start service
-    systemctl start ${SYSTEMD_SERVICE_NAME}
+    # Use `invoke-rc.d` instead of `systemctl` for taking local admin policy into consideration
+    invoke-rc.d ${SYSTEMD_SERVICE_NAME} start
     
   else
     # This is an upgrade
@@ -93,7 +94,8 @@ else
     # If STARTEDFLAG is present (means previous service was started)
     if [ -f ${STARTEDFLAG} ]; then
       # Start service
-      systemctl start ${SYSTEMD_SERVICE_NAME}
+      # Use `invoke-rc.d` instead of `systemctl` for taking local admin policy into consideration
+      invoke-rc.d ${SYSTEMD_SERVICE_NAME} start
     fi
   fi
   # delete STARTEDFLAG (will be set by prerm script)
@@ -114,7 +116,8 @@ else
     # This is a first install
 
     # Don't start service
-    #systemctl start ${SYSTEMD_LLOAD_SERVICE_NAME}
+    # Use `invoke-rc.d` instead of `systemctl` for taking local admin policy into consideration
+    #invoke-rc.d ${SYSTEMD_LLOAD_SERVICE_NAME} start
     :
 
   else
@@ -123,7 +126,8 @@ else
     # If STARTEDFLAG is present (means previous service was started)
     if [ -f ${STARTEDFLAG} ]; then
       # Start service
-      systemctl start ${SYSTEMD_LLOAD_SERVICE_NAME}
+      # Use `invoke-rc.d` instead of `systemctl` for taking local admin policy into consideration
+      invoke-rc.d ${SYSTEMD_LLOAD_SERVICE_NAME} start
     fi
   fi
   # delete STARTEDFLAG (will be set by prerm script)
