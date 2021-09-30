@@ -21,14 +21,14 @@ apt install autoconf automake autotools-dev debhelper dh-make devscripts fakeroo
 apt install libltdl7 libltdl-dev libsasl2-2 libsasl2-dev zlib1g zlib1g-dev openssl libssl-dev mime-support mawk libcrack2-dev libwrap0-dev libevent-dev libsodium23 libsodium-dev pandoc
 ```
 
-get the sources:
+Get the sources:
 
 ```
 cd /opt
 git clone git@github.com:ltb-project/openldap-deb.git
 ```
 
-get latest slapd release: (replace Y by slapd version)
+Get latest slapd release: (replace Y by slapd version)
 
 ```
 curl -O ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.5.Y.tgz
@@ -36,14 +36,14 @@ tar xvzf openldap-2.5.Y.tgz
 cp -r openldap-2.5.Y/* openldap-ltb/
 ```
 
-get the source of the latest slapd-cli release: (replace N by slapd-cli version)
+Get the source of the latest slapd-cli release: (replace N by slapd-cli version)
 ```
 cd 3rdparty
 curl -O https://codeload.github.com/ltb-project/slapd-cli/tar.gz/refs/tags/vN
 tar xvzf vN
 ```
 
-get the source of explockout overlay: (replace N by explockout version)
+Get the source of explockout overlay: (replace N by explockout version)
 ```
 cd 3rdparty
 curl -O https://codeload.github.com/ltb-project/explockout/tar.gz/refs/tags/vN
@@ -51,7 +51,7 @@ tar xvzf vN
 ```
 
 
-import some variables:
+Import some variables:
 
 ```
 DEBEMAIL="david.coutadeur@gmail.com"
