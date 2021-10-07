@@ -98,7 +98,12 @@ cd ..
 cd ppm
 make clean
 make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
-make doc prefix=${LDAPSERVERDIR}
+# ppm hook for 2.5.7
+if [ "${REAL_VERSION}" = "2.5.7" ]; then
+  :
+else
+  make doc prefix=${LDAPSERVERDIR}
+fi
 make test "LDAP_SRC=../../.."
 cd ..
 # variant
@@ -159,6 +164,10 @@ cd ppm
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
 cp ppm_test "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap/"
+# ppm hook for 2.5.7
+if [ "${REAL_VERSION}" = "2.5.7" ]; then
+  cp ../../../${THIRD_PARTY_PATH}/slapm-ppm.5 "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5/"
+fi
 cd ..
 cd variant
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
