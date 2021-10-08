@@ -54,8 +54,9 @@ mkdir -p ${LDAPCONFDIR}
 chown root:${LDAPGROUP} ${LDAPCONFDIR}
 chmod 770 ${LDAPCONFDIR}
 
-# Empty configuration directory, so import a new fresh config from template
-if [ -z "$( ls -A ${LDAPCONFDIR} )" ]; then
+# If empty configuration directory + SLAPD_CONF_DIR defined
+if [ -z "$( ls -A ${LDAPCONFDIR} )" ] && \
+   grep -q -P '^SLAPD_CONF_DIR="?[^"]+"?' ${SLAPD_CLI_CONF} ; then
 
   # Import configuration from ldif template
   ${SLAPD_CLI_BIN} importldifconfigtemplate > /dev/null
