@@ -1,3 +1,40 @@
+openldap-ltb (2.5.8.1) UNRELEASED; urgency=medium
+
+    - Prepare OpenLDAP 2.5.8.1 Release (2021/10/11)
+    -  Fixed libldap ldap_int_tls_connect: isdigit() requires unsigned char (ITS#9668)
+    -  Fixed libldap memory leak in ldap_get_option LDAP_OPT_X_TLS_PEERCERT (ITS#9696)
+    -  Fixed slapd to allow normalized values for namingContexts in cn=monitor (ITS#8341)
+    -  Fixed slapd to normalize the suffix in rootDSE (ITS#9664)
+    -  Fixed slapd slapadd to avoid destroying configDB prematurely (ITS#9678)
+    -  Fixed slapd to not spam logs with lastbind information (ITS#9156)
+    -  Fixed slapd slaptest migration to correctly set olcTSLVerifyClient (ITS#9711)
+    -  Fixed slapd-mdb multival delete handling (ITS#9712)
+    -  Fixed slapd-sql ldap_entry_objectclass table for mariadb/mysql (ITS#9679)
+    -  Fixed slapd-wt multiple issues (ITS#9463)
+    -  Fixed slapd-wt to close cache db correctly (ITS#9631)
+    -  Fixed slapo-ppolicy to restore OpenLDAP 2.4 compatibilty (ITS#9671)
+    -  Fixed slapo-syncprov to free uuid list when finished replaying sessionlog (ITS#6467)
+    - Build
+    -  Fixed libldap result.c compilation on musl systems (ITS#9648)
+    -  Fixed slapd duplicate definition of peerbv (ITS#9659)
+    -  Fixed test suite with memberof modular builds (ITS#9464)
+    - Contrib
+    -  Added man page for ppm contrib module (ITS#9644)
+    -  Fix crash when pwdCheckModuleArg is not defined for ppm (ITS#9656)
+    - Documentation
+    -  Fixed guide download link for heimdal (ITS#9669)
+    -  Fixed guide documentation for TLSECName (ITS#9687)
+    -  Fixed guide documentation missing tags (ITS#9693)
+    -  Fixed guide loadbalancer typo (ITS#9699)
+    -  Fixed guide synprov-nopresent redundant text (ITS#9689)
+    -  Fixed guide various typos and fix config alignment (ITS#9706)
+    -  Removed ppolicy.schema from servers/slapd/schema/README (ITS#9156)
+    -  Fixed slapd.conf(5)/slapd-config(5) to document default for database monitoring (ITS#9674)
+    -  Fixed slapd-meta(5)/slapd-asyncmeta(5) verbiage for try-propagate (ITS#9646)
+    -  Fixed slapo-syncprov(5) to note entryCSN indexing is highly recommended (ITS#9688)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 27 Oct 2021 12:00:00 +0200
+
 openldap-ltb (2.5.7.1) UNRELEASED; urgency=medium
 
     - Prepare OpenLDAP 2.5.7.1 Release (2021/08/18)
@@ -44,5 +81,4 @@ openldap-ltb (2.5.7.1) UNRELEASED; urgency=medium
     -  provide all backends and overlays as modules enhancement #21
     -  provide default data and configuration enhancement #20
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 07 Oct 2021 18:00:00 +0200
-
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 18 Aug 2021 12:00:00 +0200
