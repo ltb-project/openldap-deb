@@ -21,14 +21,10 @@ else
   fi
 fi
 
-# Add syslog facility
-if [ -e "/etc/rsyslog.conf" ]; then
-  grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
-fi
-
 # Create some dirs and change owner
 mkdir -p ${LDAPDATADIR}
 mkdir -p ${LDAPBACKUPDIR}
+mkdir -p ${LDAPLOGDIR}
 
 # Globally set owner to root:root
 chown root:root ${LDAPSERVERDIR}
@@ -48,6 +44,7 @@ chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/slapd.conf
 chown -R root:${LDAPGROUP} ${LDAPSERVERDIR}/etc/openldap/lload.conf
 chmod 640 ${LDAPSERVERDIR}/etc/openldap/lload.conf
+chown -R ${LDAPUSER}:${LDAPGROUP} ${LDAPLOGDIR}
 
 # Add configuration directory if it does not exist
 mkdir -p ${LDAPCONFDIR}

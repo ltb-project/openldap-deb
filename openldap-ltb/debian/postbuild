@@ -6,7 +6,6 @@ source $BASEDIR/openldap-ltb.vars
 
 # create some directories
 mkdir -p "${INSTALL_DIR}/${LDAPDATADIR}"
-mkdir -p "${INSTALL_DIR}/etc/logrotate.d"
 mkdir -p "${INSTALL_DIR}/etc/profile.d"
 mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 
@@ -17,8 +16,7 @@ mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system/"
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system"
 
-## logrotate, profile
-install -m 644 "${THIRD_PARTY_PATH}/${OPENLDAP_LOGROTATE_FILE}" "${INSTALL_DIR}/etc/logrotate.d/openldap"
+## profile
 install -m 755 "${THIRD_PARTY_PATH}/${OPENLDAP_PROFILE_FILE}" "${INSTALL_DIR}/etc/profile.d"
 
 ## slapd-cli
