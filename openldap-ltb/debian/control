@@ -52,7 +52,7 @@ Description: OpenLDAP exponential time password lockout overlay
 
 Package: openldap-ltb-contrib-overlays
 Architecture: any
-Depends: openldap-ltb, libc6 (>= 2.4), libsodium23
+Depends: openldap-ltb, libc6 (>= 2.4), libsodium23, libcrack2
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
  as contributions. This package provide these ones:
