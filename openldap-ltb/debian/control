@@ -8,7 +8,7 @@ Homepage: http://ltb-project.org
 
 Package: openldap-ltb
 Architecture: any
-Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, bash-completion, procps, libevent-2.1-6 | libevent-2.1-7
+Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, bash-completion, procps, libevent-2.1-6 | libevent-2.1-7, libsodium23
 Suggests: openldap-ltb-check-password, openldap-ltb-contrib-overlays
 Description: OpenLDAP server with addons from the LDAP Tool Box project
  OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
@@ -52,7 +52,7 @@ Description: OpenLDAP exponential time password lockout overlay
 
 Package: openldap-ltb-contrib-overlays
 Architecture: any
-Depends: openldap-ltb, libc6 (>= 2.4), libsodium23, libcrack2
+Depends: openldap-ltb, libc6 (>= 2.4), libcrack2
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
  as contributions. This package provide these ones:
