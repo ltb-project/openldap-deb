@@ -1,9 +1,42 @@
+openldap-ltb (2.5.11.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.11 Release (2022/01/20)
+    -  Fix broken build release variable
+    -  Fixed libldap to init client socket port (ITS#9743)
+    -  Fixed libldap with referrals (ITS#9781)
+    -  Fixed slapd to allow objectClass edits with no net change (ITS#9772)
+    -  Fixed slapd syncrepl recreation of deleted entries (ITS#9282)
+    -  Fixed slapd syncrepl replication with ODSEE (ITS#9707)
+    -  Fixed slapd syncrepl to reject REFRESH for precise resync (ITS#9742)
+    -  Fixed slapd syncrepl when X-ORDERED is specified (ITS#9761)
+    -  Fixed slapd syncrepl to better handle out of order delete ops (ITS#9751)
+    -  Fixed slapd syncrepl to correctly close connections when config is deleted (ITS#9776)
+    -  Fixed slapd-mdb to update indices correctly on replace ops (ITS#9753)
+    -  Fixed slapd-wt to set correct flags (ITS#9760)
+    -  Fixed slapo-accesslog to fix inconsistently normalized minCSN (ITS#9752)
+    -  Fixed slapo-autogroup to maintain values in insertion order (ITS#9766)
+    -  Fixed slapo-constraint to maintain values in insertion order (ITS#9770)
+    -  Fixed slapo-dyngroup to maintain values in insertion order (ITS#9762)
+    -  Fixed slapo-dynlist compare operation for static groups (ITS#9747)
+    -  Fixed slapo-dynlist static group filter with multiple members (ITS#9779)
+    -  slapo-refint to maintain values in insertion order (ITS#9763)
+    -  Fixed slapo-retcode to honor requested insert position (ITS#9759)
+    -  Fixed slapo-syncprov memory leak (ITS#8039)
+    -  Fixed slapo-syncprov to generate a more accurate accesslog query (ITS#9756)
+    -  Fixed slapo-translucent to warn on invalid config (ITS#9768)
+    -  Fixed slapo-unique to warn on invalid config (ITS#9767)
+    -  Fixed slapo-valsort to maintain values in insertion order (ITS#9764)
+    - Documentation
+    -  Fixed slapo-accesslog(5) to clarify logoldattr usage (ITS#9749)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 26 Jan 2022 12:00:00 +0100
+
 openldap-ltb (2.5.9.1) UNRELEASED; urgency=medium
 
     - Prepare OpenLDAP 2.5.9.1 Release (2021/10/25)
     -  Fixed slapo-accesslog to initialize     minCSN on import of 2.4 databases (ITS#9720)
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 25 Oct 2021 12:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 25 Oct 2021 12:00:00 +0100
 
 openldap-ltb (2.5.8.1) UNRELEASED; urgency=medium
 
