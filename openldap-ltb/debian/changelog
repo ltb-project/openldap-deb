@@ -28,6 +28,9 @@ openldap-ltb (2.5.11.1) UNRELEASED; urgency=medium
     -  Fixed slapo-valsort to maintain values in insertion order (ITS#9764)
     - Documentation
     -  Fixed slapo-accesslog(5) to clarify logoldattr usage (ITS#9749)
+    - LTB changes
+    -  missing dependency for ppm #85
+    -  No log file after install until rsyslog is restarted #86
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 26 Jan 2022 12:00:00 +0100
 
