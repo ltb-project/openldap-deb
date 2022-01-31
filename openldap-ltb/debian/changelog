@@ -1,98 +1,59 @@
+openldap-ltb (2.6.1.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.6.1 Release (2022/01/20)
+    -  Fixed libldap to init client socket port (ITS#9743)
+    -  Fixed libldap with referrals (ITS#9781)
+    -  Added slapd config keyword for logfile format (ITS#9745)
+    -  Fixed slapd to allow objectClass edits with no net change (ITS#9772)
+    -  Fixed slapd configtable population (ITS#9576)
+    -  Fixed slapd to only set loglevel in server mode (ITS#9715)
+    -  Fixed slapd logfile-rotate use of uninitialized variable (ITS#9730)
+    -  Fixed slapd passwd scheme handling with slapd.conf (ITS#9750)
+    -  Fixed slapd postread support for modrdn (ITS#7080)
+    -  Fixed slapd syncrepl recreation of deleted entries (ITS#9282)
+    -  Fixed slapd syncrepl replication with ODSEE (ITS#9707)
+    -  Fixed slapd syncrepl to properly replicate glue entries (ITS#9647)
+    -  Fixed slapd syncrepl to reject REFRESH for precise resync (ITS#9742)
+    -  Fixed slapd syncrepl to avoid busy loop during refresh (ITS#9584)
+    -  Fixed slapd syncrepl when X-ORDERED is specified (ITS#9761)
+    -  Fixed slapd syncrepl to better handle out of order delete ops (ITS#9751)
+    -  Fixed slapd syncrepl to correctly close connections when config is deleted (ITS#9776)
+    -  Fixed slapd-mdb to update indices correctly on replace ops (ITS#9753)
+    -  Fixed slapd-wt to set correct flags (ITS#9760)
+    -  Fixed slapo-accesslog to fix assertion due to deprecated code (ITS#9738)
+    -  Fixed slapo-accesslog to fix inconsistently normalized minCSN (ITS#9752)
+    -  Fixed slapo-accesslog delete handling of multi-valued config attrs (ITS#9493)
+    -  Fixed slapo-autogroup to maintain values in insertion order (ITS#9766)
+    -  Fixed slapo-constraint to maintain values in insertion order (ITS#9770)
+    -  Fixed slapo-dyngroup to maintain values in insertion order (ITS#9762)
+    -  Fixed slapo-dynlist compare operation for static groups (ITS#9747)
+    -  Fixed slapo-dynlist static group filter with multiple members (ITS#9779)
+    -  Fixed slapo-ppolicy when not built modularly (ITS#9733)
+    -  Fixed slapo-refint to maintain values in insertion order (ITS#9763)
+    -  Fixed slapo-retcode to honor requested insert position (ITS#9759)
+    -  Fixed slapo-sock cn=config support (ITS#9758)
+    -  Fixed slapo-syncprov memory leak (ITS#8039)
+    -  Fixed slapo-syncprov to generate a more accurate accesslog query (ITS#9756)
+    -  Fixed slapo-syncprov to allow empty DB to host persistent syncrepl connections (ITS#9691)
+    -  Fixed slapo-syncprov to consider all deletes for sycnInfo messages (ITS#5972)
+    -  Fixed slapo-translucent to warn on invalid config (ITS#9768)
+    -  Fixed slapo-unique to warn on invalid config (ITS#9767)
+    -  Fixed slapo-valsort to maintain values in insertion order (ITS#9764)
+    - Build Environment
+    -  Fix test022 to preserve DELAY search output (ITS#9718)
+    -  Fix slapd-watcher to allow startup when servers are down (ITS#9727)
+    - Contrib
+    -  Fixed slapo-lastbind to work with 2.6 lastbind-precision configuration (ITS#9725)
+    - Documentation
+    -  Fixed slapd.conf(5)/slapd-config(5) documentation on lastbind-precision (ITS#9728)
+    -  Fixed slapo-accesslog(5) to clarify logoldattr usage (ITS#9749)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 20 Jan 2022 12:00:00 +0100
+
 openldap-ltb (2.6.0.1) UNRELEASED; urgency=medium
 
     - Prepare OpenLDAP 2.6.0.1 Release (2021/10/25)
     -  Initial release for "general use"
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 25 Oct 2021 12:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 25 Oct 2021 12:00:00 +0100
 
-openldap-ltb (2.5.9.1) UNRELEASED; urgency=medium
-
-    - Prepare OpenLDAP 2.5.9.1 Release (2021/10/25)
-    -  Fixed slapo-accesslog to initialize     minCSN on import of 2.4 databases (ITS#9720)
-
- -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 25 Oct 2021 12:00:00 +0200
-
-openldap-ltb (2.5.8.1) UNRELEASED; urgency=medium
-
-    - Prepare OpenLDAP 2.5.8.1 Release (2021/10/11)
-    -  Fixed libldap ldap_int_tls_connect: isdigit() requires unsigned char (ITS#9668)
-    -  Fixed libldap memory leak in ldap_get_option LDAP_OPT_X_TLS_PEERCERT (ITS#9696)
-    -  Fixed slapd to allow normalized values for namingContexts in cn=monitor (ITS#8341)
-    -  Fixed slapd to normalize the suffix in rootDSE (ITS#9664)
-    -  Fixed slapd slapadd to avoid destroying configDB prematurely (ITS#9678)
-    -  Fixed slapd to not spam logs with lastbind information (ITS#9156)
-    -  Fixed slapd slaptest migration to correctly set olcTSLVerifyClient (ITS#9711)
-    -  Fixed slapd-mdb multival delete handling (ITS#9712)
-    -  Fixed slapd-sql ldap_entry_objectclass table for mariadb/mysql (ITS#9679)
-    -  Fixed slapd-wt multiple issues (ITS#9463)
-    -  Fixed slapd-wt to close cache db correctly (ITS#9631)
-    -  Fixed slapo-ppolicy to restore OpenLDAP 2.4 compatibilty (ITS#9671)
-    -  Fixed slapo-syncprov to free uuid list when finished replaying sessionlog (ITS#6467)
-    - Build
-    -  Fixed libldap result.c compilation on musl systems (ITS#9648)
-    -  Fixed slapd duplicate definition of peerbv (ITS#9659)
-    -  Fixed test suite with memberof modular builds (ITS#9464)
-    - Contrib
-    -  Added man page for ppm contrib module (ITS#9644)
-    -  Fix crash when pwdCheckModuleArg is not defined for ppm (ITS#9656)
-    - Documentation
-    -  Fixed guide download link for heimdal (ITS#9669)
-    -  Fixed guide documentation for TLSECName (ITS#9687)
-    -  Fixed guide documentation missing tags (ITS#9693)
-    -  Fixed guide loadbalancer typo (ITS#9699)
-    -  Fixed guide synprov-nopresent redundant text (ITS#9689)
-    -  Fixed guide various typos and fix config alignment (ITS#9706)
-    -  Removed ppolicy.schema from servers/slapd/schema/README (ITS#9156)
-    -  Fixed slapd.conf(5)/slapd-config(5) to document default for database monitoring (ITS#9674)
-    -  Fixed slapd-meta(5)/slapd-asyncmeta(5) verbiage for try-propagate (ITS#9646)
-    -  Fixed slapo-syncprov(5) to note entryCSN indexing is highly recommended (ITS#9688)
-
- -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 11 Oct 2021 12:00:00 +0200
-
-openldap-ltb (2.5.7.1) UNRELEASED; urgency=medium
-
-    - Prepare OpenLDAP 2.5.7.1 Release (2021/08/18)
-    -  Fixed lloadd client state tracking (ITS#9624)
-    -  Fixed slapd bconfig to canonicalize structuralObjectclass (ITS#9611)
-    -  Fixed slapd-ldif duplicate controls response (ITS#9497)
-    -  Fixed slapd-mdb multival crash when attribute is missing an equality matchingrule (ITS#9621)
-    -  Fixed slapd-mdb compatibility with OpenLDAP 2.4 MDB databases (ITS#8958)
-    -  Fixed slapd-mdb idlexp maximum size handling (ITS#9637)
-    -  Fixed slapd-monitor number of ops executing with asynchronous backends (ITS#9628)
-    -  Fixed slapd-sql to add support for ppolicy attributes (ITS#9629)
-    -  Fixed slapd-sql to close transactions after bind and search (ITS#9630)
-    -  Fixed slapo-accesslog to make reqMod optional (ITS#9569)
-    -  Fixed slapo-ppolicy logging when pwdChangedTime attribute is not present (ITS#9625)
-    - Documentation
-    -  slapd-mdb(5) note max idlexp size is 30, not 31 (ITS#9637)
-    -  slapo-accesslog(5) note that reqMod is optional (ITS#9569)
-    -  Add ldapvc(1) man page (ITS#9549)
-    -  Add guide section on load balancer (ITS#9443)
-    -  Updated guide to document multiprovider as replacement for mirrormode (ITS#9200)
-    -  Updated guide to clarify slapd-mdb upgrade requirements (ITS#9200)
-    -  Updated guide to document removal of deprecated options from client tools (ITS#9200)
-    - LTB changes
-    -  import slapd-cli v2.8 (see https://github.com/ltb-project/slapd-cli/releases/tag/v2.8)
-    -  fix the syslog reload #81
-    -  decide the configuration policy in case of upgrade #75
-    -  decide OS target of OpenLDAP 2.5 #74
-    -  remove bdb/hdb #73
-    -  test openldap 2.5 packaging in ubuntu #72
-    -  test openldap 2.5 packaging in a docker container #71
-    -  remove init.d references #70
-    -  Provide a working example of lload #68
-    -  provide LTB packages for debian bullseye #67
-    -  use ppm newly included in contrib #65
-    -  review list of modules in contrib-overlays for new major version of OpenLDAP #64
-    -  refactor slapd-cli for new major version of OpenLDAP #63
-    -  use cn=config by default for new major version of OpenLDAP #62
-    -  review compilation options for new major version of OpenLDAP #61
-    -  create a different service name #60
-    -  review directory structure for new major version of OpenLDAP #59
-    -  Mark conflict with slapd?  #46
-    -  Remove lastbind overlay in OpenLDAP 2.5 #43
-    -  issue with Debian Stretch postinst when attempting to build a Docker image #30
-    -  provide all backends and overlays as modules enhancement #21
-    -  provide default data and configuration enhancement #20
-
- -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 18 Aug 2021 12:00:00 +0200
