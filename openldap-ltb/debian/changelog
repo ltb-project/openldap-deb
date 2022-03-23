@@ -1,3 +1,32 @@
+openldap-ltb (2.5.12.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.12 Release (2022/03/23)
+    -  Fixed libldap to drop connection when non-LDAP data is received (ITS#9803)
+    -  Fixed libldap to allow newlines at end of included file (ITS#9811)
+    -  Fixed slapd slaptest conversion of olcLastBind (ITS#9808)
+    -  Fixed slapd usage of thread local counters (ITS#9789)
+    -  Fixed slapd to clear runqueue task correctly (ITS#9785)
+    -  Fixed slapd bconfig locking for cn=config replication (ITS#9584)
+    -  Fixed slapd syncrepl handling of new sessions (ITS#9584)
+    -  Fixed slapd to clear connections on bind (ITS#9799)
+    -  Fixed slapd syncrepl ODSEE replication of unknown attr (ITS#9801)
+    -  Fixed slapd-asyncmeta memory leak in keepalive setting (ITS#9802)
+    -  Fixed slapd-ldap memory leak in keepalive setting (ITS#9802)
+    -  Fixed slapd-meta SEGV on config rewrite (ITS#9802)
+    -  Fixed slapd-meta ordering on config rewrite (ITS#9802)
+    -  Fixed slapd-meta memory leak in keepalive setting (ITS#9802)
+    -  Fixed slapd-monitor SEGV on shutdown (ITS#9809)
+    -  Fixed slapo-pcache SEGV on shutdown (ITS#9809)
+    -  Fixed slapo-ppolicy operation handling to be consistent (ITS#9794)
+    - Build Environment
+    -  Fix compilation with openssl exclusions (ITS#9791)
+    -  Fix warnings from make jobserver (ITS#9788)
+    -  Fix compiliation with certain versions of gcc (ITS#9790)
+    - Documentation
+    -  Fixed slapd.conf(5)/slapd-config(5) syncrepl sizelimit/timelimit documentation (ITS#9804) 
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 23 Mar 2022 12:00:00 +0100
+
 openldap-ltb (2.5.11.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.11 Release (2022/01/20)
@@ -32,7 +61,7 @@ openldap-ltb (2.5.11.1) UNRELEASED; urgency=medium
     -  missing dependency for ppm #85
     -  No log file after install until rsyslog is restarted #86
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 26 Jan 2022 12:00:00 +0100
+ -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 20 Jan 2022 12:00:00 +0100
 
 openldap-ltb (2.5.9.1) UNRELEASED; urgency=medium
 
