@@ -51,6 +51,13 @@ mkdir -p ${LDAPCONFDIR}
 chown root:${LDAPGROUP} ${LDAPCONFDIR}
 chmod 770 ${LDAPCONFDIR}
 
+# Adapt slapd version number
+if ! grep -q -E "^SLAPD_VERSION=" ${SLAPD_CLI_CONF}; then
+       printf 'SLAPD_VERSION=2.6' >> ${SLAPD_CLI_CONF}
+else
+       sed -i -e 's/SLAPD_VERSION=.*$/SLAPD_VERSION=2.6/' ${SLAPD_CLI_CONF}
+fi
+
 # If empty configuration directory + SLAPD_CONF_DIR defined
 if [ -z "$( ls -A ${LDAPCONFDIR} )" ] && \
    grep -q -P '^SLAPD_CONF_DIR="?[^"]+"?' ${SLAPD_CLI_CONF} ; then
