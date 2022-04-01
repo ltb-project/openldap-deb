@@ -1,6 +1,5 @@
-# autogroup lastbind noopsrch nssov pw-pbkdf2 pw-sha2 smbk5pwd ppm variant vc
+# autogroup noopsrch nssov pw-pbkdf2 pw-sha2 smbk5pwd ppm variant vc
 usr/local/openldap/libexec/openldap/autogroup.*
-usr/local/openldap/libexec/openldap/lastbind.*
 usr/local/openldap/libexec/openldap/noopsrch.*
 usr/local/openldap/libexec/openldap/nssov.*
 usr/local/openldap/libexec/openldap/pw-pbkdf2.*
@@ -12,7 +11,6 @@ usr/local/openldap/libexec/openldap/variant.*
 usr/local/openldap/libexec/openldap/vc.*
 
 # man pages
-usr/local/openldap/share/man/man5/slapo-lastbind.5
 usr/local/openldap/share/man/man5/slapo-nssov.5
 usr/local/openldap/share/man/man5/slapo-smbk5pwd.5
 usr/local/openldap/share/man/man5/slapm-ppm.5

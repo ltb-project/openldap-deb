@@ -57,11 +57,6 @@ cd ${BUILD_DIR}
 
 # contrib-overlays
 cd contrib/slapd-modules
-## lastbind
-cd lastbind
-make clean
-make "prefix=${LDAPSERVERDIR}"
-cd ..
 ## sha512
 cd passwd/sha2
 make clean
@@ -137,9 +132,6 @@ cd ${BUILD_DIR}
 
 # contrib-overlays
 cd contrib/slapd-modules
-cd lastbind
-make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
-cd ..
 cd passwd/sha2
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ../..
