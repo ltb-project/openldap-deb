@@ -6,7 +6,7 @@ usr/local/openldap/etc/openldap/slapd.conf
 usr/local/openldap/etc/openldap/slapd-cli.conf
 usr/local/openldap/etc/openldap/config-template-2.5.conf
 usr/local/openldap/etc/openldap/config-template-2.5.ldif
-usr/local/openldap/etc/openldap/data-template.ldif
+usr/local/openldap/etc/openldap/data-template-2.5.ldif
 usr/local/openldap/etc/openldap/lload.conf
 usr/local/openldap/etc/openldap/schema
 usr/local/openldap/include
