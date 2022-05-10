@@ -97,7 +97,7 @@ cd ..
 # ppm
 cd ppm
 make clean
-make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
+make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
 # ppm hook for 2.5.7
 if [ "${REAL_VERSION}" = "2.5.7" ]; then
   :
