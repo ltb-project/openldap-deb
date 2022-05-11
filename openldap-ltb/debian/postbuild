@@ -104,7 +104,7 @@ if [ "${REAL_VERSION}" = "2.5.7" ]; then
 else
   make doc prefix=${LDAPSERVERDIR}
 fi
-make test "LDAP_SRC=../../.."
+make test LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
 cd ..
 # variant
 cd variant
