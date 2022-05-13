@@ -57,6 +57,14 @@ make clean
 make "OLDAP_SOURCES=${BUILD_DIR}" "LIBDIR=${LDAPSERVERDIR}/libexec/openldap"
 cd ${BUILD_DIR}
 
+# ppm
+cd ${THIRD_PARTY_PATH}/${PPM_NAME}-${PPM_VERSION}
+make clean
+make LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
+make doc prefix=${LDAPSERVERDIR}
+make test LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
+cd ${BUILD_DIR}
+
 # contrib-overlays
 cd contrib/slapd-modules
 ## lastbind
@@ -94,18 +102,6 @@ cd noopsrch
 make clean
 make "prefix=${LDAPSERVERDIR}"
 cd ..
-# ppm
-cd ppm
-make clean
-make LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
-# ppm hook for 2.5.7
-if [ "${REAL_VERSION}" = "2.5.7" ]; then
-  :
-else
-  make doc prefix=${LDAPSERVERDIR}
-fi
-make test LDAP_SRC=../../.. prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=25
-cd ..
 # variant
 cd variant
 make clean
@@ -137,6 +133,12 @@ make install "OLDAP_SOURCES=${BUILD_DIR}" "DSTDIR=${INSTALL_DIR}${LDAPSERVERDIR}
 install -m 644 "slapo-explockout.5" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5"
 cd ${BUILD_DIR}
 
+cd ${THIRD_PARTY_PATH}/${PPM_NAME}-${PPM_VERSION}
+mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
+make install "LDAP_SRC=${BUILD_DIR}" "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
+cp ppm_test "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap/"
+cd ${BUILD_DIR}
+
 # contrib-overlays
 cd contrib/slapd-modules
 cd lastbind
@@ -159,15 +161,6 @@ make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
 cd ..
 cd noopsrch
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
-cd ..
-cd ppm
-mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
-make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
-cp ppm_test "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap/"
-# ppm hook for 2.5.7
-if [ "${REAL_VERSION}" = "2.5.7" ]; then
-  cp ../../../${THIRD_PARTY_PATH}/slapm-ppm.5 "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5/"
-fi
 cd ..
 cd variant
 make install "prefix=${INSTALL_DIR}${LDAPSERVERDIR}"
