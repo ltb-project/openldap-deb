@@ -29,6 +29,10 @@ openldap-ltb (2.5.12.1) UNRELEASED; urgency=medium
     -  Fix compiliation with certain versions of gcc (ITS#9790)
     - Documentation
     -  Fixed slapd.conf(5)/slapd-config(5) syncrepl sizelimit/timelimit documentation (ITS#9804)
+    - LTB changes
+    -  fix files ownership of sbin and share directories (#88)
+    -  use new slapd-cli 2.9 version (#89) (use new logfile feature of 2.6, data templates for new olcPPolicyCheckModule, manage divergence between 2.5 and 2.6 versions, enable ppolicy module checks by default in data template)
+    -  use new ppm 2.2 version (#90) (maximum number of characters for each class, doc for new olcPPolicyCheckModule in 2.6, various minor fixes build fixes and optimizations)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Thu, 31 Mar 2022 16:37:43 +0200
 
