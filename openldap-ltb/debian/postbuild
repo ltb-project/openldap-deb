@@ -58,9 +58,9 @@ cd ${BUILD_DIR}
 # ppm
 cd ${THIRD_PARTY_PATH}/${PPM_NAME}-${PPM_VERSION}
 make clean
-make LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=26
+make LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
 make doc prefix=${LDAPSERVERDIR}
-make test LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64 OLDAP_VERSION=26
+make test LDAP_SRC=${BUILD_DIR} prefix=${LDAPSERVERDIR} libdir=${LDAPSERVERDIR}/lib64
 cd ${BUILD_DIR}
 
 # contrib-overlays
