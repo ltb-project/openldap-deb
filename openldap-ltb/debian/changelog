@@ -41,6 +41,10 @@ openldap-ltb (2.6.2.1) UNRELEASED; urgency=medium
     -  admin26 Document new lloadd features (ITS#9780)
     -  Fixed slapd.conf(5)/slapd-config(5) syncrepl sizelimit/timelimit documentation (ITS#9804)
     -  Fixed slapd-sock(5) to clarify "sockresps result" behavior (ITS#8255)
+    - LTB changes
+    -  fix files ownership of sbin and share directories (#88)
+    -  use new slapd-cli 2.9 version (#89) (use new logfile feature of 2.6, data templates for new olcPPolicyCheckModule, manage divergence between 2.5 and 2.6 versions, enable ppolicy module checks by default in data template)
+    -  use new ppm 2.2 version (#90) (maximum number of characters for each class, doc for new olcPPolicyCheckModule in 2.6, various minor fixes build fixes and optimizations)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Fri, 1 Apr 2022 12:00:00 +0200
 
