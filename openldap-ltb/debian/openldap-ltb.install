@@ -27,7 +27,7 @@ usr/local/openldap/share/man/man1/ldapurl.1
 usr/local/openldap/share/man/man1/ldapwhoami.1
 usr/local/openldap/share/man/man3
 
-# man pages (all but slapo-lastbind slapo-nssov slapo-smbk5pwd slapo-ppm slapo-variant slapo-explockout
+# man pages (all but slapo-lastbind slapo-nssov slapo-smbk5pwd slapo-variant slapo-explockout
 usr/local/openldap/share/man/man5/l*
 usr/local/openldap/share/man/man5/slapd*
 usr/local/openldap/share/man/man5/slapo-accesslog.5
@@ -57,6 +57,8 @@ usr/local/openldap/share/man/man5/slapo-translucent.5
 usr/local/openldap/share/man/man5/slapo-unique.5
 usr/local/openldap/share/man/man5/slapo-valsort.5
 usr/local/openldap/share/man/man5/slappw-argon2.5
+usr/local/openldap/share/man/man5/slapm-ppm.5
+usr/local/openldap/etc/openldap/ppm.example
 
 usr/local/openldap/share/man/man8
 usr/local/openldap/var
@@ -100,3 +102,4 @@ usr/local/openldap/libexec/openldap/syncprov*
 usr/local/openldap/libexec/openldap/translucent*
 usr/local/openldap/libexec/openldap/unique*
 usr/local/openldap/libexec/openldap/valsort*
+usr/local/openldap/libexec/openldap/ppm*
