@@ -56,7 +56,7 @@ Depends: openldap-ltb, libc6 (>= 2.4), libcrack2
 Description: Overlays contributed to OpenLDAP
  Some overlays are not included in the OpenLDAP main package but provided
  as contributions. This package provide these ones:
- autogroup lastbind noopsrch nssov pw-pbkdf2 pw-sha2 smbk5pwd ppm variant vc
+ autogroup lastbind noopsrch nssov pw-pbkdf2 pw-sha2 smbk5pwd variant vc
  This is provided by LDAP Tool Box project: http://www.ltb-project.org
 
 Package: openldap-ltb-mdb-utils

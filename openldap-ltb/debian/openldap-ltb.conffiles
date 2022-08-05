@@ -5,3 +5,4 @@
 /usr/local/openldap/etc/openldap/data-template-2.5.ldif
 /usr/local/openldap/etc/openldap/lload.conf
 /usr/local/openldap/etc/openldap/ldap.conf
+/usr/local/openldap/etc/openldap/ppm.example
