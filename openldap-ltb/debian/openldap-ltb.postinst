@@ -58,8 +58,11 @@ else
        sed -i -e 's/SLAPD_VERSION=.*$/SLAPD_VERSION=2.6/' ${SLAPD_CLI_CONF}
 fi
 
-# If empty configuration directory + SLAPD_CONF_DIR defined
-if [ -z "$( ls -A ${LDAPCONFDIR} )" ] && \
+# If this is a new install (not an upgrade)
+# and the configuration directory is empty
+# and SLAPD_CONF_DIR variable is defined
+if [ -z "${2}" ] && \
+   [ -z "$( ls -A ${LDAPCONFDIR} )" ] && \
    grep -q -P '^SLAPD_CONF_DIR="?[^"]+"?' ${SLAPD_CLI_CONF} ; then
 
   # Import configuration from ldif template
