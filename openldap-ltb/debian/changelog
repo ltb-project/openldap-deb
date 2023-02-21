@@ -1,3 +1,55 @@
+openldap-ltb (2.5.14.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.14 Release (2023/02/08)
+    -  Fixed client tools to remove 'h' and 'p' options (ITS#9917,ITS#8618)
+    -  Fixed ldapsearch memory leak with paged results (ITS#9860)
+    -  Fixed libldap ldif_open_urlto check for failure (ITS#9904)
+    -  Fixed libldap ldap_url_parsehosts check for failure (ITS#9904)
+    -  Fixed liblunicode UTF8bvnormalize buffer size (ITS#9955)
+    -  Fixed lloadd race in epoch.c (ITS#9947)
+    -  Fixed lloadd to keep listener base around when not active (ITS#9984)
+    -  Fixed lloadd object reclamation sequencing (ITS#9983)
+    -  Fixed slapd memory leak with olcAuthIDRewrite (ITS#6035)
+    -  Fixed slapd transactions extended operations cleanup after write (ITS#9892)
+    -  Fixed slapd deadlock with replicated cn=config (ITS#9930,ITS#8102)
+    -  Fixed slapd connection close logic (ITS#9991)
+    -  Fixed slapd bconfig locking of cn=config entries (ITS#9045)
+    -  Fixed slapd-mdb max number of index databases to 256 (ITS#9895)
+    -  Fixed slapd-mdb to always release entries from ADD operations (ITS#9942)
+    -  Fixed slapd-mdb to fully init empty DN in tool_entry_get (ITS#9940)
+    -  Fixed slapd-monitor to free remembered cookies (ITS#9339)
+    -  Fixed slapo-accesslog reqStart ordering matching rule (ITS#9880)
+    -  Fixed slapo-deref memory leak (ITS#9924)
+    -  Fixed slapo-dynlist to ignore irrelevant objectClasses (ITS#9897)
+    -  Fixed slapo-dynlist to avoid unnecessary searches (ITS#9929)
+    -  Fixed slapo-dynlist to mark internal searches as such (ITS#9960)
+    -  Fixed slapo-pcache crash in consistency_check (ITS#9966)
+    -  Fixed slapo-remoteauth memory leaks (ITS#9438)
+    - Build Environment
+    -  Fixed ancient DOS related ifdef checks (ITS#9925)
+    -  Fixed build process to not use gmake specific features (ITS#9894)
+    -  Fixed source tree to remove symlinks (ITS#9926)
+    -  Fixed slapo-otp testdir creation (ITS#9437)
+    -  Fixed slapd-tester memory leak (ITS#9908)
+    -  Fixed usage of non-standard C syntax (ITS#9898, ITS#9899, ITS#9901)
+    -  Fixed usage of bashism (ITS#9900)
+    -  Fixed test suite portability (ITS#9931)
+    - Documentation
+    -  Fixed ldap_bind(3) to document ber_bvfree in ldap_sasl_bind (ITS#9976)
+    -  Fixed slapo-asyncmeta(5) to clarify scheduling for target connections (ITS#9941)
+    -  Fixed slapo-dynlist(5) to clarify configuration settings (ITS#9957)
+    -  Fixed slapo-unique(5) to clarify when quoting should be used (ITS#9915)
+    - Minor cleanup
+    -  ITS#9935
+    -  ITS#9336
+    -  ITS#9337
+    -  ITS#9985
+    - LTB changes
+    -  use new slapd-cli v3.0 (#101)
+    -  import ldif template only at initial openldap installation (#94)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 08 Feb 2023 12:00:00 +0100
+
 openldap-ltb (2.5.13.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.13 Release (2022/07/14)
