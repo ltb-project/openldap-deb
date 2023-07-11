@@ -1,3 +1,48 @@
+openldap-ltb (2.5.15.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.15 Release (2023/07/10)
+    -  Added libldap openssl3 support (ITS#9436, ITS#10030)
+    -  Fixed libldap handling of TCP KEEPALIVE options (ITS#10015)
+    -  Fixed libldap with async connections (ITS#10023)
+    -  Fixed libldap openssl TLSv1.3 cipher suite handling (ITS#10035)
+    -  Fixed slapd callback handling with overlays that do extended operations (ITS#9990)
+    -  Fixed slapd conversion of pcache configurations (ITS#10031)
+    -  Fixed slapd cn=config modification handling with abandon (ITS#10045)
+    -  Fixed slapo-constraint handling of push replication (ITS#9953)
+    -  Fixed slapo-dynlist filter evaluation efficiency (ITS#10041)
+    -  Fixed slapo-pcache handling of invalid schema (ITS#10032)
+    -  Fixed slapo-ppolicy handling of push replication (ITS#9953)
+    -  Fixed slapo-ppolicy handling of pwdMinDelay (ITS#10028)
+    -  Fixed slapo-syncprov abandon handling (ITS#10016)
+    -  Fixed slapo-translucent handling of invalid schema (ITS#10032)
+    -  Fixed slapo-unique handling of push replication (ITS#9953)
+    -  Fixed slapo-variant to improve regex handling (ITS#10048)
+    - Build Environment
+    -  Fixed compatibility with stricter C99 compilers (ITS#10011)
+    -  Keep .pc files during make clean (ITS#9989)
+    - Contrib
+    -  Fixed slapo-variant handling of push replication (ITS#9953)
+    - Minor Cleanup
+    -  ITS#9855
+    -  ITS#9995
+    -  ITS#9996
+    -  ITS#9997
+    -  ITS#9998
+    -  ITS#9999
+    -  ITS#10000
+    -  ITS#10003
+    -  ITS#10004
+    -  ITS#10033
+    -  ITS#10037
+    -  ITS#10039
+    -  ITS#10046
+    -  ITS#10063
+    - LTB changes
+    -  use slapd-cli 3.1 release (#102)
+    -  Support for Debian 12 (bookworm) (#103)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 10 Jul 2023 12:00:00 +0200
+
 openldap-ltb (2.5.14.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.14 Release (2023/02/08)
@@ -48,7 +93,7 @@ openldap-ltb (2.5.14.1) UNRELEASED; urgency=medium
     -  use new slapd-cli v3.0 (#101)
     -  import ldif template only at initial openldap installation (#94)
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 08 Feb 2023 12:00:00 +0100
+ -- David Coutadeur <david.coutadeur@gmail.com>  Wed, 08 Feb 2023 12:00:00 +0200
 
 openldap-ltb (2.5.13.1) UNRELEASED; urgency=medium
 
