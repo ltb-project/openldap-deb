@@ -116,7 +116,7 @@ binary-arch: build install
 	dh_shlibdeps -a -l`pwd`/libraries/liblber/.libs:`pwd`/libraries/libldap/.libs
 	dh_gencontrol -a
 	dh_md5sums -a
-	dh_builddeb -a
+	dh_builddeb -a -- -Zxz
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install
