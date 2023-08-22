@@ -6,6 +6,7 @@ openldap-ltb (2.5.16.1) UNRELEASED; urgency=medium
     -  Fixed slapd-asyncmeta to account for MOD ops being optional (ITS#10067)
     - LTB changes
     -  use slapd-cli 3.2 release (#105)
+    -  Support for Debian 13 (trixie) (#106)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 31 Jul 2023 12:00:00 +0200
 
