@@ -1,3 +1,14 @@
+openldap-ltb (2.5.16.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.16 Release (2023/07/31)
+    -  Fixed slapd cn=config incorrect handling of paused (ITS#10045)
+    -  Fixed slapd-meta to account for MOD ops being optional (ITS#10067)
+    -  Fixed slapd-asyncmeta to account for MOD ops being optional (ITS#10067)
+    - LTB changes
+    -  use slapd-cli 3.2 release (#105)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 31 Jul 2023 12:00:00 +0200
+
 openldap-ltb (2.5.15.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.15 Release (2023/07/10)
