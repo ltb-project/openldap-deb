@@ -37,7 +37,8 @@ openldap-ltb (2.6.7.1) UNRELEASED; urgency=medium
     -  ITS#10145
     -  ITS#10153
     - LTB changes
-    -  use slapd-cli 3.3 release (#115)
+    -  use slapd-cli 3.3 release (#108)
+    -  clean build dependencies (#109)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 30 Jan 2024 12:00:00 +0200
 
