@@ -1,3 +1,30 @@
+openldap-ltb (2.5.18.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.18 Release (2024/05/21)
+    -  Fixed libldap exit handling with OpenSSL3 again (ITS#9952)
+    -  Fixed libldap OpenSSL channel binding digest (ITS#10216)
+    -  Fixed slapd handling of large uid/gids peercred auth (ITS#10211)
+    -  Fixed slapd-meta with dynlist (ITS#10164)
+    -  Fixed slapd-meta binds when proxying internal op (ITS#10165)
+    -  Fixed slapo-accesslog startup initialization (ITS#10170)
+    -  Fixed slapo-dynlist with abandoned operations (ITS#10044)
+    - Build
+    -  Fixed build with gcc14.x (ITS#10166)
+    -  Fixed back-perl with clang15 (ITS#10177)
+    -  Fixed tests to use SCRAM-SHA-256 instead of DIGEST-MD5 (ITS#10208)
+    -  Fixed to reduce systemd dependencies (ITS#10214)
+    - Contrib
+    -  Fixed smbk5pwd implicit function declaration (ITS#10206)
+    - Minor Cleanup
+    -  ITS#9921
+    -  ITS#10171
+    -  ITS#10173
+    -  ITS#10179
+    -  ITS#10186
+    -  ITS#10209
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 21 May 2024 00:00:00 +0200
+
 openldap-ltb (2.5.17.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.17 Release (2024/01/29)
@@ -35,7 +62,7 @@ openldap-ltb (2.5.17.1) UNRELEASED; urgency=medium
     -  use slapd-cli 3.3 release (#108)
     -  clean build dependencies (#109)
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 30 Jan 2024 12:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Mon, 29 Jan 2024 00:00:00 +0200
 
 openldap-ltb (2.5.16.1) UNRELEASED; urgency=medium
 
