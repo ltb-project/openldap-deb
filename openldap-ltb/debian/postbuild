@@ -16,6 +16,8 @@ mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 ## systemd
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system/"
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system"
+install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system/"
+install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system"
 
 ## logrotate, profile
 install -m 644 "${THIRD_PARTY_PATH}/${OPENLDAP_LOGROTATE_FILE}" "${INSTALL_DIR}/etc/logrotate.d/openldap"
