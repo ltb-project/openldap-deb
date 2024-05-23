@@ -15,6 +15,8 @@ mkdir -p "${INSTALL_DIR}/lib/systemd/system"
 ## systemd
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system/"
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}.service" "${INSTALL_DIR}/lib/systemd/system"
+install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system/"
+install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system"
 
 ## profile
 install -m 755 "${THIRD_PARTY_PATH}/${OPENLDAP_PROFILE_FILE}" "${INSTALL_DIR}/etc/profile.d"
