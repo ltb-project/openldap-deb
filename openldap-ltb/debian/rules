@@ -35,6 +35,11 @@ clean:
 	(cd libraries/liblmdb && make clean)
 
 	dh_clean
+	for oldap_patch in `pwd`/debian/patches/*.patch; do \
+		if ! patch -R -p0 -s -f --dry-run < $$oldap_patch >/dev/null 2>&1; then \
+			patch --forward -p0 < $$oldap_patch ; \
+		fi \
+	done
 
 install:
 install: build
