@@ -188,3 +188,6 @@ cp debian/openldap-ltb.lintian.profile ${INSTALL_DIR}/usr/share/lintian/profiles
 
 # Clean dependency_libs field in every *.la file
 find ${INSTALL_DIR} -name '*.la' | xargs -I {} sed -i "/dependency_libs/ s/'.*'/''/" {}
+
+# Create link to ldapi socket
+ln -s "/var/run/slapd/ldapi" "${INSTALL_DIR}${LDAPSERVERDIR}/var/run/ldapi"
