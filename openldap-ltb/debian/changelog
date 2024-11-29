@@ -1,3 +1,28 @@
+openldap-ltb (2.5.19.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.19 Release (2024/11/26)
+    -  Fixed libldap GnuTLS incompatible pointer type (ITS#10253)
+    -  Fixed libldap OpenSSL set_ciphersuite error handling (ITS#10223)
+    -  Fixed libldap to check for OpenSSL EVP_Digest* failure (ITS#10224)
+    -  Fixed slapd syncrepl assert during refresh at shutdown (ITS#10232)
+    -  Fixed slapd-ldap use of multi-precision add for op counters (ITS#10237)
+    -  Fixed slapd-mdb idl intersection (ITS#10233)
+    -  Fixed slapd-wt idl intersection (ITS#10233)
+    -  Fixed slapo-translucent regression with subordinate databases (ITS#10248)
+    -  Fixed slapo-translucent regression when requesting attributes (ITS#10272)
+    -  Fixed slappw-argon2 defaults to be more secure (ITS#9827)
+    - Minor Cleanup
+    -  ITS#10155
+    -  ITS#10219
+    -  ITS#10221
+    -  ITS#10227
+    -  ITS#10231
+    -  ITS#10264
+    - LTB changes
+    -  use slapd-cli 3.5 release (#118)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 26 Nov 2024 00:00:00 +0100
+
 openldap-ltb (2.5.18.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.18 Release (2024/05/21)
@@ -25,7 +50,7 @@ openldap-ltb (2.5.18.1) UNRELEASED; urgency=medium
     - LTB changes
     -  use slapd-cli 3.4 release (#110)
 
- -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 21 May 2024 00:00:00 +0200
+ -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 21 May 2024 00:00:00 +0100
 
 openldap-ltb (2.5.17.1) UNRELEASED; urgency=medium
 
