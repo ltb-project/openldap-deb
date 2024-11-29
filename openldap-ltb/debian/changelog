@@ -20,6 +20,8 @@ openldap-ltb (2.5.19.1) UNRELEASED; urgency=medium
     -  ITS#10264
     - LTB changes
     -  use slapd-cli 3.5 release (#118)
+    -  Compress log files in logrotate (#113)
+    -  Create link to ldapi socket (#119)
 
  -- David Coutadeur <david.coutadeur@gmail.com>  Tue, 26 Nov 2024 00:00:00 +0100
 
