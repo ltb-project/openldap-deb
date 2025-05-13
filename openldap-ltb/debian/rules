@@ -49,7 +49,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp.
-	make DESTDIR=`pwd`/debian/tmp install STRIP=""
+	make DESTDIR=`pwd`/debian/tmp install STRIP_OPTS=""
 	debian/postbuild
 	mkdir -p `pwd`/debian/openldap-ltb/DEBIAN
 	cp `pwd`/debian/openldap-ltb.vars `pwd`/debian/openldap-ltb/DEBIAN/vars
