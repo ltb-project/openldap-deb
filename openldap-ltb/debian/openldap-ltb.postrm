@@ -2,11 +2,6 @@
 
 set -e
 
-# Remove syslog facility
-if [ -e "/etc/rsyslog.conf" ]; then
-  sed -i '/local4\..*/d' /etc/rsyslog.conf
-fi
-
 # clean remaining started when removing the service
 if [ "$1" != "upgrade" ]; then
   rm -f /var/openldap-ltb-*-started

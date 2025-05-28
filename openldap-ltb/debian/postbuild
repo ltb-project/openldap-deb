@@ -19,9 +19,11 @@ install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYS
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system/"
 install -m 644 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/${SYSTEMD_LLOAD_SERVICE_NAME}@.service" "${INSTALL_DIR}/lib/systemd/system"
 
-## logrotate, profile
+## logrotate, profile, rsyslog
 install -m 644 "${THIRD_PARTY_PATH}/${OPENLDAP_LOGROTATE_FILE}" "${INSTALL_DIR}/etc/logrotate.d/openldap"
 install -m 755 "${THIRD_PARTY_PATH}/${OPENLDAP_PROFILE_FILE}" "${INSTALL_DIR}/etc/profile.d"
+mkdir -p "${INSTALL_DIR}/etc/rsyslog.d"
+install -m 755 "${THIRD_PARTY_PATH}/${OPENLDAP_RSYSLOG_FILE}" "${INSTALL_DIR}/etc/rsyslog.d/${OPENLDAP_RSYSLOG_FILE}"
 
 ## slapd-cli
 install -m 755 "${THIRD_PARTY_PATH}/${SLAPD_CLI_NAME}-${SLAPD_CLI_VERSION}/slapd-cli" "${INSTALL_DIR}${SLAPD_CLI_BIN}"
