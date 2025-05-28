@@ -1,3 +1,25 @@
+openldap-ltb (2.5.20.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.5.20 Release (2025/05/22)
+    -  Fixed lloadd handling of starttls critical (ITS#10323)
+    -  Fixed slapd regression with certain searches (ITS#10307)
+    -  Fixed slapo-pcache caching behaviors (ITS#10270)
+    - Minor Cleanup
+    -  ITS#9934
+    -  ITS#10020
+    -  ITS#10226
+    -  ITS#10279
+    -  ITS#10309
+    -  ITS#10320
+    -  ITS#10327
+    -  ITS#10328
+    -  ITS#10331
+    - LTB changes
+    -  package breaks rsyslog policy (#124)
+    -  Debug symbols missing for slapd (and more) (#123)
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Thur, 22 May 2025 00:00:00 +0200
+
 openldap-ltb (2.5.19.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.5.19 Release (2024/11/26)
