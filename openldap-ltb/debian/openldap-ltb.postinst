@@ -23,7 +23,8 @@ fi
 
 # Add syslog facility
 if [ -e "/etc/rsyslog.conf" ]; then
-  grep -q "${LDAPLOGFILE}" /etc/rsyslog.conf || echo "local4.*  -${LDAPLOGFILE}" >> /etc/rsyslog.conf
+  # Remove rsyslog configurations done in previous old OpenLDAP versions
+  sed -i "#local4\..*[ ]\+${LDAPLOGFILE}#d" /etc/rsyslog.conf
   invoke-rc.d rsyslog status >/dev/null 2>&1 && invoke-rc.d rsyslog restart
 fi
 
