@@ -51,12 +51,6 @@ sed -i "s:^directory.*:directory\t\"${LDAPDATADIR}\":" "${INSTALL_DIR}${LDAPDIR}
 
 # Compilation
 
-# explockout
-cd ${THIRD_PARTY_PATH}/${EXPL_NAME}-${EXPL_VERSION}
-make clean
-make "OLDAP_SOURCES=${BUILD_DIR}" "LIBDIR=${LDAPSERVERDIR}/libexec/openldap"
-cd ${BUILD_DIR}
-
 # ppm
 cd ${THIRD_PARTY_PATH}/${PPM_NAME}-${PPM_VERSION}
 make clean
@@ -120,14 +114,7 @@ cd ../..
 
 # Installation
 
-# explockout
-cd ${THIRD_PARTY_PATH}/${EXPL_NAME}-${EXPL_VERSION}
-mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
-mkdir -p "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5"
-make install "OLDAP_SOURCES=${BUILD_DIR}" "DSTDIR=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
-install -m 644 "slapo-explockout.5" "${INSTALL_DIR}${LDAPSERVERDIR}/share/man/man5"
-cd ${BUILD_DIR}
-
+#ppm
 cd ${THIRD_PARTY_PATH}/${PPM_NAME}-${PPM_VERSION}
 mkdir -p "${INSTALL_DIR}${PPM_CONF%/*}"
 make install "LDAP_SRC=${BUILD_DIR}" "prefix=${INSTALL_DIR}${LDAPSERVERDIR}" "libdir=${INSTALL_DIR}${LDAPSERVERDIR}/libexec/openldap"
