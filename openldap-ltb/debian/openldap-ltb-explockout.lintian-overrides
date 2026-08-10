@@ -1,4 +1,0 @@
-# OpenLDAP-LTB is installed in /usr/local/
-openldap-ltb-explockout binary: dir-in-usr-local
-openldap-ltb-explockout binary: file-in-usr-local
-openldap-ltb-explockout binary: file-in-unusual-dir

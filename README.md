@@ -43,13 +43,6 @@ curl -O https://codeload.github.com/ltb-project/slapd-cli/tar.gz/refs/tags/vN
 tar xvzf slapd-cli-vN.tar.gz
 ```
 
-Get the source of explockout overlay: (replace N by explockout version)
-```
-cd 3rdparty
-curl -O https://codeload.github.com/ltb-project/explockout/tar.gz/refs/tags/vN
-tar xvzf explockout-vN.tar.gz
-```
-
 Get the source of ppm release: (replace N by ppm version)
 ```
 cd 3rdparty

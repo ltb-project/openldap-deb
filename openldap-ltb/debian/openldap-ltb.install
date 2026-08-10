@@ -27,7 +27,7 @@ usr/local/openldap/share/man/man1/ldapurl.1
 usr/local/openldap/share/man/man1/ldapwhoami.1
 usr/local/openldap/share/man/man3
 
-# man pages (all but slapo-lastbind slapo-nssov slapo-smbk5pwd slapo-variant slapo-explockout
+# man pages (all but slapo-lastbind slapo-nssov slapo-smbk5pwd slapo-variant
 usr/local/openldap/share/man/man5/l*
 usr/local/openldap/share/man/man5/slapd*
 usr/local/openldap/share/man/man5/slapo-accesslog.5
