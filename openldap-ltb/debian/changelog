@@ -1,3 +1,37 @@
+openldap-ltb (2.7.0.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.7.0 Release (2026/08/06)
+    -   Featured Enhancements
+    -     libldap enhancements:
+    -       DNS SRV record support now also supports ldaps
+    -       Support for TPM chips, smartcards, or hardware security modules
+    -       Support for the mbedTLS library
+    -     back-mdb enhancements:
+    -       Now using LMDB 1.0 which adds page-level database encryption and/or checksums
+    -   New OpenLDAP Server Capabilities
+    -     General
+    -       New Access Control Features
+    -         There is now an explicit "increment" permission for ACLs
+    -         ACLs can now be applied to operations and controls
+    -       New lloadd Configuration support
+    -         The listen feature can now be modified at runtime
+    -       Index keys use 64 bit hashes by default now instead of 32 bit
+    -     Details
+    -       Updates to Existing Backends
+    -         back-asyncmeta has improved target connection management
+    -       Updates to Existing Overlays
+    -       The following updates have been made to existing overlays:
+    -         ppolicy: Added support for dynamic policy selection, per-policy default password hashes, rehashing of passwords on simple bind
+    -         otp: Added support for the LDAP Compare operation
+    -     Deprecated Features
+    -       GnuTLS is no longer recommended and scheduled for removal in OpenLDAP 2.8
+    -     Obsolete Features that have been removed
+    -       back-perl and back-sql have been removed
+    - LTB changes
+    -   Remove explockout from OpenLDAP-LTB releases #122
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Fri, 14 Aug 2026 00:00:00 +0100
+
 openldap-ltb (2.6.13.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.6.13 Release (2026/03/09)
