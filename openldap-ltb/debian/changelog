@@ -1,3 +1,56 @@
+openldap-ltb (2.6.14.1) UNRELEASED; urgency=medium
+
+    - OpenLDAP 2.6.14 Release (2026/08/06)
+    -  Added libldap support for OpenSSL 4.0 series (ITS#10498)
+    -  Fixed lloadd to report errors from bindconf_parse (ITS#10525)
+    -  Fixed lloadd incoming message id validation (ITS#10505)
+    -  Fixed slapd to report errors from bindconf_parse (ITS#10525)
+    -  Fixed slapd-mdb IDL code to optimize the intersection of a list and a range (ITS#10526)
+    -  Fixed slapo-constraint count constraint with more than one attribute (ITS#10491)
+    -  Fixed slapadd to ignore dynamic attributes in input LDIF (ITS#10501)
+    - Minor Cleanup
+    -  ITS#8064
+    -  ITS#9909
+    -  ITS#10026
+    -  ITS#10467
+    -  ITS#10469
+    -  ITS#10470
+    -  ITS#10471
+    -  ITS#10473
+    -  ITS#10476
+    -  ITS#10479
+    -  ITS#10480
+    -  ITS#10481
+    -  ITS#10482
+    -  ITS#10483
+    -  ITS#10484
+    -  ITS#10485
+    -  ITS#10489
+    -  ITS#10492
+    -  ITS#10493
+    -  ITS#10478
+    -  ITS#10495
+    -  ITS#10496
+    -  ITS#10500
+    -  ITS#10503
+    -  ITS#10510
+    -  ITS#10514
+    -  ITS#10516
+    -  ITS#10524
+    -  ITS#10530
+    -  ITS#10532
+    -  ITS#10533
+    -  ITS#10535
+    -  ITS#10541
+    -  ITS#10543
+    -  ITS#10548
+    -  ITS#10550
+    -  ITS#10554
+    -  ITS#10556
+    -  ITS#10559
+
+ -- David Coutadeur <david.coutadeur@gmail.com>  Fri, 14 Aug 2026 00:00:00 +0100
+
 openldap-ltb (2.6.13.1) UNRELEASED; urgency=medium
 
     - OpenLDAP 2.6.13 Release (2026/03/09)
