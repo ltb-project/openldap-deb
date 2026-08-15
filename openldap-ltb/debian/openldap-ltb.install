@@ -42,6 +42,7 @@ usr/local/openldap/share/man/man5/slapo-dyngroup.5
 usr/local/openldap/share/man/man5/slapo-dynlist.5
 usr/local/openldap/share/man/man5/slapo-homedir.5
 usr/local/openldap/share/man/man5/slapo-memberof.5
+usr/local/openldap/share/man/man5/slapo-nestgroup.5
 usr/local/openldap/share/man/man5/slapo-otp.5
 usr/local/openldap/share/man/man5/slapo-pbind.5
 usr/local/openldap/share/man/man5/slapo-pcache.5
@@ -89,6 +90,7 @@ usr/local/openldap/libexec/openldap/dynlist*
 usr/local/openldap/libexec/openldap/homedir*
 usr/local/openldap/libexec/openldap/lloadd*
 usr/local/openldap/libexec/openldap/memberof*
+usr/local/openldap/libexec/openldap/nestgroup*
 usr/local/openldap/libexec/openldap/otp*
 usr/local/openldap/libexec/openldap/pcache*
 usr/local/openldap/libexec/openldap/ppolicy*
