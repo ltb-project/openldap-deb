@@ -2,13 +2,13 @@ Source: openldap-ltb
 Section: net
 Priority: optional
 Maintainer: dcoutadeur <david.coutadeur@gmail.com>
-Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mawk, libcrack2-dev, libsodium23, libsodium-dev, libevent-dev, pandoc
+Build-Depends: debhelper (>= 7.0.15), autotools-dev, libltdl7, libltdl-dev, libsasl2-2, libsasl2-dev, zlib1g, zlib1g-dev, openssl, libssl-dev, mawk, libcrack2-dev, libsodium23 | libsodium26, libsodium-dev, libevent-dev, pandoc
 Standards-Version: 3.8.4
 Homepage: http://ltb-project.org
 
 Package: openldap-ltb
 Architecture: any
-Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, bash-completion, procps, libevent-2.1-6 | libevent-2.1-7, libsodium23
+Depends: libc6 (>= 2.4), libltdl7, libsasl2-2, libwrap0 (>= 7.6-4~), coreutils (>= 4.5.1-1), perl (>> 5.8.0) | libmime-base64-perl, adduser, lsb-base (>= 3.2-13), openssl, bash-completion, procps, libevent-2.1-6 | libevent-2.1-7, libsodium23 | libsodium26
 Replaces: openldap-ltb-contrib-overlays (<< 2.6.3)
 Suggests: openldap-ltb-mdb-utils, openldap-ltb-contrib-overlays
 Description: OpenLDAP server with addons from the LDAP Tool Box project
